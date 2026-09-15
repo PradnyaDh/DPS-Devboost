@@ -6,6 +6,10 @@ sub-teams side by side to find hot spots.
 
 ![screenshot](docs/screenshot.png)
 
+Focused on a single metric:
+
+![metric focus](docs/screenshot-focus.png)
+
 ## Use it
 
 ```bash
@@ -14,7 +18,25 @@ cd web && python3 -m http.server 8787
 open http://localhost:8787
 ```
 
-Deep-link any team by group id: `index.html#group:log-deliveries`.
+Deep-link any team by group id, optionally with a focused metric:
+
+```
+index.html#group:log-deliveries
+index.html#group:log-deliveries|pr_lifetime_hrs
+```
+
+## Focusing a metric
+
+The Focus dropdown (or clicking any metric card) switches the whole view from
+the overall score to a single metric. The hero shows that metric's raw value
+with its points contribution and the team's overall score alongside; the delta
+is in raw units and coloured by whether the move was an improvement, so a
+falling PR lifetime reads green. The trend graph plots that metric, labelled,
+with a dashed zero line where the scale crosses it (NPS does). The sub-team
+table highlights and sorts by the focused column, and its Δ column follows.
+
+Sorting always puts the best team first, so lower-is-better metrics sort
+ascending. Click any header to re-sort or reverse.
 
 ## How it works
 

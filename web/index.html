@@ -79,6 +79,11 @@
   .cell { display:flex; align-items:center; gap:0.45rem; justify-content:flex-end; }
   .bar { width:44px; height:5px; background:var(--surface2); border-radius:99px; overflow:hidden; flex-shrink:0; }
   .bar i { display:block; height:100%; border-radius:99px; }
+  th.on, td.on { background:color-mix(in srgb, var(--accent) 9%, transparent); }
+  th.on { color:var(--text); }
+  .m.on { border-color:var(--accent); box-shadow:0 0 0 1px var(--accent) inset; }
+  .m { cursor:pointer; }
+  .m:hover { border-color:var(--accent); }
   .best { color:var(--green); font-weight:650; }
   .worst { color:var(--red); font-weight:650; }
 
@@ -98,6 +103,7 @@
       <div class="sub" id="sub">Loading…</div>
     </div>
     <div class="controls">
+      <label class="ctl">Focus <select id="focus"></select></label>
       <label class="ctl">Month <select id="month"></select></label>
       <label class="ctl">Compare <select id="cmp">
         <option value="prev">vs previous month</option>
@@ -139,26 +145,34 @@
 
 <script>
 const METRICS = [
-  {k:'dev_satisf_nps',  label:'Developer satisfaction NPS', w:0.15, fmt:v=>v.toFixed(1), unit:'NPS'},
-  {k:'prs_per_eng_day', label:'PRs merged / eng / day',     w:0.15, fmt:v=>v.toFixed(2)},
-  {k:'pr_review_hrs',   label:'Code review time (median)',  w:0.15, fmt:v=>v.toFixed(1), unit:'h'},
-  {k:'pr_lifetime_hrs', label:'PR lifetime (median)',       w:0.15, fmt:v=>v.toFixed(1), unit:'h'},
-  {k:'bugs_per_eng',    label:'Bugs / engineer',            w:0.10, fmt:v=>v.toFixed(2)},
-  {k:'depl_per_eng_day',label:'Deployment frequency',       w:0.10, fmt:v=>v.toFixed(2)},
-  {k:'focus_nps',       label:'Focus time NPS',             w:0.10, fmt:v=>v.toFixed(1), unit:'NPS'},
-  {k:'code_coverage',   label:'Code coverage',              w:0.05, fmt:v=>v.toFixed(1), unit:'%'},
-  {k:'code_security',   label:'Code security issues',       w:0.05, fmt:v=>v.toFixed(2)},
+  {k:'dev_satisf_nps',  label:'Developer satisfaction NPS', w:0.15, good:'hi', fmt:v=>v.toFixed(1), unit:'NPS'},
+  {k:'prs_per_eng_day', label:'PRs merged / eng / day',     w:0.15, good:'hi', fmt:v=>v.toFixed(2)},
+  {k:'pr_review_hrs',   label:'Code review time (median)',  w:0.15, good:'lo', fmt:v=>v.toFixed(1), unit:'h'},
+  {k:'pr_lifetime_hrs', label:'PR lifetime (median)',       w:0.15, good:'lo', fmt:v=>v.toFixed(1), unit:'h'},
+  {k:'bugs_per_eng',    label:'Bugs / engineer',            w:0.10, good:'lo', fmt:v=>v.toFixed(2)},
+  {k:'depl_per_eng_day',label:'Deployment frequency',       w:0.10, good:'hi', fmt:v=>v.toFixed(2)},
+  {k:'focus_nps',       label:'Focus time NPS',             w:0.10, good:'hi', fmt:v=>v.toFixed(1), unit:'NPS'},
+  {k:'code_coverage',   label:'Code coverage',              w:0.05, good:'hi', fmt:v=>v.toFixed(1), unit:'%'},
+  {k:'code_security',   label:'Code security issues',       w:0.05, good:'lo', fmt:v=>v.toFixed(2)},
 ];
+const OVERALL = {k:'score', label:'Overall DevBoost score', good:'hi', fmt:v=>v.toFixed(1), unit:''};
+const metricByKey = k => k==='score' ? OVERALL : METRICS.find(m=>m.k===k);
 const hue = t => t>=.75 ? 'var(--green)' : t>=.45 ? 'var(--amber)' : 'var(--red)';
 const el = id => document.getElementById(id);
 
-let D, cur, month, cmpMode='prev', sortKey='score', sortDir=-1;
+let D, cur, month, cmpMode='prev', sortKey='score', sortDir=-1, focus='score';
 
 fetch('data/snapshot.json').then(r=>r.json()).then(d=>{
   D = d; cur = d.root;
   const ms = d.complete_months;
   el('month').innerHTML = ms.map(m=>`<option${m===d.latest?' selected':''}>${m}</option>`).join('');
   month = d.latest;
+  el('focus').innerHTML = `<option value="score">Overall DevBoost score</option>` +
+    METRICS.map(m=>`<option value="${m.k}">${m.label}</option>`).join('');
+  el('focus').onchange = e => {
+    focus = e.target.value; sortKey = focus; sortDir = -1;
+    if (!writeHash()) render();
+  };
   el('month').onchange = e => { month = e.target.value; render(); };
   el('cmp').onchange   = e => { cmpMode = e.target.value; render(); };
   el('gen').textContent = `Generated ${d.generated.replace('T',' ').replace('+00:00','Z')}`;
@@ -170,11 +184,21 @@ fetch('data/snapshot.json').then(r=>r.json()).then(d=>{
 });
 
 function fromHash(){
-  const h = decodeURIComponent(location.hash.slice(1));
-  cur = (h && D.nodes[h]) ? h : D.root;
+  const raw = decodeURIComponent(location.hash.slice(1));
+  const [g, f] = raw.split('|');
+  cur = (g && D.nodes[g]) ? g : D.root;
+  if (f && (f === 'score' || METRICS.some(m=>m.k===f))) focus = f;
+  el('focus').value = focus;
+  if (sortKey !== focus) { sortKey = focus; sortDir = -1; }
   render();
 }
-const go = id => { location.hash = encodeURIComponent(id); };
+function writeHash(){
+  const h = encodeURIComponent(cur) + (focus !== 'score' ? '|' + focus : '');
+  const changed = decodeURIComponent(location.hash.slice(1)) !== decodeURIComponent(h);
+  if (changed) location.hash = h;   // fires hashchange -> fromHash -> render
+  return changed;
+}
+const go = id => { cur = id; if (!writeHash()) render(); };
 
 function prevMonth(m){
   const i = D.complete_months.indexOf(m);
@@ -200,18 +224,32 @@ function render(){
   }).join('');
   el('crumbs').querySelectorAll('.crumb:not(.here)').forEach(b=>b.onclick=()=>go(b.dataset.g));
 
-  // hero score
-  if (!s) {
+  // hero: overall score, or the focused metric's raw value
+  const M = metricByKey(focus);
+  const b = baseline(node), bs = b && node.series[b];
+  el('score').parentElement.querySelector('.score-cap').textContent =
+    focus === 'score' ? 'DevBoost score' : M.label;
+
+  if (!s || s[focus] == null) {
     el('score').textContent = '—'; el('score').style.color = 'var(--muted)';
     el('scoreMeta').textContent = `No data for ${month}`;
   } else {
-    el('score').textContent = s.score.toFixed(1);
-    el('score').style.color = hue(s.score/100);
-    const b = baseline(node), bs = b && node.series[b];
+    const v = s[focus];
+    el('score').innerHTML = M.fmt(v) + (M.unit ? `<span style="font-size:1.1rem;color:var(--muted)"> ${M.unit}</span>` : '');
+    // colour by normalized credit so it reads the same way as the metric cards
+    const t = focus === 'score' ? v/100 : (s['n_'+focus] ?? 0);
+    el('score').style.color = hue(focus === 'code_coverage' ? (s.n_code_coverage_fixed ?? t) : t);
+
     let meta = `${node.level.toLowerCase()} · ${month}`;
-    if (bs) {
-      const d = s.score - bs.score, sign = d>=0?'+':'';
-      meta += `<br><span class="delta" style="color:${d>=0?'var(--green)':'var(--red)'}">${sign}${d.toFixed(1)}</span> vs ${b}`;
+    if (focus !== 'score') {
+      const pts = (s['n_'+focus] ?? 0) * M.w * 100;
+      meta += `<br>${pts.toFixed(2)} / ${(M.w*100).toFixed(0)} pts · score ${s.score.toFixed(1)}`;
+    }
+    if (bs && bs[focus] != null) {
+      const d = v - bs[focus];
+      const better = M.good === 'hi' ? d > 0 : d < 0;
+      const col = d === 0 ? 'var(--muted)' : better ? 'var(--green)' : 'var(--red)';
+      meta += `<br><span class="delta" style="color:${col}">${d>=0?'+':''}${M.fmt(d)}${M.unit?' '+M.unit:''}</span> vs ${b}`;
     }
     el('scoreMeta').innerHTML = meta;
   }
@@ -223,29 +261,43 @@ function render(){
 }
 
 function drawSpark(node){
-  const ms = D.complete_months.filter(m=>node.series[m]);
+  const M = metricByKey(focus);
+  const ms = D.complete_months.filter(m=>node.series[m] && node.series[m][focus] != null);
   const svg = el('spark');
-  if (ms.length < 2) { svg.innerHTML = `<text x="8" y="20" fill="var(--muted)" font-size="11">Not enough history</text>`; return; }
-  const W=900, H=110, padX=34, padY=14;
-  const vals = ms.map(m=>node.series[m].score);
-  const lo = Math.max(0, Math.min(...vals)-5), hi = Math.min(100, Math.max(...vals)+5);
+  el('trendCap').textContent = `${M.label} · ${ms.length} month${ms.length===1?'':'s'}` +
+    (M.good === 'lo' ? ' · lower is better' : '');
+  if (ms.length < 2) {
+    svg.removeAttribute('viewBox');
+    svg.innerHTML = `<text x="8" y="20" fill="var(--muted)" font-size="12">Not enough history for ${M.label}</text>`;
+    return;
+  }
+  const W=900, H=110, padX=42, padY=16;
+  const vals = ms.map(m=>node.series[m][focus]);
+  let lo = Math.min(...vals), hi = Math.max(...vals);
+  const span = (hi - lo) || Math.abs(hi) || 1;
+  lo -= span*0.12; hi += span*0.12;
+  if (focus === 'score') { lo = Math.max(0, lo); hi = Math.min(100, hi); }
   const x = i => padX + i*(W-2*padX)/(ms.length-1);
   const y = v => H-padY - (v-lo)/(hi-lo)*(H-2*padY);
   const pts = vals.map((v,i)=>`${x(i)},${y(v)}`).join(' ');
   const ci = ms.indexOf(month);
   svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  // zero line matters for NPS, which crosses it
+  const zero = (lo < 0 && hi > 0)
+    ? `<line x1="${padX}" y1="${y(0)}" x2="${W-padX}" y2="${y(0)}" stroke="var(--border)" stroke-width="1" stroke-dasharray="3 3"/>
+       <text x="${padX-6}" y="${y(0)+3}" fill="var(--muted)" font-size="10" text-anchor="end">0</text>` : '';
   const area = `${x(0)},${H-padY} ${pts} ${x(ms.length-1)},${H-padY}`;
   svg.innerHTML = `
     <polygon points="${area}" fill="var(--accent)" opacity="0.10"/>
+    ${zero}
     <polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>
     ${ci>=0?`<line x1="${x(ci)}" y1="${padY}" x2="${x(ci)}" y2="${H-padY}" stroke="var(--border)" stroke-width="1"/>
              <circle cx="${x(ci)}" cy="${y(vals[ci])}" r="4" fill="var(--accent)"/>
-             <text x="${x(ci)}" y="${Math.max(padY+2, y(vals[ci])-9)}" fill="var(--text)" font-size="11" font-weight="700" text-anchor="middle">${vals[ci].toFixed(1)}</text>`:''}
-    <text x="4" y="${padY+4}" fill="var(--muted)" font-size="10">${hi.toFixed(0)}</text>
-    <text x="4" y="${H-padY}" fill="var(--muted)" font-size="10">${lo.toFixed(0)}</text>
+             <text x="${x(ci)}" y="${Math.max(padY+2, y(vals[ci])-9)}" fill="var(--text)" font-size="11" font-weight="700" text-anchor="middle">${M.fmt(vals[ci])}</text>`:''}
+    <text x="4" y="${padY+4}" fill="var(--muted)" font-size="10">${M.fmt(hi)}</text>
+    <text x="4" y="${H-padY}" fill="var(--muted)" font-size="10">${M.fmt(lo)}</text>
     <text x="${x(0)}" y="${H-2}" fill="var(--muted)" font-size="10">${ms[0]}</text>
     <text x="${x(ms.length-1)}" y="${H-2}" fill="var(--muted)" font-size="10" text-anchor="end">${ms[ms.length-1]}</text>`;
-  el('trendCap').textContent = `Score trend · ${ms.length} months`;
 }
 
 function drawMetrics(s){
@@ -257,13 +309,18 @@ function drawMetrics(s){
     const pts = (t*m.w*100), maxPts = m.w*100;
     const cov = m.k === 'code_coverage';
     const shown = cov ? (s.n_code_coverage_fixed ?? t) : t;
-    return `<div class="m">
+    return `<div class="m${focus===m.k?' on':''}" data-k="${m.k}" title="Focus on ${m.label}">
       <div class="m-top"><span class="m-name">${m.label}</span><span class="m-w">${maxPts}%</span></div>
       <div class="m-val">${raw==null?'—':m.fmt(raw)}<span class="m-w"> ${m.unit||''}</span></div>
       <div class="m-pts">${pts.toFixed(2)} / ${maxPts.toFixed(0)} pts${cov?' <span title="DevBoost scales coverage against 100 instead of 1, so this scores ~100x low">⚠</span>':''}</div>
       <div class="track"><div class="fill" style="width:${Math.min(100,shown*100)}%;background:${hue(shown)}"></div></div>
     </div>`;
   }).join('');
+  el('metrics').querySelectorAll('.m').forEach(c=>c.onclick=()=>{
+    focus = (focus === c.dataset.k) ? 'score' : c.dataset.k;
+    el('focus').value = focus; sortKey = focus; sortDir = -1;
+    if (!writeHash()) render();
+  });
 }
 
 const COLS = [
@@ -293,8 +350,8 @@ function drawChildren(node){
   const rows = kids.map(g=>{
     const n = D.nodes[g], s = n.series[month];
     const b = baseline(n), bs = b && n.series[b];
-    return {g, name:n.name, level:n.level, kids:n.children.length, s,
-            delta: (s&&bs) ? s.score-bs.score : null};
+    const dv = (s && bs && s[focus] != null && bs[focus] != null) ? s[focus]-bs[focus] : null;
+    return {g, name:n.name, level:n.level, kids:n.children.length, s, delta:dv};
   });
 
   // best/worst per column, for hot-spot scanning
@@ -304,16 +361,20 @@ function drawChildren(node){
     if (vs.length>1) ext[c.k] = {hi:Math.max(...vs), lo:Math.min(...vs)};
   });
 
+  // default sort puts the best team first, so direction depends on the metric
+  const sortCol = COLS.find(c=>c.k===sortKey);
+  const flip = (sortKey!=='delta' && sortCol && sortCol.good==='lo') ? -1 : 1;
   rows.sort((a,b)=>{
-    const av=a.s?.[sortKey], bv=b.s?.[sortKey];
+    const av = sortKey==='delta' ? a.delta : a.s?.[sortKey];
+    const bv = sortKey==='delta' ? b.delta : b.s?.[sortKey];
     if (av==null) return 1; if (bv==null) return -1;
-    return (av-bv)*sortDir;
+    return (av-bv)*sortDir*flip;
   });
 
   tbl.querySelector('thead').innerHTML = '<tr>' +
     `<th data-k="name">Team</th>` +
-    COLS.map(c=>`<th class="num" data-k="${c.k}" title="${c.good==='hi'?'higher is better':'lower is better'}">${c.label}${sortKey===c.k?(sortDir<0?' ▾':' ▴'):''}</th>`).join('') +
-    `<th class="num" data-k="delta">Δ</th></tr>`;
+    COLS.map(c=>`<th class="num${focus===c.k?' on':''}" data-k="${c.k}" title="${c.good==='hi'?'higher is better':'lower is better'}">${c.label}${sortKey===c.k?(sortDir<0?' ▾':' ▴'):''}</th>`).join('') +
+    `<th class="num" data-k="delta" title="change in ${metricByKey(focus).label}">Δ ${focus==='score'?'score':metricByKey(focus).label.split(' ')[0]}</th></tr>`;
 
   tbl.querySelector('tbody').innerHTML = rows.map(r=>{
     if (!r.s) return `<tr class="drill" data-g="${r.g}"><td class="tname">${r.name}<span class="lvl">${r.level}</span></td>
@@ -328,11 +389,12 @@ function drawChildren(node){
         cls = isBest ? 'best' : isWorst ? 'worst' : '';
       }
       const bar = c.bar ? `<span class="bar"><i style="width:${Math.min(100,c.bar(v)*100)}%;background:${hue(c.bar(v))}"></i></span>` : '';
-      return `<td class="num"><span class="cell">${bar}<span class="${cls}">${c.fmt(v)}</span></span></td>`;
+      return `<td class="num${focus===c.k?' on':''}"><span class="cell">${bar}<span class="${cls}">${c.fmt(v)}</span></span></td>`;
     }).join('');
-    const d = r.delta;
+    const d = r.delta, FM = metricByKey(focus);
+    const better = FM.good === 'hi' ? d > 0 : d < 0;
     const dc = d==null ? `<td class="num leaf">—</td>`
-      : `<td class="num" style="color:${d>=0?'var(--green)':'var(--red)'}">${d>=0?'+':''}${d.toFixed(1)}</td>`;
+      : `<td class="num" style="color:${d===0?'var(--muted)':better?'var(--green)':'var(--red)'}">${d>=0?'+':''}${FM.fmt(d)}</td>`;
     return `<tr class="${r.kids?'drill':''}" data-g="${r.g}">
       <td class="tname">${r.name}<span class="lvl">${r.level}${r.kids?` · ${r.kids}`:''}</span></td>${cells}${dc}</tr>`;
   }).join('');
