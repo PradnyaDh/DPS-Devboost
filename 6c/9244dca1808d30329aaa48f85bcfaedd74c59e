@@ -1,0 +1,37 @@
+web/data/snapshot.json
+  s_bbb67f7d9bf54c::t_941afd83c9f2b4 1
+.gitignore
+  s_bbb67f7d9bf54c::t_8eea0f931c2cfe 1-3
+web/index.html
+  s_bbb67f7d9bf54c::t_4f36110c7ee0d5 1-119,121-228,230-231,234-238,248-358
+  s_bbb67f7d9bf54c::t_911ab458dd57ee 120,229,232-233,239-247
+scripts/refresh.sh
+  s_bbb67f7d9bf54c::t_1cda20830cab74 1-16
+sql/snapshot.sql
+  s_bbb67f7d9bf54c::t_a8ea15c794d2dd 15,18
+  s_bbb67f7d9bf54c::t_1b5e2b984551cc 1-14,16-17,19-63,68-79,81-91,96-109
+  s_bbb67f7d9bf54c::t_b09ca7f08318b1 64-67,80,92-95
+scripts/build_snapshot.py
+  s_bbb67f7d9bf54c::t_941afd83c9f2b4 77-96
+  s_bbb67f7d9bf54c::t_a8ea15c794d2dd 53-64
+  s_bbb67f7d9bf54c::t_bcafb35263609d 66-68
+  s_bbb67f7d9bf54c::t_1cda20830cab74 1-52,65,69-76,97-115
+README.md
+  s_bbb67f7d9bf54c::t_8eea0f931c2cfe 1-73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "6c9244dca1808d30329aaa48f85bcfaedd74c59e",
+  "prompts": {},
+  "sessions": {
+    "s_bbb67f7d9bf54c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "31d37c6d-9713-4312-acfd-497ce3d75ff8",
+        "model": "unknown"
+      },
+      "human_author": "Brad Moore <brad.moore@deliveryhero.com>"
+    }
+  }
+}
