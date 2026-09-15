@@ -1,0 +1,26 @@
+README.md
+  s_bbb67f7d9bf54c::t_b4d1d6037c533e 9-12,21-39
+web/index.html
+  s_bbb67f7d9bf54c::t_be7787427f5abf 174-175,187-192,195-201,322
+  s_bbb67f7d9bf54c::t_2cf2cc1cf3c537 264-265,267-279,285-288,292,296-298
+  s_bbb67f7d9bf54c::t_2aa71774c7906e 364-366,368-369,371
+  s_bbb67f7d9bf54c::t_0ca319bcdf8df6 82-86,312,319-321,323,353-354,376-377,392,394-395,397
+  s_bbb67f7d9bf54c::t_bae324087f2ac5 227-233,237-242,244-252
+  s_bbb67f7d9bf54c::t_6f57d215fbc7b3 106,148-156,158-159,163,170-173
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "cb7171be6f3d61ad147525d24b13c74f03a28c38",
+  "prompts": {},
+  "sessions": {
+    "s_bbb67f7d9bf54c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "31d37c6d-9713-4312-acfd-497ce3d75ff8",
+        "model": "unknown"
+      },
+      "human_author": "Brad Moore <brad.moore@deliveryhero.com>"
+    }
+  }
+}
