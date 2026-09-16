@@ -1,13 +1,18 @@
-# devboost-explorer
+# log-devboost-explorer
 
 Drill-down dashboard for DevBoost scores across Logistics. Select any team from the
 platform root down to a squad, see its scorecard, compare its sub-teams side by side.
 
-- Repo: `deliveryhero/devboost-explorer` (internal). **`main` is protected — changes go
-  through a PR**, a direct push is rejected.
-- Live: https://special-dollop-v6e11v5.pages.github.io/ — private Pages, requires DH
+- Repo: `deliveryhero/log-devboost-explorer` (internal). Direct pushes to `main` work.
+- Live: https://legendary-robot-l67woe7.pages.github.io/ — private Pages, requires DH
   GitHub org login. The obfuscated hostname is GitHub-generated and would change if the
   site were ever made public.
+
+An earlier `deliveryhero/devboost-explorer` was abandoned: it inherited the org's
+`global-branch-protection` ruleset, which required an approving review and had zero
+bypass actors, so nothing could ever be merged. Creating a repo in the DH org does not
+make you its admin. Before assuming a new repo is writable, check
+`gh api repos/OWNER/REPO/rules/branches/main`.
 - Deploy: `.github/workflows/pages.yml` publishes `web/` on push to `main`.
 
 ## Layout
