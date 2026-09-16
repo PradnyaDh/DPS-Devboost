@@ -215,8 +215,8 @@ fetch('data/snapshot.json').then(r=>r.json()).then(d=>{
     focus = e.target.value; sortKey = focus; sortDir = -1;
     if (!writeHash()) render();
   };
-  el('month').onchange = e => { month = e.target.value; render(); };
-  el('cmp').onchange   = e => { cmpMode = e.target.value; render(); };
+  el('month').onchange = e => { month = e.target.value; if (!writeHash()) render(); };
+  el('cmp').onchange   = e => { cmpMode = e.target.value; if (!writeHash()) render(); };
   el('gen').textContent = `Generated ${d.generated.replace('T',' ').replace('+00:00','Z')}`;
   const n = Object.keys(d.nodes).length;
   el('sub').innerHTML = `${n} teams · ${ms[0]} – ${ms[ms.length-1]}` +
@@ -225,20 +225,72 @@ fetch('data/snapshot.json').then(r=>r.json()).then(d=>{
   fromHash();
 });
 
+// View state lives in the hash as query-style params, so a link reproduces
+// exactly what the sender was looking at. Only non-defaults are written, so a
+// plain drill-down stays short: #team=group:log-deliveries
+const DEFAULTS = {focus:'score', depth:1, cmp:'prev'};
+
 function fromHash(){
-  const raw = decodeURIComponent(location.hash.slice(1));
-  const [g, f] = raw.split('|');
-  const next = (g && D.nodes[g]) ? g : D.root;
-  if (next !== cur) depth = 1;   // depth is relative to the selected node
+  const raw = location.hash.slice(1);
+  const q = new URLSearchParams(raw);
+  // Tolerate the older "#group:id|focus" links.
+  if (raw && !raw.includes('=')) {
+    const [g, f] = decodeURIComponent(raw).split('|');
+    q.set('team', g); if (f) q.set('focus', f);
+  }
+
+  const t = q.get('team');
+  const next = (t && D.nodes[t]) ? t : D.root;
+  if (next !== cur) depth = DEFAULTS.depth;   // depth is relative to the selected node
   cur = next;
-  if (f && (f === 'score' || METRICS.some(m=>m.k===f))) focus = f;
+
+  const f = q.get('focus');
+  focus = (f === 'score' || METRICS.some(m=>m.k===f)) ? f : DEFAULTS.focus;
+
+  const m = q.get('month');
+  month = (m && D.complete_months.includes(m)) ? m : D.latest;
+
+  const c = q.get('cmp');
+  cmpMode = ['prev','first','none'].includes(c) ? c : DEFAULTS.cmp;
+
+  const d = parseInt(q.get('depth'), 10);
+  depth = Number.isFinite(d) && d >= 1 ? Math.min(d, Math.max(1, maxDepth(cur))) : DEFAULTS.depth;
+
+  // sort=key:dir — falls back to the focused column, which is the default anyway
+  const [sk, sd] = (q.get('sort') || '').split(':');
+  if (sk && (sk === 'score' || COLS.some(c=>c.k===sk))) {
+    sortKey = sk; sortDir = sd === 'asc' ? 1 : -1;
+  } else {
+    sortKey = focus; sortDir = -1;
+  }
+
   el('focus').value = focus;
-  if (sortKey !== focus) { sortKey = focus; sortDir = -1; }
+  el('month').value = month;
+  el('cmp').value = cmpMode;
   render();
+  // If anything was out of range or unknown, replace the URL with the state we
+  // actually rendered, so copying the link shares the real view.
+  const canon = canonicalHash();
+  if (location.hash.slice(1) !== canon)
+    history.replaceState(null, '', location.pathname + (canon ? '#' + canon : ''));
 }
+
+function canonicalHash(){
+  const q = new URLSearchParams();
+  if (cur !== D.root)            q.set('team', cur);
+  if (focus !== DEFAULTS.focus)  q.set('focus', focus);
+  if (month !== D.latest)        q.set('month', month);
+  if (cmpMode !== DEFAULTS.cmp)  q.set('cmp', cmpMode);
+  if (depth !== DEFAULTS.depth)  q.set('depth', String(depth));
+  // only record sort when it differs from "the focused column, descending"
+  if (!(sortKey === focus && sortDir === -1)) q.set('sort', `${sortKey}:${sortDir===1?'asc':'desc'}`);
+  // URLSearchParams percent-encodes ':' in values; harmless but ugly in a shared link
+  return q.toString().replace(/%3A/g, ':');
+}
+
 function writeHash(){
-  const h = encodeURIComponent(cur) + (focus !== 'score' ? '|' + focus : '');
-  const changed = decodeURIComponent(location.hash.slice(1)) !== decodeURIComponent(h);
+  const h = canonicalHash();
+  const changed = location.hash.slice(1) !== h;
   if (changed) location.hash = h;   // fires hashchange -> fromHash -> render
   return changed;
 }
@@ -395,7 +447,7 @@ function drawSpark(node){
     const i = +r.dataset.i;
     r.onmouseenter = () => show(i);
     r.onmousemove  = () => show(i);
-    r.onclick = () => { month = ms[i]; el('month').value = month; render(); };
+    r.onclick = () => { month = ms[i]; el('month').value = month; if (!writeHash()) render(); };
   });
   svg.onmouseleave = hide;
 }
@@ -490,8 +542,8 @@ function drawChildren(node){
     `<button id="dUp" ${depth<=1?'disabled':''} title="Roll up one level">− roll up</button>` +
     `<span class="lvl-hint">${depthLabel(cur, depth)}${depth>1?` · +${depth-1}`:''}</span>` +
     `<button id="dDown" ${depth>=md?'disabled':''} title="Flatten one level deeper">+ drill down</button>`;
-  dc.querySelector('#dUp').onclick   = () => { depth--; render(); };
-  dc.querySelector('#dDown').onclick = () => { depth++; render(); };
+  dc.querySelector('#dUp').onclick   = () => { depth = Math.max(1, depth-1); if (!writeHash()) render(); };
+  dc.querySelector('#dDown').onclick = () => { depth = Math.min(md, depth+1); if (!writeHash()) render(); };
 
   const rows = kids.map(g=>{
     const n = D.nodes[g], s = n.series[month];
@@ -540,7 +592,7 @@ function drawChildren(node){
   tbl.querySelectorAll('th').forEach(th=>th.onclick=()=>{
     const k = th.dataset.k; if (k==='name') return;
     if (sortKey===k) sortDir*=-1; else { sortKey=k; sortDir=-1; }
-    render();
+    if (!writeHash()) render();
   });
   tbl.querySelectorAll('tr.drill').forEach(tr=>tr.onclick=()=>go(tr.dataset.g));
 }
