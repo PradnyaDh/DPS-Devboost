@@ -9,6 +9,7 @@
     --bg:#0f1117; --surface:#1a1d27; --surface2:#222536; --border:#2d3148;
     --text:#e2e8f0; --muted:#8b96ab; --accent:#6366f1;
     --red:#ef4444; --amber:#f59e0b; --green:#22c55e;
+    --b1:#dc2626; --b2:#f97316; --b3:#eab308; --b4:#84cc16; --b5:#16a34a;
   }
   @media (prefers-color-scheme: light) {
     :root { --bg:#f8fafc; --surface:#fff; --surface2:#f1f5f9; --border:#e2e8f0;
@@ -94,8 +95,7 @@
   .m.on { border-color:var(--accent); box-shadow:0 0 0 1px var(--accent) inset; }
   .m { cursor:pointer; }
   .m:hover { border-color:var(--accent); }
-  .best { color:var(--green); font-weight:650; }
-  .worst { color:var(--red); font-weight:650; }
+  .pd { font-size:0.74rem; font-weight:650; opacity:0.85; }
 
   .note { font-size:0.75rem; color:var(--muted); background:var(--surface);
           border:1px solid var(--border); border-left:3px solid var(--amber);
@@ -171,6 +171,20 @@ const METRICS = [
 const OVERALL = {k:'score', label:'Overall DevBoost score', good:'hi', fmt:v=>v.toFixed(1), unit:''};
 const metricByKey = k => k==='score' ? OVERALL : METRICS.find(m=>m.k===k);
 const hue = t => t>=.75 ? 'var(--green)' : t>=.45 ? 'var(--amber)' : 'var(--red)';
+// Five buckets on share-of-points-earned, red -> green. Absolute, not relative to
+// siblings: a column where every team is weak should read red across the board.
+const BUCKETS = ['var(--b1)','var(--b2)','var(--b3)','var(--b4)','var(--b5)'];
+const bucket = t => BUCKETS[Math.min(4, Math.max(0, Math.floor(t*5)))];
+// Share of the column's available points for one team-row.
+function share(col, s){
+  if (s == null) return null;
+  if (col.k === 'score') return s.score == null ? null : s.score/100;
+  // coverage's official normalized value is ~100x low upstream; colour by the
+  // corrected one so the scale reflects real coverage
+  if (col.k === 'code_coverage') return s.n_code_coverage_fixed ?? null;
+  const n = s['n_'+col.k];
+  return n == null ? null : n;
+}
 const el = id => document.getElementById(id);
 
 let D, cur, month, cmpMode='prev', sortKey='score', sortDir=-1, focus='score';
@@ -432,19 +446,10 @@ function drawChildren(node){
     return {g, name:n.name, level:n.level, kids:n.children.length, s, delta:dv};
   });
 
-  // best/worst per column, for hot-spot scanning
-  const ext = {};
-  COLS.forEach(c=>{
-    const vs = rows.map(r=>r.s?.[c.k]).filter(v=>v!=null);
-    if (vs.length>1) ext[c.k] = {hi:Math.max(...vs), lo:Math.min(...vs)};
-  });
-
-  // default sort puts the best team first, so direction depends on the metric
-  const sortCol = COLS.find(c=>c.k===sortKey);
-  const flip = (sortKey!=='delta' && sortCol && sortCol.good==='lo') ? -1 : 1;
   rows.sort((a,b)=>{
-    const av = sortKey==='delta' ? a.delta : a.s?.[sortKey];
-    const bv = sortKey==='delta' ? b.delta : b.s?.[sortKey];
+    const sortCol = COLS.find(c=>c.k===sortKey);
+    const flip = (sortCol && sortCol.good==='lo') ? -1 : 1;
+    const av = a.s?.[sortKey], bv = b.s?.[sortKey];
     if (av==null) return 1; if (bv==null) return -1;
     return (av-bv)*sortDir*flip;
   });
@@ -452,29 +457,29 @@ function drawChildren(node){
   tbl.querySelector('thead').innerHTML = '<tr>' +
     `<th data-k="name">Team</th>` +
     COLS.map(c=>`<th class="num${focus===c.k?' on':''}" data-k="${c.k}" title="${c.good==='hi'?'higher is better':'lower is better'}">${c.label}${sortKey===c.k?(sortDir<0?' ▾':' ▴'):''}</th>`).join('') +
-    `<th class="num" data-k="delta" title="change in ${metricByKey(focus).label}">Δ ${focus==='score'?'score':metricByKey(focus).label.split(' ')[0]}</th></tr>`;
+    '</tr>';
 
+  const FM = metricByKey(focus);
   tbl.querySelector('tbody').innerHTML = rows.map(r=>{
     if (!r.s) return `<tr class="drill" data-g="${r.g}"><td class="tname">${r.name}<span class="lvl">${r.level}</span></td>
-      <td class="num leaf" colspan="${COLS.length+1}">no data for ${month}</td></tr>`;
+      <td class="num leaf" colspan="${COLS.length}">no data for ${month}</td></tr>`;
     const cells = COLS.map(c=>{
       const v = r.s[c.k];
       if (v == null) return `<td class="num leaf">—</td>`;
-      const e = ext[c.k]; let cls = '';
-      if (e && e.hi !== e.lo) {
-        const isBest = c.good==='hi' ? v===e.hi : v===e.lo;
-        const isWorst= c.good==='hi' ? v===e.lo : v===e.hi;
-        cls = isBest ? 'best' : isWorst ? 'worst' : '';
+      const t = share(c, r.s);
+      const col = t == null ? 'var(--muted)' : bucket(t);
+      // the focused column carries its change vs the comparison month
+      let paren = '';
+      if (c.k === focus && r.delta != null) {
+        const better = FM.good === 'hi' ? r.delta > 0 : r.delta < 0;
+        const dcol = r.delta === 0 ? 'var(--muted)' : better ? 'var(--green)' : 'var(--red)';
+        paren = ` <span class="pd" style="color:${dcol}">(${r.delta>=0?'+':''}${FM.fmt(r.delta)})</span>`;
       }
-      const bar = c.bar ? `<span class="bar"><i style="width:${Math.min(100,c.bar(v)*100)}%;background:${hue(c.bar(v))}"></i></span>` : '';
-      return `<td class="num${focus===c.k?' on':''}"><span class="cell">${bar}<span class="${cls}">${c.fmt(v)}</span></span></td>`;
+      const bar = c.bar ? `<span class="bar"><i style="width:${Math.min(100,c.bar(v)*100)}%;background:${col}"></i></span>` : '';
+      return `<td class="num${focus===c.k?' on':''}"><span class="cell">${bar}<span style="color:${col};font-weight:600">${c.fmt(v)}</span>${paren}</span></td>`;
     }).join('');
-    const d = r.delta, FM = metricByKey(focus);
-    const better = FM.good === 'hi' ? d > 0 : d < 0;
-    const dc = d==null ? `<td class="num leaf">—</td>`
-      : `<td class="num" style="color:${d===0?'var(--muted)':better?'var(--green)':'var(--red)'}">${d>=0?'+':''}${FM.fmt(d)}</td>`;
     return `<tr class="${r.kids?'drill':''}" data-g="${r.g}">
-      <td class="tname">${r.name}<span class="lvl">${r.level}${r.kids?` · ${r.kids}`:''}</span></td>${cells}${dc}</tr>`;
+      <td class="tname">${r.name}<span class="lvl">${r.level}${r.kids?` · ${r.kids}`:''}</span></td>${cells}</tr>`;
   }).join('');
 
   tbl.querySelectorAll('th').forEach(th=>th.onclick=()=>{
