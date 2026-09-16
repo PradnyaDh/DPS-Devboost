@@ -49,7 +49,16 @@
 
   h3.cap { font-size:0.7rem; text-transform:uppercase; letter-spacing:0.09em;
            color:var(--muted); margin-bottom:0.9rem; }
-  .spark { width:100%; height:110px; display:block; }
+  .sparkwrap { position:relative; }
+  .spark { width:100%; height:130px; display:block; }
+  .spark .hit { fill:transparent; cursor:pointer; }
+  .tip { position:absolute; transform:translate(-50%,-100%); pointer-events:none;
+         background:var(--surface2); border:1px solid var(--border); border-radius:7px;
+         padding:0.3rem 0.5rem; font-size:0.76rem; white-space:nowrap; z-index:2;
+         box-shadow:0 2px 8px rgba(0,0,0,0.18); }
+  .tip b { font-variant-numeric:tabular-nums; }
+  .tip .d { margin-left:0.45rem; font-weight:650; }
+  .tip .d::before { content:''; }
 
   .metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:0.75rem; }
   @media (max-width:980px){ .metrics{ grid-template-columns:repeat(2,1fr);} }
@@ -123,7 +132,10 @@
     </div>
     <div class="card">
       <h3 class="cap" id="trendCap">Score trend</h3>
-      <svg class="spark" id="spark"></svg>
+      <div class="sparkwrap">
+        <svg class="spark" id="spark"></svg>
+        <div class="tip" id="tip" hidden></div>
+      </div>
     </div>
   </div>
 
@@ -263,7 +275,8 @@ function render(){
 function drawSpark(node){
   const M = metricByKey(focus);
   const ms = D.complete_months.filter(m=>node.series[m] && node.series[m][focus] != null);
-  const svg = el('spark');
+  const svg = el('spark'), tip = el('tip');
+  tip.hidden = true;
   el('trendCap').textContent = `${M.label} · ${ms.length} month${ms.length===1?'':'s'}` +
     (M.good === 'lo' ? ' · lower is better' : '');
   if (ms.length < 2) {
@@ -271,33 +284,88 @@ function drawSpark(node){
     svg.innerHTML = `<text x="8" y="20" fill="var(--muted)" font-size="12">Not enough history for ${M.label}</text>`;
     return;
   }
-  const W=900, H=110, padX=42, padY=16;
+  const W=900, H=130, padX=46, padT=16, padB=30;
   const vals = ms.map(m=>node.series[m][focus]);
   let lo = Math.min(...vals), hi = Math.max(...vals);
   const span = (hi - lo) || Math.abs(hi) || 1;
   lo -= span*0.12; hi += span*0.12;
   if (focus === 'score') { lo = Math.max(0, lo); hi = Math.min(100, hi); }
   const x = i => padX + i*(W-2*padX)/(ms.length-1);
-  const y = v => H-padY - (v-lo)/(hi-lo)*(H-2*padY);
+  const y = v => H-padB - (v-lo)/(hi-lo)*(H-padT-padB);
   const pts = vals.map((v,i)=>`${x(i)},${y(v)}`).join(' ');
   const ci = ms.indexOf(month);
-  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
-  // zero line matters for NPS, which crosses it
+
+  // Label about every third month, always including first and last, so 18 months
+  // of ticks stay legible at this width. The rest get a short minor tick.
+  const step = Math.max(1, Math.ceil(ms.length/7));
+  const labelled = new Set([0, ms.length-1]);
+  for (let i=0; i<ms.length-1; i+=step) labelled.add(i);
+  if ([...labelled].includes(ms.length-2) && ms.length>3) labelled.delete(ms.length-2);
+
+  const ticks = ms.map((m,i)=>{
+    const big = labelled.has(i);
+    const t = `<line x1="${x(i)}" y1="${H-padB}" x2="${x(i)}" y2="${H-padB+(big?5:3)}" stroke="var(--border)" stroke-width="1"/>`;
+    if (!big) return t;
+    const anchor = i===0 ? 'start' : i===ms.length-1 ? 'end' : 'middle';
+    return t + `<text x="${x(i)}" y="${H-padB+16}" fill="var(--muted)" font-size="10" text-anchor="${anchor}">${m.replace('-','–')}</text>`;
+  }).join('');
+
   const zero = (lo < 0 && hi > 0)
     ? `<line x1="${padX}" y1="${y(0)}" x2="${W-padX}" y2="${y(0)}" stroke="var(--border)" stroke-width="1" stroke-dasharray="3 3"/>
        <text x="${padX-6}" y="${y(0)+3}" fill="var(--muted)" font-size="10" text-anchor="end">0</text>` : '';
-  const area = `${x(0)},${H-padY} ${pts} ${x(ms.length-1)},${H-padY}`;
+  const area = `${x(0)},${H-padB} ${pts} ${x(ms.length-1)},${H-padB}`;
+  // One hit rect per month, spanning the midpoints either side, so the nearest
+  // point is picked without any distance math on mousemove.
+  const hits = ms.map((m,i)=>{
+    const l = i===0 ? padX-10 : (x(i-1)+x(i))/2;
+    const r = i===ms.length-1 ? W-padX+10 : (x(i)+x(i+1))/2;
+    return `<rect class="hit" data-i="${i}" x="${l}" y="${padT}" width="${Math.max(1,r-l)}" height="${H-padT-padB}"/>`;
+  }).join('');
+
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
   svg.innerHTML = `
     <polygon points="${area}" fill="var(--accent)" opacity="0.10"/>
     ${zero}
+    <line x1="${padX}" y1="${H-padB}" x2="${W-padX}" y2="${H-padB}" stroke="var(--border)" stroke-width="1"/>
+    ${ticks}
     <polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>
-    ${ci>=0?`<line x1="${x(ci)}" y1="${padY}" x2="${x(ci)}" y2="${H-padY}" stroke="var(--border)" stroke-width="1"/>
-             <circle cx="${x(ci)}" cy="${y(vals[ci])}" r="4" fill="var(--accent)"/>
-             <text x="${x(ci)}" y="${Math.max(padY+2, y(vals[ci])-9)}" fill="var(--text)" font-size="11" font-weight="700" text-anchor="middle">${M.fmt(vals[ci])}</text>`:''}
-    <text x="4" y="${padY+4}" fill="var(--muted)" font-size="10">${M.fmt(hi)}</text>
-    <text x="4" y="${H-padY}" fill="var(--muted)" font-size="10">${M.fmt(lo)}</text>
-    <text x="${x(0)}" y="${H-2}" fill="var(--muted)" font-size="10">${ms[0]}</text>
-    <text x="${x(ms.length-1)}" y="${H-2}" fill="var(--muted)" font-size="10" text-anchor="end">${ms[ms.length-1]}</text>`;
+    ${ci>=0?`<line id="selLine" x1="${x(ci)}" y1="${padT}" x2="${x(ci)}" y2="${H-padB}" stroke="var(--border)" stroke-width="1"/>
+             <circle cx="${x(ci)}" cy="${y(vals[ci])}" r="4" fill="var(--accent)"/>`:''}
+    <line id="hoverLine" x1="0" y1="${padT}" x2="0" y2="${H-padB}" stroke="var(--accent)" stroke-width="1" opacity="0"/>
+    <circle id="hoverDot" r="4.5" fill="var(--accent)" stroke="var(--surface)" stroke-width="2" opacity="0"/>
+    <text x="4" y="${padT+4}" fill="var(--muted)" font-size="10">${M.fmt(hi)}</text>
+    <text x="4" y="${H-padB}" fill="var(--muted)" font-size="10">${M.fmt(lo)}</text>
+    ${hits}`;
+
+  const hLine = svg.querySelector('#hoverLine'), hDot = svg.querySelector('#hoverDot');
+  const show = i => {
+    hLine.setAttribute('x1', x(i)); hLine.setAttribute('x2', x(i));
+    hLine.setAttribute('opacity', 0.45);
+    hDot.setAttribute('cx', x(i)); hDot.setAttribute('cy', y(vals[i]));
+    hDot.setAttribute('opacity', 1);
+    // previous month in this series, for the step-over-step change
+    let delta = '';
+    if (i > 0) {
+      const d = vals[i]-vals[i-1];
+      const better = M.good === 'hi' ? d > 0 : d < 0;
+      const col = d===0 ? 'var(--muted)' : better ? 'var(--green)' : 'var(--red)';
+      delta = ` <span class="d" style="color:${col}">${d>=0?'+':''}${M.fmt(d)}</span>`;
+    }
+    tip.innerHTML = `${ms[i]} · <b>${M.fmt(vals[i])}${M.unit?' '+M.unit:''}</b>${delta}`;
+    tip.hidden = false;
+    // position in CSS pixels: the viewBox scales to the rendered width
+    const box = svg.getBoundingClientRect();
+    tip.style.left = (x(i)/W*box.width) + 'px';
+    tip.style.top  = Math.max(14, y(vals[i])/H*box.height - 6) + 'px';
+  };
+  const hide = () => { hLine.setAttribute('opacity',0); hDot.setAttribute('opacity',0); tip.hidden = true; };
+  svg.querySelectorAll('.hit').forEach(r=>{
+    const i = +r.dataset.i;
+    r.onmouseenter = () => show(i);
+    r.onmousemove  = () => show(i);
+    r.onclick = () => { month = ms[i]; el('month').value = month; render(); };
+  });
+  svg.onmouseleave = hide;
 }
 
 function drawMetrics(s){
