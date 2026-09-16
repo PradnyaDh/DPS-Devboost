@@ -60,7 +60,7 @@
   .m-w { font-size:0.64rem; color:var(--muted); opacity:0.75; }
   .m-val { font-size:1.15rem; font-weight:700; margin:0.35rem 0 0.1rem; letter-spacing:-0.02em; }
   .m-pts { font-size:0.72rem; color:var(--muted); }
-  .m-d { opacity:0.72; font-weight:600; }
+  .m-d { font-size:0.75rem; font-weight:650; opacity:0.8; letter-spacing:0; }
   .track { height:5px; background:var(--surface2); border-radius:99px; overflow:hidden; margin-top:0.5rem; }
   .fill { height:100%; border-radius:99px; }
 
@@ -321,8 +321,8 @@ function drawMetrics(s, bs){
     const shown = cov ? (s.n_code_coverage_fixed ?? t) : t;
     return `<div class="m${focus===m.k?' on':''}" data-k="${m.k}" title="Focus on ${m.label}">
       <div class="m-top"><span class="m-name">${m.label}</span><span class="m-w">${maxPts}%</span></div>
-      <div class="m-val">${raw==null?'—':m.fmt(raw)}<span class="m-w"> ${m.unit||''}</span></div>
-      <div class="m-pts">${pts.toFixed(2)} / ${maxPts.toFixed(0)} pts${delta}${cov?' <span title="DevBoost scales coverage against 100 instead of 1, so this scores ~100x low">⚠</span>':''}</div>
+      <div class="m-val">${raw==null?'—':m.fmt(raw)}<span class="m-w"> ${m.unit||''}</span>${delta}</div>
+      <div class="m-pts">${pts.toFixed(2)} / ${maxPts.toFixed(0)} pts${cov?' <span title="DevBoost scales coverage against 100 instead of 1, so this scores ~100x low">⚠</span>':''}</div>
       <div class="track"><div class="fill" style="width:${Math.min(100,shown*100)}%;background:${hue(shown)}"></div></div>
     </div>`;
   }).join('');
