@@ -1,0 +1,20 @@
+web/index.html
+  s_bbb67f7d9bf54c::t_253c62d784ce22 98,450-452,460,462,465,469-476,478-479,482
+  s_bbb67f7d9bf54c::t_804d93dbf246c8 12,174-187
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "95c7a4b7b2fd398bdea23432f3ce0036df4244f3",
+  "prompts": {},
+  "sessions": {
+    "s_bbb67f7d9bf54c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "31d37c6d-9713-4312-acfd-497ce3d75ff8",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Brad Moore <brad.moore@deliveryhero.com>"
+    }
+  }
+}
