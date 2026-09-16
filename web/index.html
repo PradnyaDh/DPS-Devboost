@@ -97,6 +97,18 @@
   .m:hover { border-color:var(--accent); }
   .pd { font-size:0.74rem; font-weight:650; opacity:0.85; }
 
+  .childhead { display:flex; align-items:baseline; gap:1rem; margin-top:1.75rem;
+               justify-content:space-between; flex-wrap:wrap; }
+  .childhead .cap { margin-bottom:0.6rem; }
+  .depthctl { display:flex; gap:0.3rem; align-items:center; margin-bottom:0.6rem; }
+  .depthctl button { background:var(--surface2); color:var(--muted); border:1px solid var(--border);
+                     border-radius:7px; padding:0.25rem 0.55rem; font:inherit; font-size:0.74rem;
+                     cursor:pointer; }
+  .depthctl button:hover:not(:disabled) { color:var(--text); border-color:var(--accent); }
+  .depthctl button:disabled { opacity:0.4; cursor:default; }
+  .depthctl .lvl-hint { font-size:0.72rem; color:var(--muted); min-width:5.5rem; }
+  .ppath { display:block; font-size:0.68rem; color:var(--muted); font-weight:400;
+           margin-top:1px; letter-spacing:0.01em; }
   .note { font-size:0.75rem; color:var(--muted); background:var(--surface);
           border:1px solid var(--border); border-left:3px solid var(--amber);
           border-radius:8px; padding:0.6rem 0.8rem; margin-top:1rem; }
@@ -143,7 +155,10 @@
   <h3 class="cap">Metric breakdown</h3>
   <div class="metrics" id="metrics"></div>
 
-  <h3 class="cap" style="margin-top:1.75rem" id="childCap">Sub-teams</h3>
+  <div class="childhead">
+    <h3 class="cap" id="childCap">Sub-teams</h3>
+    <div class="depthctl" id="depthctl"></div>
+  </div>
   <div class="card" style="padding:0.35rem 0.6rem"><div style="overflow-x:auto">
     <table id="tbl"><thead></thead><tbody></tbody></table>
   </div></div>
@@ -187,7 +202,7 @@ function share(col, s){
 }
 const el = id => document.getElementById(id);
 
-let D, cur, month, cmpMode='prev', sortKey='score', sortDir=-1, focus='score';
+let D, cur, month, cmpMode='prev', sortKey='score', sortDir=-1, focus='score', depth=1;
 
 fetch('data/snapshot.json').then(r=>r.json()).then(d=>{
   D = d; cur = d.root;
@@ -213,7 +228,9 @@ fetch('data/snapshot.json').then(r=>r.json()).then(d=>{
 function fromHash(){
   const raw = decodeURIComponent(location.hash.slice(1));
   const [g, f] = raw.split('|');
-  cur = (g && D.nodes[g]) ? g : D.root;
+  const next = (g && D.nodes[g]) ? g : D.root;
+  if (next !== cur) depth = 1;   // depth is relative to the selected node
+  cur = next;
   if (f && (f === 'score' || METRICS.some(m=>m.k===f))) focus = f;
   el('focus').value = focus;
   if (sortKey !== focus) { sortKey = focus; sortDir = -1; }
@@ -225,7 +242,7 @@ function writeHash(){
   if (changed) location.hash = h;   // fires hashchange -> fromHash -> render
   return changed;
 }
-const go = id => { cur = id; if (!writeHash()) render(); };
+const go = id => { if (id !== cur) depth = 1; cur = id; if (!writeHash()) render(); };
 
 function prevMonth(m){
   const i = D.complete_months.indexOf(m);
@@ -427,17 +444,54 @@ const COLS = [
   {k:'code_coverage',   label:'Cov %',      good:'hi', fmt:v=>v.toFixed(0)},
 ];
 
+// Descendants exactly `d` levels below `g`, flattened. Depth 1 is its own children.
+function atDepth(g, d){
+  if (d <= 0) return [g];
+  return D.nodes[g].children.flatMap(c=>atDepth(c, d-1));
+}
+function maxDepth(g){
+  const kids = D.nodes[g].children;
+  return kids.length ? 1 + Math.max(...kids.map(maxDepth)) : 0;
+}
+// Label for the level found at a given depth. Every depth in this hierarchy is
+// level-uniform, so the first descendant's level names the whole row set.
+function depthLabel(g, d){
+  const ids = atDepth(g, d);
+  if (!ids.length) return '';
+  const lv = [...new Set(ids.map(i=>D.nodes[i].level))];
+  const name = l => ({'PRODUCT-LINE':'Product lines','TRIBE':'Tribes','DOMAIN':'Domains',
+                      'SQUAD':'Squads','PLATFORM':'Platform'}[l] || l);
+  return lv.length === 1 ? name(lv[0]) : 'Mixed';
+}
+// Path from `node` down to `g`, excluding both ends — the context a flattened row loses.
+function relPath(g, rootId){
+  const chain = [];
+  for (let p = D.nodes[g].parent; p && p !== rootId; p = D.nodes[p].parent)
+    chain.unshift(D.nodes[p].name);
+  return chain.join(' / ');
+}
+
 function drawChildren(node){
-  const kids = node.children;
-  const cap = el('childCap'), tbl = el('tbl');
-  if (!kids.length) {
+  const cap = el('childCap'), tbl = el('tbl'), dc = el('depthctl');
+  const md = maxDepth(cur);
+  if (!md) {
     cap.textContent = 'Sub-teams';
+    dc.innerHTML = '';
     tbl.querySelector('thead').innerHTML = '';
     tbl.querySelector('tbody').innerHTML =
       `<tr><td class="leaf" style="padding:1rem 0.6rem">${node.name} is a squad — no sub-teams below it.</td></tr>`;
     return;
   }
+  depth = Math.min(Math.max(1, depth), md);
+  const kids = atDepth(cur, depth);
   cap.textContent = `Sub-teams of ${node.name} · ${kids.length}`;
+
+  dc.innerHTML =
+    `<button id="dUp" ${depth<=1?'disabled':''} title="Roll up one level">− roll up</button>` +
+    `<span class="lvl-hint">${depthLabel(cur, depth)}${depth>1?` · +${depth-1}`:''}</span>` +
+    `<button id="dDown" ${depth>=md?'disabled':''} title="Flatten one level deeper">+ drill down</button>`;
+  dc.querySelector('#dUp').onclick   = () => { depth--; render(); };
+  dc.querySelector('#dDown').onclick = () => { depth++; render(); };
 
   const rows = kids.map(g=>{
     const n = D.nodes[g], s = n.series[month];
@@ -478,8 +532,9 @@ function drawChildren(node){
       const bar = c.bar ? `<span class="bar"><i style="width:${Math.min(100,c.bar(v)*100)}%;background:${col}"></i></span>` : '';
       return `<td class="num${focus===c.k?' on':''}"><span class="cell">${bar}<span style="color:${col};font-weight:600">${c.fmt(v)}</span>${paren}</span></td>`;
     }).join('');
+    const ctx = depth > 1 ? `<span class="ppath">${relPath(r.g, cur)}</span>` : '';
     return `<tr class="${r.kids?'drill':''}" data-g="${r.g}">
-      <td class="tname">${r.name}<span class="lvl">${r.level}${r.kids?` · ${r.kids}`:''}</span></td>${cells}</tr>`;
+      <td class="tname">${r.name}<span class="lvl">${r.level}${r.kids?` · ${r.kids}`:''}</span>${ctx}</td>${cells}</tr>`;
   }).join('');
 
   tbl.querySelectorAll('th').forEach(th=>th.onclick=()=>{
