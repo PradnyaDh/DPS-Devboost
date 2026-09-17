@@ -4,9 +4,8 @@ Drill-down dashboard for DevBoost scores across Logistics. Select any team from 
 platform root down to a squad, see its scorecard, compare its sub-teams side by side.
 
 - Repo: `deliveryhero/log-devboost-explorer` (internal). Direct pushes to `main` work.
-- Live: https://legendary-robot-l67woe7.pages.github.io/ — private Pages, requires DH
-  GitHub org login. The obfuscated hostname is GitHub-generated and would change if the
-  site were ever made public.
+- Live: https://logistics-devboost.deliveryhero.net — private Pages, requires DH GitHub
+  org login. Anonymous requests get GitHub's login wall, not the data.
 
 An earlier `deliveryhero/devboost-explorer` was abandoned: it inherited the org's
 `global-branch-protection` ruleset, which required an approving review and had zero
@@ -191,15 +190,16 @@ Two things worth knowing if you touch it:
   itself does not work — percentage translates resolve against the rotated box, so the
   plane wanders off-screen.
 
-## Pending: custom domain
+## Custom domain
 
-[dh-cloudflare-dns-tf#4103](https://github.com/deliveryhero/dh-cloudflare-dns-tf/pull/4103)
-adds a CNAME for `logistics-devboost.deliveryhero.net` -> `deliveryhero.github.io`,
-applied by #gdp-support after review. Once DNS resolves, **in this order**:
+Serving from `logistics-devboost.deliveryhero.net` since 2026-09-17. CNAME added by
+#gdp-support via [dh-cloudflare-dns-tf#4103](https://github.com/deliveryhero/dh-cloudflare-dns-tf/pull/4103),
+pointing at the org-level `deliveryhero.github.io`; routing to this repo comes from
+`web/CNAME`, which sits in `web/` because that is the directory the workflow publishes.
 
-1. `echo logistics-devboost.deliveryhero.net > CNAME`, commit, PR, merge
-2. Settings -> Pages -> Custom domain, then enforce HTTPS
-
-Order matters: Pages stops serving the generated `pages.github.io` hostname the moment a
-custom domain is configured, so step 1 first breaks the working URL until DNS is live.
-Precedent for private Pages on a DH domain: `promptdelivery.deliveryhero.net`.
+Order matters if this is ever redone: confirm DNS resolves *before* setting the custom
+domain, because Pages stops serving the generated `*.pages.github.io` hostname the
+moment one is configured. Note the `CNAME` file alone does not register the domain when
+the Pages source is a workflow — set it with
+`gh api -X PUT repos/OWNER/REPO/pages -f cname=...`, then enable `https_enforced` once
+`.https_certificate.state` reads `approved`.
