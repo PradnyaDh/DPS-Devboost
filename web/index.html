@@ -246,20 +246,13 @@ const DEVBOOST_PAGE = 'EojEF';
 const DEVBOOST_SRC = 'm1Y11HWY8Dw';
 const SEP = '\ue000';
 const dsFilter = v => `include${SEP}0${SEP}IN${SEP}${v}`;
-// The report's period filters take a quarter, e.g. "2026'Q1".
-function quarterOf(m){
-  const [y, mo] = m.split('-').map(Number);
-  return `${y}'Q${Math.floor((mo-1)/3)+1}`;
-}
-function devboostUrl(node, m){
+function devboostUrl(node){
   if (!node.raw) return null;
   // Contributor + bot filters are carried over from the report's own defaults so the
   // numbers match what someone sees when they open it themselves.
   const contributors = dsFilter('Contributor: PRs created by team contributors (humans + HeroGen)');
-  const q = dsFilter(quarterOf(m || month));
   const params = {
     df53: contributors, df55: contributors, df145: contributors,
-    df105: q, df117: q,
     df207: dsFilter('Human' + SEP + 'HeroGen'),
     df249: dsFilter(node.raw),
   };
@@ -451,7 +444,7 @@ function drawProv(node){
     ['Repositories & services', DEVHUB + sl + '/owned-applications'],
     ['Members', DEVHUB + sl + '/members'],
     ['DevHub group', DEVHUB + sl],
-    [`DevBoost dashboard · ${quarterOf(month)}`, devboostUrl(node, month) || 'https://datastudio.google.com/s/' + DEVBOOST_SRC],
+    ['DevBoost dashboard', devboostUrl(node) || 'https://datastudio.google.com/s/' + DEVBOOST_SRC],
     ['Score methodology', 'https://deliveryhero.atlassian.net/wiki/spaces/techfoundations/pages/231211183/DevBoost+DevBoost+score'],
   ];
   const rows = METRICS.map(m=>{

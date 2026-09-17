@@ -76,9 +76,12 @@ filter in one JSON `params` object:
 | Param | Filter |
 |---|---|
 | `df249` | team — matches `hierarchy_full_display_name` **exactly** |
-| `df105`, `df117` | period, as a quarter string like `2026'Q1` |
 | `df53`, `df55`, `df145` | contributor scope |
 | `df207` | Human / HeroGen |
+
+`df105`/`df117` take a quarter (`2026'Q1`) but the report ignores them — it resets
+them in the URL and renders whatever its own date control says — so the generated
+link does not pass them.
 
 `df249` is why the snapshot carries `raw_hierarchy` untouched as each node's `raw`:
 the display path shown in the UI is stripped of its `[LEVEL]` prefix and `(slug)`
@@ -86,9 +89,15 @@ suffix, but the filter needs the original string. Report id, page id and the `s=
 source were taken from a working link; verified by regenerating that link and
 comparing decoded params field by field.
 
-Not verified: whether the filter accepts a `[SQUAD]`-level value. The reference link
-was a product line, so squad-level links may land unfiltered if that filter is fed
-from a coarser field.
+Verified end to end by loading a generated squad link in a browser: the report's
+filter bar showed `[SQUAD] Logistics / Rider / Deliveries / Rider Fundamentals /
+Rider Experience (rider-experience)` and every metric matched this repo's snapshot
+for that squad.
+
+One difference to expect: the report opens on its own date range, which includes the
+current partial month, while this explorer excludes partial months. So the same squad
+can read e.g. 57.4 here (last complete month) and 68% there (current month, part-way
+through). Same data, different period.
 
 ## Known upstream bugs, surfaced not fixed
 
