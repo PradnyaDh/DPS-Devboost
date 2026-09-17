@@ -136,8 +136,25 @@ The snapshot carries a corrected `n_code_coverage_fixed` alongside the official 
 and the UI shows the real coverage bar with a warning. Evidence:
 `docs/coverage-scale-defect.html`.
 
-**Missing metrics impute to 0.5**, silently scoring a team 50% on that metric and
-looking identical to a real middling score. Flagged per row as `has_imputed_metric`.
+**Missing metrics impute to 0.5**, scoring a team 50% on that metric rather than leaving
+it blank. Detect it by a **null raw value alongside a normalized value of exactly 0.5** —
+imputation replaces the null, so the normalized column is never null and testing that
+column alone silently finds nothing. The snapshot carries `has_imputed_metric` and
+`imputed_count`; the UI badges the count on the hero, labels affected metric cards
+"imputed", and marks child rows.
+
+In Aug 2026, 6 of the 65 nodes in this snapshot have at least one imputed metric.
+`Data & ML` (domain) and `Machine Learning Platform` (squad) each have **4 of 9**,
+including all three PR metrics — 45 points of the composite. Their published scores
+(43.7 and 33.7) are substantially synthetic. Company-wide the worst case is
+`Data Science Service` at 7 of 9.
+
+**The PR gap has a likely cause: squad rosters disagree between systems.** DevBoost knows
+only `Machine Learning Platform` under the Data & ML domain. The Logistics AI adoption
+tracker attributes all 13 Data & ML repos — 752 PRs — to a `Data Engineering` squad that
+DevBoost has no row for. So the PR activity is real and visible in the tracker while
+absent from DevBoost, which then imputes. Worth chasing as a DevHub registration gap
+rather than a pipeline fault.
 
 Neither has been raised with Tech Foundations, who own the methodology. That's
 deliberate and Brad's call to make.

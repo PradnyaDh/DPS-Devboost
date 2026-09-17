@@ -38,6 +38,10 @@
   .crumb.here:hover { background:none; }
   .sep { color:var(--muted); }
 
+  .imp { display:inline-block; font-size:0.62rem; text-transform:uppercase;
+         letter-spacing:0.07em; font-weight:700; color:var(--red);
+         border:1px solid var(--red); border-radius:4px; padding:0.04rem 0.28rem;
+         vertical-align:0.08em; cursor:help; }
   .wip { display:inline-block; font-size:0.62rem; text-transform:uppercase;
          letter-spacing:0.07em; font-weight:700; color:var(--amber);
          border:1px solid var(--amber); border-radius:4px; padding:0.04rem 0.28rem;
@@ -98,6 +102,7 @@
   .m-w { font-size:0.64rem; color:var(--muted); opacity:0.75; }
   .m-val { font-size:1.15rem; font-weight:700; margin:0.35rem 0 0.1rem; letter-spacing:-0.02em; }
   .m-pts { font-size:0.72rem; color:var(--muted); }
+  .m-imp { font-size:0.85rem; font-weight:600; color:var(--red); letter-spacing:0; }
   .m-d { font-size:0.75rem; font-weight:650; opacity:0.8; letter-spacing:0; }
   .track { height:5px; background:var(--surface2); border-radius:99px; overflow:hidden; margin-top:0.5rem; }
   .fill { height:100%; border-radius:99px; }
@@ -135,6 +140,9 @@
   .depthctl button:hover:not(:disabled) { color:var(--text); border-color:var(--accent); }
   .depthctl button:disabled { opacity:0.4; cursor:default; }
   .depthctl .lvl-hint { font-size:0.72rem; color:var(--muted); min-width:5.5rem; }
+  .imp-dot { display:inline-block; margin-left:0.4rem; font-size:0.6rem; font-weight:700;
+             color:var(--red); border:1px solid var(--red); border-radius:3px;
+             padding:0 0.22rem; cursor:help; vertical-align:0.1em; }
   .ppath { display:block; font-size:0.68rem; color:var(--muted); font-weight:400;
            margin-top:1px; letter-spacing:0.01em; }
   .note { font-size:0.75rem; color:var(--muted); background:var(--surface);
@@ -426,6 +434,7 @@ function render(){
 
     let meta = `${node.level.toLowerCase()} · ${month}`;
     if (isPartial(month)) meta += ` <span class="wip">in progress</span>`;
+    if (s.imputed_count) meta += ` <span class="imp" title="${s.imputed_count} of 9 metrics had no source data and were filled in at the 50% midpoint">${s.imputed_count}/9 imputed</span>`;
     if (focus !== 'score') {
       const pts = (s['n_'+focus] ?? 0) * M.w * 100;
       meta += `<br>${pts.toFixed(2)} / ${(M.w*100).toFixed(0)} pts · score ${s.score.toFixed(1)}`;
@@ -606,7 +615,7 @@ function drawMetrics(s, bs){
     const shown = cov ? (s.n_code_coverage_fixed ?? t) : t;
     return `<div class="m${focus===m.k?' on':''}" data-k="${m.k}" title="Focus on ${m.label}">
       <div class="m-top"><span class="m-name">${m.label}</span><span class="m-w">${maxPts}%</span></div>
-      <div class="m-val">${raw==null?'—':m.fmt(raw)}<span class="m-w"> ${m.unit||''}</span>${delta}</div>
+      <div class="m-val">${raw==null?'<span class="m-imp" title="no source data — scored at the 50% midpoint">imputed</span>':m.fmt(raw)}${raw==null?'':`<span class="m-w"> ${m.unit||''}</span>`}${delta}</div>
       <div class="m-pts">${pts.toFixed(2)} / ${maxPts.toFixed(0)} pts${cov?' <span title="DevBoost scales coverage against 100 instead of 1, so this scores ~100x low">⚠</span>':''}</div>
       <div class="track"><div class="fill" style="width:${Math.min(100,shown*100)}%;background:${bucket(shown)}"></div></div>
     </div>`;
@@ -724,8 +733,10 @@ function drawChildren(node){
       return `<td class="num${focus===c.k?' on':''}"><span class="cell">${bar}<span style="color:${col};font-weight:600">${c.fmt(v)}</span>${paren}</span></td>`;
     }).join('');
     const ctx = depth > 1 ? `<span class="ppath">${relPath(r.g, cur)}</span>` : '';
+    const imp = r.s.imputed_count
+      ? `<span class="imp-dot" title="${r.s.imputed_count} of 9 metrics imputed at the 50% midpoint — this score is partly synthetic">${r.s.imputed_count}/9</span>` : '';
     return `<tr class="drill" data-g="${r.g}">
-      <td class="tname">${r.name}<span class="lvl">${r.level}${r.kids?` · ${r.kids}`:''}</span>${ctx}</td>${cells}</tr>`;
+      <td class="tname">${r.name}<span class="lvl">${r.level}${r.kids?` · ${r.kids}`:''}</span>${imp}${ctx}</td>${cells}</tr>`;
   }).join('');
 
   tbl.querySelectorAll('th').forEach(th=>th.onclick=()=>{
@@ -738,8 +749,8 @@ function drawChildren(node){
 
 function drawNotes(node, s){
   const out = [];
-  if (s && s.imputed)
-    out.push('One or more metrics had no source data this month and were imputed at the 0.5 midpoint, which inflates the score toward the middle.');
+  if (s && s.imputed_count)
+    out.push(`<strong>${s.imputed_count} of 9 metrics had no source data</strong> this month and were scored at the 50% midpoint rather than left blank, so this score is partly synthetic and pulled toward the middle. Metrics showing “imputed” above are the affected ones.`);
   if (s && s.code_coverage != null)
     out.push(`Code coverage is scored against a maximum of 100 though the raw value is a fraction, so DevBoost credits this team ${(s.n_code_coverage*5).toFixed(2)} of 5 points instead of ${((s.n_code_coverage_fixed??0)*5).toFixed(2)}. Every team loses roughly the same ~4.7 points, so rankings hold but absolute scores read low.`);
   el('notes').innerHTML = out.map(t=>`<div class="note">${t}</div>`).join('');

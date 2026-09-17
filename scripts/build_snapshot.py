@@ -45,7 +45,8 @@ for r in rows:
                  path=r["label_path"], parent_path=r["parent_path"],
                  raw=r.get("raw_hierarchy"))
     m = {"score": num(r["score"]),
-         "imputed": r["has_imputed_metric"] in (True, "true")}
+         "imputed": r["has_imputed_metric"] in (True, "true"),
+         "imputed_count": int(r.get("imputed_count") or 0)}
     for k in RAW:
         m[k] = num(r.get(k))
     for k in WEIGHTS:

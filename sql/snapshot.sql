@@ -103,11 +103,29 @@ SELECT
   ROUND(normalized_median_pr_reviewtime, 4)         AS n_pr_review_hrs,
   ROUND(normalized_median_pr_lifetime, 4)           AS n_pr_lifetime_hrs,
   ROUND(normalized_focus_nps, 4)                    AS n_focus_nps,
-  -- flags a metric imputed at the 0.5 midpoint because source data was missing
-  (normalized_dev_satisf_nps IS NULL OR normalized_num_bugs_per_engineer IS NULL
-   OR normalized_code_coverage IS NULL OR normalized_code_security IS NULL
-   OR normalized_num_prs_merged_per_engineer IS NULL OR normalized_depl_frequency IS NULL
-   OR normalized_median_pr_reviewtime IS NULL OR normalized_median_pr_lifetime IS NULL
-   OR normalized_focus_nps IS NULL)                 AS has_imputed_metric
+  -- Flags a metric the pipeline imputed at the 0.5 midpoint. Imputation *replaces*
+  -- the null, so the normalized column is never null — the tell is a missing raw
+  -- value alongside a normalized value of exactly 0.5.
+  (  (dev_satisf_nps IS NULL              AND normalized_dev_satisf_nps = 0.5)
+  OR (num_bugs_per_engineer IS NULL       AND normalized_num_bugs_per_engineer = 0.5)
+  OR (code_coverage IS NULL               AND normalized_code_coverage = 0.5)
+  OR (code_security IS NULL               AND normalized_code_security = 0.5)
+  OR (num_prs_merged_per_engineer IS NULL AND normalized_num_prs_merged_per_engineer = 0.5)
+  OR (depl_frequency IS NULL              AND normalized_depl_frequency = 0.5)
+  OR (median_pr_reviewtime IS NULL        AND normalized_median_pr_reviewtime = 0.5)
+  OR (median_pr_lifetime IS NULL          AND normalized_median_pr_lifetime = 0.5)
+  OR (focus_nps IS NULL                   AND normalized_focus_nps = 0.5)
+  )                                                 AS has_imputed_metric,
+  -- how many of the nine were imputed, so "one missing" reads differently from "five"
+  (  CAST(dev_satisf_nps IS NULL              AND normalized_dev_satisf_nps = 0.5 AS INT64)
+   + CAST(num_bugs_per_engineer IS NULL       AND normalized_num_bugs_per_engineer = 0.5 AS INT64)
+   + CAST(code_coverage IS NULL               AND normalized_code_coverage = 0.5 AS INT64)
+   + CAST(code_security IS NULL               AND normalized_code_security = 0.5 AS INT64)
+   + CAST(num_prs_merged_per_engineer IS NULL AND normalized_num_prs_merged_per_engineer = 0.5 AS INT64)
+   + CAST(depl_frequency IS NULL              AND normalized_depl_frequency = 0.5 AS INT64)
+   + CAST(median_pr_reviewtime IS NULL        AND normalized_median_pr_reviewtime = 0.5 AS INT64)
+   + CAST(median_pr_lifetime IS NULL          AND normalized_median_pr_lifetime = 0.5 AS INT64)
+   + CAST(focus_nps IS NULL                   AND normalized_focus_nps = 0.5 AS INT64)
+  )                                                 AS imputed_count
 FROM joined
 ORDER BY label_path, month
