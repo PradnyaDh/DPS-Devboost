@@ -169,18 +169,27 @@ adoption. Carried through the snapshot, unused by the UI.
 
 ## The Adam mode
 
-`#foradam` in the hash pins the page dark and adds a "Switch to light mode" button
-that declines, revealing a 3D crawl of AI slop about the singularity, HuggingFace and
-unused AOL chatrooms. An in-joke about AI tools only shipping unreadable dark mode.
+An in-joke about AI tools only ever shipping unreadable dark mode. An "Enter Adam mode"
+button sits at 34% opacity in the dead space between the two footer notes, costing no
+vertical room. Clicking it adds `foradam` to the hash, which redefines the colour tokens
+to a deliberately washed-out dark palette and hides the door. The "Switch to light mode"
+button that then appears declines, revealing a 3D crawl of AI slop about the singularity,
+HuggingFace and unused AOL chatrooms.
 
-Off unless the URL asks for it — nobody else ever sees it, and it touches no data or
-view state. The param survives navigation so shared links keep it. Respects
-`prefers-reduced-motion`.
+One-way from the UI: nothing on the page turns it off, though editing the URL still
+works — it is a joke, not a trap, and a curious colleague should be able to get their
+dashboard back. View state survives the transition. Respects `prefers-reduced-motion`.
 
-Geometry note if you ever touch the crawl: anchor the rotated plane to the viewport
-with `inset:0` and rotate about its centre, then scroll an inner track in pixels.
-Animating the rotated plane itself does not work — percentage translates resolve
-against the rotated box, so the plane wanders off-screen.
+Two things worth knowing if you touch it:
+
+- **Commit the theme through the tokens**, not through `body`. Patching `body` alone
+  leaves every card, table and control on the light palette. The `:root[data-adam]`
+  block redefines the full set, and the light media query is guarded with
+  `:not([data-adam])` so an explicit request beats the OS preference.
+- **Crawl geometry**: anchor the rotated plane to the viewport with `inset:0` and rotate
+  about its centre, then scroll an inner track in pixels. Animating the rotated plane
+  itself does not work — percentage translates resolve against the rotated box, so the
+  plane wanders off-screen.
 
 ## Pending: custom domain
 

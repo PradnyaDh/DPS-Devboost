@@ -13,12 +13,24 @@
   }
   /* ── the Adam mode ────────────────────────────────────────────────
      A running joke: AI tools only ever ship unreadable dark mode. With
-     #foradam the page commits to dark and offers a "light mode" switch
-     that does not deliver light mode. Off by default; nobody sees it
-     unless the URL asks for it. */
-  html[data-adam] body { background:#0b0d11 !important; color:#c8d3e0 !important; }
+     #foradam the page commits to dark — and commits properly, by
+     redefining the tokens rather than patching body, so every surface,
+     border and table follows. Deliberately low contrast: that is the
+     joke. Off by default; nobody sees it unless the URL asks. */
+  :root[data-adam] .m-imp,
+  :root[data-adam] .imp,
+  :root[data-adam] .imp-dot { color:#7e3b3b !important; border-color:#7e3b3b !important; }
+  :root[data-adam] .wip { color:#7a6330 !important; border-color:#7a6330 !important; }
+  :root[data-adam] .prov-links a { color:#4a5570 !important; }
+  :root[data-adam] a { color:#4a5570; }
+  :root[data-adam] {
+    --bg:#07090c; --surface:#0d1014; --surface2:#11151b; --border:#191e26;
+    --text:#8e9aa8; --muted:#55606e; --accent:#3f4a8a;
+    --red:#7e3b3b; --amber:#7a6330; --green:#2f5c42;
+    --b1:#6e2d2d; --b2:#7a4a26; --b3:#6f6128; --b4:#4c6330; --b5:#2c5940;
+  }
   @media (prefers-color-scheme: light) {
-    :root { --bg:#f8fafc; --surface:#fff; --surface2:#f1f5f9; --border:#e2e8f0;
+    :root:not([data-adam]) { --bg:#f8fafc; --surface:#fff; --surface2:#f1f5f9; --border:#e2e8f0;
             --text:#0f172a; --muted:#64748b; }
   }
   * { box-sizing:border-box; margin:0; padding:0; }
@@ -158,14 +170,32 @@
            font-size:0.72rem; color:var(--muted); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
   a { color:var(--accent); }
   /* ── Adam mode: the toggle ───────────────────────────────────── */
+  /* The entry door. Lives in the dead space between the two footer notes so it
+     costs no vertical room — quiet enough to miss, findable if you look. */
+  #adamDoor {
+    background:none; border:none; cursor:pointer;
+    font:inherit; font-size:inherit; line-height:inherit;
+    color:var(--muted); opacity:0.34; letter-spacing:0.04em;
+    padding:0; margin:0 1rem; white-space:nowrap; border-radius:4px;
+    transition:opacity 0.25s ease, color 0.25s ease, letter-spacing 0.35s ease;
+  }
+  #adamDoor:hover, #adamDoor:focus-visible {
+    opacity:1; color:var(--text); letter-spacing:0.11em;
+  }
+  #adamDoor:focus-visible { outline:1px solid var(--accent); outline-offset:3px; }
+  /* once through, the door is gone */
+  :root[data-adam] #adamDoor { display:none; }
+
   #adamToggle {
-    position:fixed; right:1rem; bottom:1rem; z-index:40;
-    background:#151922; color:#8fa3bd; border:1px solid #2a3140;
+    position:fixed; right:1.1rem; bottom:1.1rem; z-index:40;
+    background:#0d1014; color:#55606e; border:1px solid #191e26;
     border-radius:999px; padding:0.5rem 0.9rem; font:inherit; font-size:0.78rem;
     cursor:pointer; box-shadow:0 4px 18px rgba(0,0,0,0.45);
     transition:transform 0.18s ease, color 0.18s ease, border-color 0.18s ease;
   }
-  #adamToggle:hover { color:#dce6f2; border-color:#3d4a60; transform:translateY(-1px); }
+  #adamToggle:hover { color:#8e9aa8; border-color:#2a3140; transform:translateY(-1px); }
+  /* only Adam mode has a floating button to clear */
+  :root[data-adam] body { padding-bottom:5.5rem; }
   #adamToggle.arming { animation:adam-jitter 0.28s steps(2) 6; color:#ffd166; border-color:#ffd166; }
   @keyframes adam-jitter {
     0%{transform:translate(0,0) rotate(0)} 25%{transform:translate(-2px,1px) rotate(-1.5deg)}
@@ -331,6 +361,7 @@
 
   <footer>
     <div>Source: <code>fulfillment-dwh-production.curated_data_shared_psf.devboost_overall_monthly_score</code></div>
+    <button id="adamDoor" title="There is no way back from here.">Enter Adam mode</button>
     <div id="gen"></div>
   </footer>
 </div>
@@ -483,6 +514,15 @@ const TICKS = [
 function adamEnabled(){ return new URLSearchParams(location.hash.slice(1)).has('foradam'); }
 
 function initAdam(){
+  // The door is always present; it is the only way in from the UI, and there is
+  // no matching way out — editing the URL is the only exit.
+  const door = el('adamDoor');
+  if (door) door.onclick = () => {
+    const q = new URLSearchParams(location.hash.slice(1));
+    q.set('foradam','');
+    location.hash = q.toString().replace(/%3A/g,':').replace(/(^|&)foradam=(&|$)/,'$1foradam$2');
+    initAdam();   // hashchange re-renders; this picks up the new param
+  };
   if (!adamEnabled()) return;
   document.documentElement.setAttribute('data-adam','');
   const btn = el('adamToggle'), stage = el('singularity');
@@ -951,7 +991,7 @@ function drawNotes(node, s){
   if (s && s.imputed_count)
     out.push(`<strong>${s.imputed_count} of 9 metrics had no source data</strong> this month and were scored at the 50% midpoint rather than left blank, so this score is partly synthetic and pulled toward the middle. Metrics showing “imputed” above are the affected ones.`);
   if (s && s.code_coverage != null)
-    out.push(`Code coverage is scored against a maximum of 100 though the raw value is a fraction, so DevBoost credits this team ${(s.n_code_coverage*5).toFixed(2)} of 5 points instead of ${((s.n_code_coverage_fixed??0)*5).toFixed(2)}. Every team loses roughly the same ~4.7 points, so rankings hold but absolute scores read low.`);
+    out.push(`Code coverage is scored against a maximum of 100 though the raw value is a fraction, so DevBoost credits this team ${(s.n_code_coverage*5).toFixed(2)} of 5 points instead of ${((s.n_code_coverage_fixed??0)*5).toFixed(2)}. The loss equals each team's actual coverage, so it is not uniform — it penalises well-tested teams hardest and does reorder rankings.`);
   el('notes').innerHTML = out.map(t=>`<div class="note">${t}</div>`).join('');
 }
 </script>
