@@ -38,6 +38,10 @@
   .crumb.here:hover { background:none; }
   .sep { color:var(--muted); }
 
+  .wip { display:inline-block; font-size:0.62rem; text-transform:uppercase;
+         letter-spacing:0.07em; font-weight:700; color:var(--amber);
+         border:1px solid var(--amber); border-radius:4px; padding:0.04rem 0.28rem;
+         vertical-align:0.08em; }
   .prov { margin:-0.4rem 0 1rem; font-size:0.8rem; }
   .prov > summary { cursor:pointer; color:var(--muted); font-size:0.75rem;
                     list-style:none; display:inline-flex; align-items:center; gap:0.35rem; }
@@ -285,7 +289,12 @@ let D, cur, month, cmpMode='prev', sortKey='score', sortDir=-1, focus='score', d
 fetch('data/snapshot.json').then(r=>r.json()).then(d=>{
   D = d; cur = d.root;
   const ms = d.complete_months;
-  el('month').innerHTML = ms.map(m=>`<option${m===d.latest?' selected':''}>${m}</option>`).join('');
+  // The in-progress month is selectable but never the default: its cumulative
+  // metrics (PRs, deployments) are part-way through and read low.
+  const pickable = d.partial_month ? [...ms, d.partial_month] : ms;
+  el('month').innerHTML = pickable.map(m=>
+    `<option value="${m}"${m===d.latest?' selected':''}>${m}${m===d.partial_month?' (in progress)':''}</option>`
+  ).join('');
   month = d.latest;
   el('focus').innerHTML = `<option value="score">Overall DevBoost score</option>` +
     METRICS.map(m=>`<option value="${m.k}">${m.label}</option>`).join('');
@@ -307,6 +316,7 @@ fetch('data/snapshot.json').then(r=>r.json()).then(d=>{
 // exactly what the sender was looking at. Only non-defaults are written, so a
 // plain drill-down stays short: #team=group:log-deliveries
 const DEFAULTS = {focus:'score', depth:1, cmp:'prev'};
+const isPartial = m => m === D.partial_month;
 
 function fromHash(){
   const raw = location.hash.slice(1);
@@ -326,7 +336,7 @@ function fromHash(){
   focus = (f === 'score' || METRICS.some(m=>m.k===f)) ? f : DEFAULTS.focus;
 
   const m = q.get('month');
-  month = (m && D.complete_months.includes(m)) ? m : D.latest;
+  month = (m && D.months.includes(m)) ? m : D.latest;
 
   const c = q.get('cmp');
   cmpMode = ['prev','first','none'].includes(c) ? c : DEFAULTS.cmp;
@@ -375,8 +385,8 @@ function writeHash(){
 const go = id => { if (id !== cur) depth = 1; cur = id; if (!writeHash()) render(); };
 
 function prevMonth(m){
-  const i = D.complete_months.indexOf(m);
-  return i > 0 ? D.complete_months[i-1] : null;
+  const i = D.months.indexOf(m);
+  return i > 0 ? D.months[i-1] : null;
 }
 function baseline(node){
   if (cmpMode === 'none') return null;
@@ -415,6 +425,7 @@ function render(){
     el('score').style.color = hue(focus === 'code_coverage' ? (s.n_code_coverage_fixed ?? t) : t);
 
     let meta = `${node.level.toLowerCase()} · ${month}`;
+    if (isPartial(month)) meta += ` <span class="wip">in progress</span>`;
     if (focus !== 'score') {
       const pts = (s['n_'+focus] ?? 0) * M.w * 100;
       meta += `<br>${pts.toFixed(2)} / ${(M.w*100).toFixed(0)} pts · score ${s.score.toFixed(1)}`;
@@ -472,10 +483,13 @@ function drawProv(node){
 
 function drawSpark(node){
   const M = metricByKey(focus);
-  const ms = D.complete_months.filter(m=>node.series[m] && node.series[m][focus] != null);
+  const all = D.partial_month ? [...D.complete_months, D.partial_month] : D.complete_months;
+  const ms = all.filter(m=>node.series[m] && node.series[m][focus] != null);
+  const pIdx = ms.indexOf(D.partial_month);   // -1 when this team has no partial data
   const svg = el('spark'), tip = el('tip');
   tip.hidden = true;
   el('trendCap').textContent = `${M.label} · ${ms.length} month${ms.length===1?'':'s'}` +
+    (pIdx >= 0 ? ` · ${D.partial_month} in progress` : '') +
     (M.good === 'lo' ? ' · lower is better' : '');
   if (ms.length < 2) {
     svg.removeAttribute('viewBox');
@@ -491,6 +505,10 @@ function drawSpark(node){
   const x = i => padX + i*(W-2*padX)/(ms.length-1);
   const y = v => H-padB - (v-lo)/(hi-lo)*(H-padT-padB);
   const pts = vals.map((v,i)=>`${x(i)},${y(v)}`).join(' ');
+  // solid through the last complete month; dashed into the in-progress one
+  const solidEnd = pIdx > 0 ? pIdx - 1 : ms.length - 1;
+  const solidPts = vals.slice(0, solidEnd+1).map((v,i)=>`${x(i)},${y(v)}`).join(' ');
+  const dashPts = pIdx > 0 ? `${x(pIdx-1)},${y(vals[pIdx-1])} ${x(pIdx)},${y(vals[pIdx])}` : '';
   const ci = ms.indexOf(month);
 
   // Label about every third month, always including first and last, so 18 months
@@ -526,7 +544,9 @@ function drawSpark(node){
     ${zero}
     <line x1="${padX}" y1="${H-padB}" x2="${W-padX}" y2="${H-padB}" stroke="var(--border)" stroke-width="1"/>
     ${ticks}
-    <polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>
+    <polyline points="${solidPts}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>
+    ${dashPts?`<polyline points="${dashPts}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3" opacity="0.75"/>
+               <circle cx="${x(pIdx)}" cy="${y(vals[pIdx])}" r="3.5" fill="var(--bg)" stroke="var(--accent)" stroke-width="2"/>`:''}
     ${ci>=0?`<line id="selLine" x1="${x(ci)}" y1="${padT}" x2="${x(ci)}" y2="${H-padB}" stroke="var(--border)" stroke-width="1"/>
              <circle cx="${x(ci)}" cy="${y(vals[ci])}" r="4" fill="var(--accent)"/>`:''}
     <line id="hoverLine" x1="0" y1="${padT}" x2="0" y2="${H-padB}" stroke="var(--accent)" stroke-width="1" opacity="0"/>
@@ -549,7 +569,7 @@ function drawSpark(node){
       const col = d===0 ? 'var(--muted)' : better ? 'var(--green)' : 'var(--red)';
       delta = ` <span class="d" style="color:${col}">${d>=0?'+':''}${M.fmt(d)}</span>`;
     }
-    tip.innerHTML = `${ms[i]} · <b>${M.fmt(vals[i])}${M.unit?' '+M.unit:''}</b>${delta}`;
+    tip.innerHTML = `${ms[i]}${isPartial(ms[i])?' <span class="wip">in progress</span>':''} · <b>${M.fmt(vals[i])}${M.unit?' '+M.unit:''}</b>${delta}`;
     tip.hidden = false;
     // position in CSS pixels: the viewBox scales to the rendered width
     const box = svg.getBoundingClientRect();
@@ -654,7 +674,8 @@ function drawChildren(node){
   }
   depth = Math.min(Math.max(1, depth), md);
   const kids = atDepth(cur, depth);
-  cap.textContent = `Sub-teams of ${node.name} · ${kids.length}`;
+  cap.textContent = `Sub-teams of ${node.name} · ${kids.length}`
+    + (isPartial(month) ? ` · ${month} in progress` : '');
 
   dc.innerHTML =
     `<button id="dUp" ${depth<=1?'disabled':''} title="Roll up one level">− roll up</button>` +

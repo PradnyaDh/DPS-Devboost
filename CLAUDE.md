@@ -64,8 +64,13 @@ labels come from each group's most recent path. Where one path maps to several i
 rename where the old id stopped reporting), the longest-lived id wins. Data starts
 2025-03 and the hierarchy only settled ~2025-06; one pre-reorg orphan is dropped.
 
-**The current month is partial** and excluded from trends and the month picker. A
-partial month rendered beside full ones reads as a drop that isn't real.
+**The current month is partial** and never the default, but it is selectable and
+visible — marked "in progress" on the hero, in the trend caption and on the sub-teams
+heading, and drawn as a dashed segment with a hollow point on the chart. Its
+cumulative metrics (PRs merged, deployments) are part-way through and read low, while
+medians and NPS are already meaningful, so the composite is biased downward rather
+than merely noisy. It is selectable because the official DevBoost report defaults to
+a range including it, so reconciling the two requires being able to view it.
 
 ## Linking out to the official DevBoost report
 
@@ -95,9 +100,9 @@ Rider Experience (rider-experience)` and every metric matched this repo's snapsh
 for that squad.
 
 One difference to expect: the report opens on its own date range, which includes the
-current partial month, while this explorer excludes partial months. So the same squad
-can read e.g. 57.4 here (last complete month) and 68% there (current month, part-way
-through). Same data, different period.
+current partial month, while this explorer defaults to the last complete one. Select
+the in-progress month here to reconcile — verified for Customer Product Line, where
+all eleven metrics and the score match the report exactly for 2026-09.
 
 ## Known upstream bugs, surfaced not fixed
 
