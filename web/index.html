@@ -267,9 +267,9 @@ function devboostUrl(node){
 // group_id is "group:<slug>"; DevHub routes on the bare slug
 const slug = gid => gid.replace(/^group:/, '');
 const metricByKey = k => k==='score' ? OVERALL : METRICS.find(m=>m.k===k);
-const hue = t => t>=.75 ? 'var(--green)' : t>=.45 ? 'var(--amber)' : 'var(--red)';
-// Five buckets on share-of-points-earned, red -> green. Absolute, not relative to
-// siblings: a column where every team is weak should read red across the board.
+// Five buckets on share-of-points-earned, red -> green, used everywhere a value is
+// coloured. Absolute, not relative to siblings: a column where every team is weak
+// should read red across the board.
 const BUCKETS = ['var(--b1)','var(--b2)','var(--b3)','var(--b4)','var(--b5)'];
 const bucket = t => BUCKETS[Math.min(4, Math.max(0, Math.floor(t*5)))];
 // Share of the column's available points for one team-row.
@@ -422,7 +422,7 @@ function render(){
     el('score').innerHTML = M.fmt(v) + (M.unit ? `<span style="font-size:1.1rem;color:var(--muted)"> ${M.unit}</span>` : '');
     // colour by normalized credit so it reads the same way as the metric cards
     const t = focus === 'score' ? v/100 : (s['n_'+focus] ?? 0);
-    el('score').style.color = hue(focus === 'code_coverage' ? (s.n_code_coverage_fixed ?? t) : t);
+    el('score').style.color = bucket(focus === 'code_coverage' ? (s.n_code_coverage_fixed ?? t) : t);
 
     let meta = `${node.level.toLowerCase()} · ${month}`;
     if (isPartial(month)) meta += ` <span class="wip">in progress</span>`;
@@ -608,7 +608,7 @@ function drawMetrics(s, bs){
       <div class="m-top"><span class="m-name">${m.label}</span><span class="m-w">${maxPts}%</span></div>
       <div class="m-val">${raw==null?'—':m.fmt(raw)}<span class="m-w"> ${m.unit||''}</span>${delta}</div>
       <div class="m-pts">${pts.toFixed(2)} / ${maxPts.toFixed(0)} pts${cov?' <span title="DevBoost scales coverage against 100 instead of 1, so this scores ~100x low">⚠</span>':''}</div>
-      <div class="track"><div class="fill" style="width:${Math.min(100,shown*100)}%;background:${hue(shown)}"></div></div>
+      <div class="track"><div class="fill" style="width:${Math.min(100,shown*100)}%;background:${bucket(shown)}"></div></div>
     </div>`;
   }).join('');
   el('metrics').querySelectorAll('.m').forEach(c=>c.onclick=()=>{
