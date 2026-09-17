@@ -652,7 +652,11 @@ function drawChildren(node){
     dc.innerHTML = '';
     tbl.querySelector('thead').innerHTML = '';
     tbl.querySelector('tbody').innerHTML =
-      `<tr><td class="leaf" style="padding:1rem 0.6rem">${node.name} is a squad — no sub-teams below it.</td></tr>`;
+      `<tr><td class="leaf" style="padding:1rem 0.6rem">${node.name} is a ${node.level.toLowerCase()} — nothing below it.
+       Its own metrics are above; <a href="#" id="openProv">where these numbers come from</a> has its repositories and DevBoost view.</td></tr>`;
+    const op = tbl.querySelector('#openProv');
+    if (op) op.onclick = e => { e.preventDefault(); el('prov').open = true;
+                                el('prov').scrollIntoView({block:'nearest', behavior:'smooth'}); };
     return;
   }
   depth = Math.min(Math.max(1, depth), md);
@@ -706,7 +710,7 @@ function drawChildren(node){
       return `<td class="num${focus===c.k?' on':''}"><span class="cell">${bar}<span style="color:${col};font-weight:600">${c.fmt(v)}</span>${paren}</span></td>`;
     }).join('');
     const ctx = depth > 1 ? `<span class="ppath">${relPath(r.g, cur)}</span>` : '';
-    return `<tr class="${r.kids?'drill':''}" data-g="${r.g}">
+    return `<tr class="drill" data-g="${r.g}">
       <td class="tname">${r.name}<span class="lvl">${r.level}${r.kids?` · ${r.kids}`:''}</span>${ctx}</td>${cells}</tr>`;
   }).join('');
 
