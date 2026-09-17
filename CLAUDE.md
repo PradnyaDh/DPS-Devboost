@@ -106,13 +106,29 @@ all eleven metrics and the score match the report exactly for 2026-09.
 
 ## Known upstream bugs, surfaced not fixed
 
-**Code coverage is scored ~100x low.** Raw `code_coverage` is a fraction (0.82 = 82%)
-but normalization divides by max=100, so credit lands at ~0.008 instead of ~0.82 and
-every team loses ~4.7 of 5 points. Rankings are unaffected; absolute scores read low.
+**Code coverage is scored exactly 100x low.** Raw `code_coverage` is a fraction
+(0.82 = 82%) but normalization divides by max=100, so credit lands at ~0.008 instead of
+~0.82. Verified: `raw / normalized` is exactly 100.000000 on all 4,916 real measurements
+across all 19 months and all 11 top-level orgs, zero exceptions; coverage's normalized
+ceiling is 0.01 while every other metric reaches 1.0.
+
+The loss is **not** uniform — it equals each team's actual coverage, so teams at 80-100%
+lose ~4.34 of 5 points while teams under 20% lose ~0.38. **Rankings therefore do move**:
+re-ranking the 198 squads with a coverage measurement reorders 170 of them, largest move
+18 places. (An earlier note here claimed rankings were unaffected. That was wrong — it
+assumed a uniform deduction without checking.)
+
+**The official Looker Studio report inherits the defect.** It displays raw coverage
+correctly as a percentage, but its score field reads `overall_score` from this same
+table, so it shows the same wrong number: for `log-deliveries` 2026-09 the report shows
+60%, matching the broken 60.50 rather than the corrected 64.58. There is no consumer
+holding a correct value. (An earlier note here claimed the report used the correct
+scale; that was inferred from a Claude-generated summary of an export, not from the
+report itself.)
+
 The snapshot carries a corrected `n_code_coverage_fixed` alongside the official value,
-and the UI shows the real coverage bar with a warning. The official Looker Studio
-dashboard appears to use the correct scale, so **the dashboard and the table disagree**
-— this affects every org, not just Logistics.
+and the UI shows the real coverage bar with a warning. Full evidence write-up:
+`docs/coverage-scale-defect.html`.
 
 **Missing metrics impute to 0.5**, silently scoring a team 50% on that metric and
 looking identical to a real middling score. Flagged per row as `has_imputed_metric`.

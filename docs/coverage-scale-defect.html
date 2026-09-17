@@ -1,0 +1,420 @@
+<title>The Coverage Scale Defect</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+  :root {
+    --ground:#fbfaf8;
+    --raised:#ffffff;
+    --ink:#1c1e21;
+    --muted:#6b6660;
+    --faint:#8d8882;
+    --rule:#e3dfd8;
+    --rule-firm:#cdc7be;
+    --evidence:#2c5f8a;
+    --defect:#a8341f;
+    --correct:#3f6b47;
+    --defect-wash:#f7ece9;
+    --correct-wash:#eaf1eb;
+    --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:#16181a;
+      --raised:#1d2023;
+      --ink:#e8e5e0;
+      --muted:#a49e96;
+      --faint:#837d75;
+      --rule:#2c3034;
+      --rule-firm:#3d4247;
+      --evidence:#7fb2da;
+      --defect:#e2806c;
+      --correct:#8ab793;
+      --defect-wash:#2a1d1a;
+      --correct-wash:#1a231c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:#16181a;
+    --raised:#1d2023;
+    --ink:#e8e5e0;
+    --muted:#a49e96;
+    --faint:#837d75;
+    --rule:#2c3034;
+    --rule-firm:#3d4247;
+    --evidence:#7fb2da;
+    --defect:#e2806c;
+    --correct:#8ab793;
+    --defect-wash:#2a1d1a;
+    --correct-wash:#1a231c;
+  }
+
+  * { box-sizing:border-box; }
+  body {
+    margin:0;
+    background:var(--ground);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:17px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet {
+    max-width:78ch;
+    margin:0 auto;
+    padding:4rem 1.5rem 6rem;
+    display:flex;
+    flex-direction:column;
+    gap:2.75rem;
+  }
+
+  /* ── masthead ─────────────────────────────────────────── */
+  header { display:flex; flex-direction:column; gap:1rem; }
+  .kicker {
+    font-family:var(--mono); font-size:0.7rem; font-weight:500;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--muted);
+    display:flex; flex-wrap:wrap; gap:0.5rem 0.9rem; align-items:baseline;
+  }
+  .kicker .sev { color:var(--defect); }
+  h1 {
+    font-family:var(--mono); font-weight:600;
+    font-size:clamp(1.65rem,4.6vw,2.5rem); line-height:1.12;
+    letter-spacing:-0.025em; margin:0; text-wrap:balance;
+  }
+  .standfirst {
+    font-size:1.12rem; color:var(--muted); margin:0; max-width:62ch;
+    text-wrap:pretty;
+  }
+  .verdict {
+    border-left:3px solid var(--defect);
+    background:var(--defect-wash);
+    padding:1rem 1.15rem;
+    display:flex; flex-direction:column; gap:0.45rem;
+  }
+  .verdict p { margin:0; }
+  .verdict .line1 { font-family:var(--mono); font-size:0.95rem; font-weight:500; }
+  .verdict .line2 { font-size:0.95rem; color:var(--muted); }
+
+  /* ── exhibits ─────────────────────────────────────────── */
+  section { display:flex; flex-direction:column; gap:0.9rem; }
+  .ex-head { display:flex; gap:0.85rem; align-items:baseline; border-bottom:1px solid var(--rule-firm); padding-bottom:0.5rem; }
+  .ex-num {
+    font-family:var(--mono); font-size:0.72rem; font-weight:600;
+    letter-spacing:0.1em; color:var(--evidence); flex-shrink:0;
+    padding-top:0.22rem;
+  }
+  h2 {
+    font-family:var(--mono); font-weight:500; font-size:1.02rem;
+    letter-spacing:-0.01em; margin:0; text-wrap:balance;
+  }
+  section > p { margin:0; max-width:64ch; }
+  section > p + p { margin-top:-0.2rem; }
+
+  /* ── formula ──────────────────────────────────────────── */
+  .formula {
+    font-family:var(--mono); font-size:0.88rem; line-height:1.9;
+    background:var(--raised); border:1px solid var(--rule);
+    padding:1rem 1.15rem; overflow-x:auto;
+  }
+  .formula .row { display:flex; gap:0.75rem; white-space:nowrap; }
+  .formula .tag { color:var(--faint); min-width:8.5ch; }
+  .formula .bad { color:var(--defect); font-weight:500; }
+  .formula .good { color:var(--correct); font-weight:500; }
+  .formula em { color:var(--muted); font-style:normal; }
+
+  /* ── tables ───────────────────────────────────────────── */
+  .tbl-wrap { overflow-x:auto; border:1px solid var(--rule); background:var(--raised); }
+  table { width:100%; border-collapse:collapse; font-family:var(--mono); font-size:0.8rem; }
+  caption {
+    caption-side:bottom; text-align:left; padding:0.7rem 0.9rem;
+    font-family:var(--mono); font-size:0.7rem; color:var(--faint);
+    line-height:1.5; border-top:1px solid var(--rule);
+  }
+  th {
+    text-align:left; font-weight:500; font-size:0.66rem; letter-spacing:0.07em;
+    text-transform:uppercase; color:var(--muted); padding:0.6rem 0.9rem;
+    border-bottom:1px solid var(--rule-firm); white-space:nowrap;
+  }
+  td { padding:0.5rem 0.9rem; border-bottom:1px solid var(--rule); vertical-align:baseline; }
+  tr:last-child td { border-bottom:none; }
+  .num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  td.team { font-family:var(--serif); font-size:0.95rem; min-width:22ch; }
+  td.team span { display:block; font-size:0.78rem; color:var(--faint); }
+  .hl-bad { color:var(--defect); font-weight:500; }
+  .hl-good { color:var(--correct); font-weight:500; }
+  tr.is-control td { background:var(--correct-wash); }
+  tr.is-defect td { background:var(--defect-wash); }
+
+  /* ── loss bars ────────────────────────────────────────── */
+  .bands { display:flex; flex-direction:column; gap:0.55rem; }
+  .band { display:grid; grid-template-columns:15ch 1fr 6ch; gap:0.75rem; align-items:center;
+          font-family:var(--mono); font-size:0.76rem; }
+  .band .lbl { color:var(--muted); white-space:nowrap; }
+  .band .track { height:0.65rem; background:var(--rule); position:relative; }
+  .band .fill { position:absolute; inset:0 auto 0 0; background:var(--defect); }
+  .band .val { text-align:right; font-variant-numeric:tabular-nums; color:var(--ink); }
+
+  /* ── closing ──────────────────────────────────────────── */
+  .ask { border-top:2px solid var(--ink); padding-top:1.1rem; display:flex; flex-direction:column; gap:0.7rem; }
+  .ask ol { margin:0; padding-left:1.4rem; display:flex; flex-direction:column; gap:0.45rem; }
+  .ask li { padding-left:0.2rem; }
+  code {
+    font-family:var(--mono); font-size:0.85em;
+    background:var(--raised); border:1px solid var(--rule);
+    padding:0.08em 0.34em;
+  }
+  a { color:var(--evidence); text-decoration-thickness:1px; text-underline-offset:2px; }
+  a:focus-visible { outline:2px solid var(--evidence); outline-offset:2px; }
+  footer {
+    font-family:var(--mono); font-size:0.7rem; color:var(--faint);
+    border-top:1px solid var(--rule); padding-top:1rem; line-height:1.7;
+  }
+  @media (max-width:560px) {
+    .band { grid-template-columns:11ch 1fr 5ch; }
+    .sheet { padding:2.5rem 1.1rem 4rem; }
+  }
+</style>
+
+<div class="sheet">
+
+<header>
+  <div class="kicker">
+    <span class="sev">Data defect</span>
+    <span>DevBoost score</span>
+    <span>Code coverage metric</span>
+    <span>17 Sep 2026</span>
+  </div>
+  <h1>Code coverage is scored 100× too low</h1>
+  <p class="standfirst">
+    The coverage metric is worth 5 of the 100 DevBoost points. Because it is normalized
+    against a maximum of 100 while the underlying value is a fraction, no team has ever
+    earned more than 0.05 of those 5 points — including teams at 94% coverage.
+  </p>
+  <div class="verdict">
+    <p class="line1">All 11 verticals affected · 328 teams · 3.15 points lost on average · 170 of 198 squads company-wide change rank once corrected</p>
+    <p class="line2">The loss is not uniform. It scales with coverage, so the teams with the best test suites are penalized hardest — including Tech Foundations, who own the metric. The official Looker Studio report reads the same column, so it shows the same wrong score.</p>
+  </div>
+</header>
+
+<section>
+  <div class="ex-head"><span class="ex-num">01</span><h2>The two numbers disagree by exactly 100</h2></div>
+  <p>
+    Every row of the score table stores both a raw measurement and the normalized 0–1
+    credit derived from it. For coverage, dividing one by the other gives the same answer
+    on every row ever published — all 19 months, every vertical, no exceptions.
+  </p>
+  <div class="formula">
+    <div class="row"><span class="tag">rows</span><span>4,916 real measurements · 19 months · Mar 2025 – Sep 2026</span></div>
+    <div class="row"><span class="tag">min</span><span class="bad">raw ÷ normalized = 100.000000</span></div>
+    <div class="row"><span class="tag">max</span><span class="bad">raw ÷ normalized = 100.000000</span></div>
+    <div class="row"><span class="tag">outliers</span><span class="bad">0 rows deviate by more than one-millionth</span></div>
+    <div class="row"><span class="tag">spread</span><span><em>zero — not an approximation, a constant</em></span></div>
+  </div>
+  <p>
+    A constant factor of exactly 100 across every row is the signature of a unit error,
+    not of noise or a rounding artifact. The documented formula is min–max normalization
+    with bounds 0% → 100%; the raw value arrives as a fraction where 0.82 means 82%.
+    Dividing by 100 rather than by 1 is the whole defect.
+  </p>
+</section>
+
+<section>
+  <div class="ex-head"><span class="ex-num">02</span><h2>Coverage caps at 1% of its credit; every other metric reaches 100%</h2></div>
+  <p>
+    This is the control that rules out a misreading of the scale. If coverage were simply
+    stored differently, its normalized ceiling would still be 1.0 like its peers. It is not.
+  </p>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th class="num">Highest credit ever awarded</th><th>Behaviour</th></tr>
+      </thead>
+      <tbody>
+        <tr class="is-defect"><td>code_coverage</td><td class="num hl-bad">0.01</td><td class="hl-bad">capped at 1%</td></tr>
+        <tr class="is-control"><td>dev_satisf_nps</td><td class="num hl-good">1.00</td><td class="hl-good">full range</td></tr>
+        <tr class="is-control"><td>num_bugs_per_engineer</td><td class="num hl-good">1.00</td><td class="hl-good">full range</td></tr>
+        <tr class="is-control"><td>code_security</td><td class="num hl-good">1.00</td><td class="hl-good">full range</td></tr>
+        <tr class="is-control"><td>median_pr_lifetime</td><td class="num hl-good">1.00</td><td class="hl-good">full range</td></tr>
+      </tbody>
+      <caption>
+        Maximum <code>normalized_*</code> value across all rows since Mar 2025, restricted to rows
+        with a real measurement. A perfect score on coverage earns 0.05 of 5 points; a perfect
+        score on any other metric earns all of them.
+      </caption>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="ex-head"><span class="ex-num">03</span><h2>Every vertical, same constant</h2></div>
+  <p>
+    Splitting August 2026 by top-level organisation rules out a Logistics-specific
+    pipeline fault. The ratio is exactly 100 in all eleven. What differs is the cost,
+    which tracks each org's average coverage.
+  </p>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Organisation</th><th class="num">Teams</th><th class="num">Avg coverage</th><th class="num">Avg points lost</th><th class="num">Ratio</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>HungerStation</td><td class="num">20</td><td class="num">83.4%</td><td class="num hl-bad">−4.13</td><td class="num">100.0</td></tr>
+        <tr><td>Talabat</td><td class="num">15</td><td class="num">81.5%</td><td class="num hl-bad">−4.03</td><td class="num">100.0</td></tr>
+        <tr><td>FinTech</td><td class="num">16</td><td class="num">79.5%</td><td class="num hl-bad">−3.94</td><td class="num">100.0</td></tr>
+        <tr><td>Consumer</td><td class="num">20</td><td class="num">78.1%</td><td class="num hl-bad">−3.87</td><td class="num">100.0</td></tr>
+        <tr><td>Logistics</td><td class="num">56</td><td class="num">76.9%</td><td class="num hl-bad">−3.80</td><td class="num">100.0</td></tr>
+        <tr><td>Vendor</td><td class="num">47</td><td class="num">74.3%</td><td class="num hl-bad">−3.68</td><td class="num">100.0</td></tr>
+        <tr><td>Pandora</td><td class="num">12</td><td class="num">67.4%</td><td class="num hl-bad">−3.34</td><td class="num">100.0</td></tr>
+        <tr><td>Q-Commerce</td><td class="num">23</td><td class="num">67.2%</td><td class="num hl-bad">−3.33</td><td class="num">100.0</td></tr>
+        <tr class="is-defect"><td>Tech Foundations</td><td class="num">24</td><td class="num">62.0%</td><td class="num hl-bad">−3.07</td><td class="num">100.0</td></tr>
+        <tr><td>Woowa Brothers</td><td class="num">85</td><td class="num">33.0%</td><td class="num hl-bad">−1.63</td><td class="num">100.0</td></tr>
+      </tbody>
+      <caption>
+        Report month 2026-08, teams with a real coverage measurement, grouped by top-level
+        organisation. Ratio is min and max of raw ÷ normalized within each org — identical in
+        all of them. Tech Foundations own the scoring methodology and are affected by it.
+      </caption>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="ex-head"><span class="ex-num">04</span><h2>What it costs ten real teams</h2></div>
+  <p>
+    These are the highest-coverage teams in Logistics for August 2026. The awarded column is
+    what the score table published; the deserved column is the same normalization with the
+    scale corrected.
+  </p>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th class="num">Coverage</th>
+          <th class="num">Points awarded</th>
+          <th class="num">Points deserved</th>
+          <th class="num">Score now</th>
+          <th class="num">Corrected</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="team">Order Processing<span>Rider / Deliveries / Order Management</span></td><td class="num">93.7%</td><td class="num hl-bad">0.05</td><td class="num hl-good">4.69</td><td class="num">73.87</td><td class="num hl-good">78.50</td></tr>
+        <tr><td class="team">Tracking UI<span>Customer PL / Seamless</span></td><td class="num">93.4%</td><td class="num hl-bad">0.05</td><td class="num hl-good">4.67</td><td class="num">36.05</td><td class="num hl-good">40.67</td></tr>
+        <tr><td class="team">Compensation<span>Service / Efficient Service / Actions</span></td><td class="num">91.3%</td><td class="num hl-bad">0.05</td><td class="num hl-good">4.57</td><td class="num">67.32</td><td class="num hl-good">71.84</td></tr>
+        <tr><td class="team">Order Tracking<span>Customer PL / Seamless</span></td><td class="num">91.3%</td><td class="num hl-bad">0.05</td><td class="num hl-good">4.56</td><td class="num">31.02</td><td class="num hl-good">35.54</td></tr>
+        <tr><td class="team">Communications<span>Service / Experience</span></td><td class="num">91.2%</td><td class="num hl-bad">0.05</td><td class="num hl-good">4.56</td><td class="num">38.96</td><td class="num hl-good">43.47</td></tr>
+        <tr><td class="team">Experience<span>Service — tribe</span></td><td class="num">91.0%</td><td class="num hl-bad">0.05</td><td class="num hl-good">4.55</td><td class="num">50.98</td><td class="num hl-good">55.49</td></tr>
+        <tr><td class="team">Seamless — Customer Logistics<span>Customer PL — domain</span></td><td class="num">90.7%</td><td class="num hl-bad">0.05</td><td class="num hl-good">4.53</td><td class="num">35.64</td><td class="num hl-good">40.12</td></tr>
+        <tr><td class="team">HelpCenter<span>Service / Experience</span></td><td class="num">90.6%</td><td class="num hl-bad">0.05</td><td class="num hl-good">4.53</td><td class="num">66.22</td><td class="num hl-good">70.70</td></tr>
+        <tr><td class="team">Optimal Choice<span>Customer PL / Choice</span></td><td class="num">90.2%</td><td class="num hl-bad">0.05</td><td class="num hl-good">4.51</td><td class="num">52.37</td><td class="num hl-good">56.84</td></tr>
+        <tr><td class="team">Routing Control<span>Rider / Optimization — domain</span></td><td class="num">89.4%</td><td class="num hl-bad">0.05</td><td class="num hl-good">4.47</td><td class="num">40.39</td><td class="num hl-good">44.82</td></tr>
+      </tbody>
+      <caption>
+        Report month 2026-08. Corrected score = published score + (correct credit − awarded credit) × 5%.
+        Order Processing writes tests to 94% coverage and is credited as though it wrote almost none.
+      </caption>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="ex-head"><span class="ex-num">05</span><h2>The penalty grows with the quality of the test suite</h2></div>
+  <p>
+    Because the awarded credit is pinned near zero regardless of input, a team's loss equals
+    its actual coverage. The metric therefore does the opposite of what it was designed to do:
+    the better a team's tests, the more score it forfeits.
+  </p>
+  <div class="bands">
+    <div class="band"><span class="lbl">80–100%</span><span class="track"><span class="fill" style="width:89%"></span></span><span class="val">−4.34</span></div>
+    <div class="band"><span class="lbl">50–79%</span><span class="track"><span class="fill" style="width:72%"></span></span><span class="val">−3.50</span></div>
+    <div class="band"><span class="lbl">20–49%</span><span class="track"><span class="fill" style="width:39%"></span></span><span class="val">−1.88</span></div>
+    <div class="band"><span class="lbl">under 20%</span><span class="track"><span class="fill" style="width:8%"></span></span><span class="val">−0.38</span></div>
+  </div>
+  <p>
+    Average points lost of 5 available, by coverage band, across all 328 teams with a coverage
+    measurement in August 2026 — 102 teams sit in the top band. A team with no tests at all
+    loses almost nothing, because it had almost nothing to be credited for.
+  </p>
+</section>
+
+<section>
+  <div class="ex-head"><span class="ex-num">06</span><h2>Rankings move, and not evenly</h2></div>
+  <p>
+    The natural assumption — mine included, until I checked — is that a uniform deduction
+    leaves league tables intact. It does not, because the deduction is not uniform.
+    Re-ranking all 198 squads that have a coverage measurement moves <strong>170 of
+    them</strong>, the largest by 18 places.
+  </p>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Ranked within</th><th class="num">Squads</th><th class="num">Change rank</th><th class="num">Share</th><th class="num">Largest move</th></tr>
+      </thead>
+      <tbody>
+        <tr class="is-defect"><td>All squads, company-wide</td><td class="num">198</td><td class="num hl-bad">170</td><td class="num hl-bad">86%</td><td class="num hl-bad">18</td></tr>
+        <tr><td>Woowa Brothers</td><td class="num">61</td><td class="num">48</td><td class="num">79%</td><td class="num">8</td></tr>
+        <tr><td>Logistics</td><td class="num">33</td><td class="num">14</td><td class="num">42%</td><td class="num">4</td></tr>
+        <tr><td>Vendor</td><td class="num">30</td><td class="num">10</td><td class="num">33%</td><td class="num">1</td></tr>
+        <tr><td>Q-Commerce</td><td class="num">13</td><td class="num">4</td><td class="num">31%</td><td class="num">3</td></tr>
+        <tr><td>Tech Foundations</td><td class="num">15</td><td class="num">4</td><td class="num">27%</td><td class="num">2</td></tr>
+        <tr><td>HungerStation</td><td class="num">15</td><td class="num">4</td><td class="num">27%</td><td class="num">1</td></tr>
+        <tr><td>Talabat</td><td class="num">8</td><td class="num">2</td><td class="num">25%</td><td class="num">1</td></tr>
+        <tr class="is-control"><td>Consumer</td><td class="num">13</td><td class="num hl-good">0</td><td class="num hl-good">0%</td><td class="num hl-good">0</td></tr>
+        <tr class="is-control"><td>FinTech</td><td class="num">10</td><td class="num hl-good">0</td><td class="num hl-good">0%</td><td class="num hl-good">0</td></tr>
+      </tbody>
+      <caption>
+        Squads with a coverage measurement, 2026-08, re-ranked by corrected score. Two orgs
+        are unaffected because their squads' coverage happens to be tightly clustered — where
+        coverage varies within a group, the ranking shifts. Company-wide comparison is where
+        the distortion is largest, because that is where coverage varies most.
+      </caption>
+    </table>
+  </div>
+  <p>
+    So the defect is not cosmetic deflation. Any conversation that compares one team against
+    another on DevBoost score is using a ranking the correct arithmetic would reorder — and
+    cross-org comparisons, where coverage varies most, are the ones most affected.
+  </p>
+</section>
+
+<section>
+  <div class="ex-head"><span class="ex-num">07</span><h2>The official report inherits it — there is no correct view</h2></div>
+  <p>
+    It would be reassuring if the Looker Studio report computed its own, correct score.
+    It does not. Loading it for one tribe and comparing against the table settles which
+    value it uses.
+  </p>
+  <div class="formula">
+    <div class="row"><span class="tag">team</span><span>[TRIBE] Logistics / Rider / Deliveries · Sep 2026</span></div>
+    <div class="row"><span class="tag">report</span><span>Code Coverage <span class="good">82.49%</span> · DevBoost Score <span class="bad">60%</span></span></div>
+    <div class="row"><span class="tag">table</span><span>score with broken credit = <span class="bad">60.50</span></span></div>
+    <div class="row"><span class="tag">table</span><span>score with correct credit = <span class="good">64.58</span></span></div>
+    <div class="row"><span class="tag">verdict</span><span class="bad">the report's score matches the broken value, not the corrected one</span></div>
+  </div>
+  <p>
+    The report displays the <em>raw</em> coverage correctly — 82.49% is the fraction 0.8249
+    rendered as a percentage. But its score field reads <code>overall_score</code> straight
+    from the same table, so it carries the same 100× error. Every consumer of this metric
+    inherits one upstream normalization fault; there is no second system holding a correct
+    answer to defer to.
+  </p>
+</section>
+
+<div class="ask">
+  <h2 style="font-size:1.02rem;">What would settle it</h2>
+  <ol>
+    <li>Confirm the intended bound for coverage in the scoring config — the methodology page states 0% → 100%, and the raw column stores a fraction, so the maximum should be 1, not 100.</li>
+    <li>Note that fixing the table fixes every consumer at once — the Looker Studio report reads <code>overall_score</code> from it directly, so there is no second place to correct and no disagreement to reconcile.</li>
+    <li>If the table is wrong, a backfill would shift historical scores upward by up to 4.9 points and reorder team comparisons — worth flagging before anyone reads a trend across the fix.</li>
+    <li>Worth knowing either way: the defect is company-wide, so it is not a question any single vertical can answer for itself.</li>
+  </ol>
+</div>
+
+<footer>
+  Source: <code>fulfillment-dwh-production.curated_data_shared_psf.devboost_overall_monthly_score</code>, queried 17 Sep 2026.<br>
+  Methodology: <a href="https://deliveryhero.atlassian.net/wiki/spaces/techfoundations/pages/231211183/DevBoost+DevBoost+score">[DevBoost] DevBoost score</a>, Tech Foundations.
+  Weights independently verified — the published <code>overall_score</code> reproduces exactly from the normalized columns and documented weights across all 3,788 rows year to date, maximum difference 0.0.<br>
+  Every figure above is a query result, not an estimate. Rows where a metric was absent and imputed at the 0.5 midpoint are excluded from the ratio and ceiling tests.<br>
+  Scope: all 11 top-level organisations, not Logistics alone. The ratio test covers every row ever published; per-team and ranking figures use report month 2026-08 and squads with a real coverage measurement.
+</footer>
+
+</div>
