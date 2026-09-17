@@ -1,0 +1,30 @@
+web/index.html
+  s_bbb67f7d9bf54c::t_d9d93579950231 239-269,478
+  s_bbb67f7d9bf54c::t_1fc4805b035880 41-64,164-167
+  s_bbb67f7d9bf54c::t_59960c2a46cc91 438,445-453,455-477
+  s_bbb67f7d9bf54c::t_909cc3f685f31b 168,216-238,270-271,454,479
+web/data/snapshot.json
+  s_bbb67f7d9bf54c::t_235c717096694a 1
+scripts/build_snapshot.py
+  s_bbb67f7d9bf54c::t_235c717096694a 38-39,45-46
+CLAUDE.md
+  s_bbb67f7d9bf54c::t_c1110b51f20f2b 70-92
+sql/snapshot.sql
+  s_bbb67f7d9bf54c::t_87cb037178e0db 15,69-70,79-80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "bbd58c126ee53b35f4a81a7ad569213f4b07d8c6",
+  "prompts": {},
+  "sessions": {
+    "s_bbb67f7d9bf54c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "31d37c6d-9713-4312-acfd-497ce3d75ff8",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Brad Moore <brad.moore@deliveryhero.com>"
+    }
+  }
+}
