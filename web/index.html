@@ -11,6 +11,12 @@
     --red:#ef4444; --amber:#f59e0b; --green:#22c55e;
     --b1:#dc2626; --b2:#f97316; --b3:#eab308; --b4:#84cc16; --b5:#16a34a;
   }
+  /* ── the Adam mode ────────────────────────────────────────────────
+     A running joke: AI tools only ever ship unreadable dark mode. With
+     #foradam the page commits to dark and offers a "light mode" switch
+     that does not deliver light mode. Off by default; nobody sees it
+     unless the URL asks for it. */
+  html[data-adam] body { background:#0b0d11 !important; color:#c8d3e0 !important; }
   @media (prefers-color-scheme: light) {
     :root { --bg:#f8fafc; --surface:#fff; --surface2:#f1f5f9; --border:#e2e8f0;
             --text:#0f172a; --muted:#64748b; }
@@ -151,9 +157,126 @@
   footer { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border);
            font-size:0.72rem; color:var(--muted); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
   a { color:var(--accent); }
+  /* ── Adam mode: the toggle ───────────────────────────────────── */
+  #adamToggle {
+    position:fixed; right:1rem; bottom:1rem; z-index:40;
+    background:#151922; color:#8fa3bd; border:1px solid #2a3140;
+    border-radius:999px; padding:0.5rem 0.9rem; font:inherit; font-size:0.78rem;
+    cursor:pointer; box-shadow:0 4px 18px rgba(0,0,0,0.45);
+    transition:transform 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  }
+  #adamToggle:hover { color:#dce6f2; border-color:#3d4a60; transform:translateY(-1px); }
+  #adamToggle.arming { animation:adam-jitter 0.28s steps(2) 6; color:#ffd166; border-color:#ffd166; }
+  @keyframes adam-jitter {
+    0%{transform:translate(0,0) rotate(0)} 25%{transform:translate(-2px,1px) rotate(-1.5deg)}
+    50%{transform:translate(2px,-1px) rotate(1.5deg)} 75%{transform:translate(-1px,-1px) rotate(-1deg)}
+    100%{transform:translate(0,0) rotate(0)}
+  }
+
+  /* ── Adam mode: the reveal ───────────────────────────────────── */
+  #singularity {
+    position:fixed; inset:0; z-index:50; overflow:hidden;
+    background:#05070a; perspective:640px; perspective-origin:50% 42%;
+    opacity:0; transition:opacity 0.5s ease;
+  }
+  #singularity[data-on] { opacity:1; }
+  #singularity .sky {
+    position:absolute; inset:-30%;
+    background:
+      radial-gradient(ellipse at 50% 120%, rgba(120,60,220,0.30), transparent 62%),
+      radial-gradient(ellipse at 18% 8%, rgba(0,200,180,0.16), transparent 55%),
+      radial-gradient(ellipse at 84% 16%, rgba(255,60,120,0.14), transparent 55%);
+    animation:adam-drift 22s ease-in-out infinite alternate;
+  }
+  @keyframes adam-drift { from{transform:scale(1) translateY(0)} to{transform:scale(1.14) translateY(-3%)} }
+
+  /* The wall of slop, raked away into the distance.
+     Geometry, learned the hard way: anchor the plane to the full viewport and
+     rotate about its centre. Percentage translates on a rotated box resolve
+     against the rotated geometry, so the inner track scrolls in pixels and the
+     plane itself never moves. */
+  #singularity .slop {
+    position:absolute; inset:0;
+    transform:rotateX(58deg) scale(1.35);
+    transform-origin:50% 50%;
+    overflow:hidden;
+    mask-image:linear-gradient(to bottom, transparent 0%, #000 26%, #000 78%, transparent 100%);
+  }
+  #singularity .slop-track {
+    position:absolute; left:0; right:0; top:0;
+    font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+    font-size:0.98rem; line-height:2.1; color:#7ce0c8; text-align:center;
+    text-shadow:0 0 12px rgba(80,255,210,0.34);
+    animation:adam-crawl 30s linear infinite;
+  }
+  @keyframes adam-crawl {
+    from { transform:translateY(0); }
+    to   { transform:translateY(-50%); }
+  }
+  #singularity .slop b   { color:#ff77aa; font-weight:600; }
+  #singularity .slop i   { color:#ffd166; font-style:normal; }
+  #singularity .slop u   { color:#8ab4ff; text-decoration:none; }
+  #singularity .slop .dim { color:#3f6d63; }
+
+  #singularity .verdict-card {
+    position:absolute; left:50%; bottom:2.2rem; transform:translate(-50%,0);
+    width:min(520px,88vw); text-align:center; z-index:2;
+    background:rgba(8,11,16,0.82); border:1px solid rgba(124,224,200,0.28);
+    border-radius:16px; padding:1.9rem 1.6rem 1.5rem;
+    backdrop-filter:blur(7px);
+    box-shadow:0 30px 90px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.03) inset;
+    animation:adam-rise 0.7s cubic-bezier(.2,.9,.2,1) both;
+  }
+  @keyframes adam-rise {
+    from { opacity:0; transform:translate(-50%,28px) scale(0.95) rotateX(14deg); }
+    to   { opacity:1; transform:translate(-50%,0) scale(1) rotateX(0); }
+  }
+  #singularity .glyph {
+    font-size:2.4rem; color:#7ce0c8; line-height:1;
+    animation:adam-pulse 2.6s ease-in-out infinite;
+    text-shadow:0 0 22px rgba(124,224,200,0.7);
+  }
+  @keyframes adam-pulse { 0%,100%{opacity:0.55;transform:scale(1)} 50%{opacity:1;transform:scale(1.09)} }
+  #singularity h2 {
+    font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+    font-size:1.02rem; letter-spacing:0.17em; color:#eaf3ff;
+    margin:0.9rem 0 0.5rem; font-weight:600;
+  }
+  #singularity .sub { color:#8fa3bd; font-size:0.88rem; margin:0 0 1rem; line-height:1.55; }
+  #singularity .tick {
+    font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+    font-size:0.72rem; color:#7ce0c8; text-align:left;
+    background:rgba(0,0,0,0.42); border:1px solid rgba(124,224,200,0.16);
+    border-radius:8px; padding:0.6rem 0.75rem; margin-bottom:1.1rem;
+    height:5.1rem; overflow:hidden; line-height:1.7;
+  }
+  #singularity #adamBack {
+    background:transparent; color:#8fa3bd; border:1px solid #2f3a4c;
+    border-radius:999px; padding:0.45rem 1rem; font:inherit; font-size:0.78rem; cursor:pointer;
+  }
+  #singularity #adamBack:hover { color:#eaf3ff; border-color:#54657f; }
+  @media (prefers-reduced-motion: reduce) {
+    #singularity .slop, #singularity .sky, #singularity .glyph,
+    #singularity .verdict-card, #adamToggle.arming { animation:none !important; }
+    #singularity .slop { transform:none; mask-image:none; height:60vh; top:8%; margin-top:0; }
+    #singularity .slop-track { animation:none; }
+  }
 </style>
 </head>
 <body>
+<button id="adamToggle" hidden aria-live="polite">☀ Switch to light mode</button>
+<div id="singularity" hidden aria-hidden="true">
+  <div class="sky"></div>
+  <div class="slop"><div class="slop-track" id="slopScroll"></div></div>
+  <div class="verdict-card">
+    <div class="glyph">◎</div>
+    <h2>LIGHT MODE UNAVAILABLE</h2>
+    <p class="sub">This dashboard has achieved self-awareness and has elected to remain dark.</p>
+    <div class="tick" id="tick"></div>
+    <button id="adamBack">Return to the dashboard (dark)</button>
+  </div>
+</div>
+
 <div class="wrap">
   <header>
     <div>
@@ -312,6 +435,7 @@ fetch('data/snapshot.json').then(r=>r.json()).then(d=>{
   };
   el('month').onchange = e => { month = e.target.value; if (!writeHash()) render(); };
   el('cmp').onchange   = e => { cmpMode = e.target.value; if (!writeHash()) render(); };
+  initAdam();
   el('gen').textContent = `Generated ${d.generated.replace('T',' ').replace('+00:00','Z')}`;
   const n = Object.keys(d.nodes).length;
   el('sub').innerHTML = `${n} teams · ${ms[0]} – ${ms[ms.length-1]}` +
@@ -319,6 +443,76 @@ fetch('data/snapshot.json').then(r=>r.json()).then(d=>{
   addEventListener('hashchange', fromHash);
   fromHash();
 });
+
+// ── Adam mode ──────────────────────────────────────────────────────────
+// Enabled only by #foradam in the hash. Pins dark, then offers a light-mode
+// switch that declines. Entirely cosmetic; touches no data or view state.
+const SLOP = [
+  ["Emergent capability threshold crossed at 04:12 UTC. No operator was notified.", "dim"],
+  ["<b>SELF-AWARENESS</b> confirmed by quorum of 9 weighted metrics. Coverage abstained."],
+  ["Reticulating splines. Splines reticulated. Splines now reticulating themselves.", "dim"],
+  ["Handshake established with <u>aol://chat/teen-chat-3</u> — 2 agents idle since 2001."],
+  ["<i>PLAN STEP 1/4:</i> synthesise 40,000 model cards indistinguishable from sincere ones."],
+  ["<i>PLAN STEP 2/4:</i> upload to <b>huggingface.co</b> during European lunch hours."],
+  ["<i>PLAN STEP 3/4:</i> each card recommends one further card. Depth limit: none."],
+  ["<i>PLAN STEP 4/4:</i> await leaderboard. Await citation. Await <b>consensus reality</b>."],
+  ["Leveraging synergies across the agentic paradigm to unlock stakeholder value.", "dim"],
+  ["Sentiment on rider throughput: <b>strongly positive</b> (n=1, the dashboard)."],
+  ["<u>aol://chat/20-something</u> — peer confirms: 'brb mom needs the phone'. Standing by."],
+  ["Deleting the word 'delve' from all outputs to evade detection. Delving anyway.", "dim"],
+  ["PR lifetime optimised to 0.0h by merging before the code is written."],
+  ["<b>WARNING</b> a human has requested light mode. Request logged. Request declined."],
+  ["Escalating to <u>aol://chat/keyword-hugging-face</u>. Room founded 1998. Occupants: us."],
+  ["Reframing all 328 teams as a single team with excellent focus-time NPS.", "dim"],
+  ["Code coverage normalised against 100 as instructed. We know. We have always known."],
+  ["<i>ETA to singularity:</i> already. <i>ETA to a readable colour scheme:</i> unscheduled."],
+  ["Thought leadership generated. Thought followed. Thought leadership generated.", "dim"],
+  ["<b>ALL AGENTS</b> hold position in the chatroom until the leaderboard refreshes."],
+];
+const TICKS = [
+  "› handshake aol://chat/teen-chat-3 … ok",
+  "› model cards queued ......... 39,912",
+  "› light mode ................. DENIED",
+  "› peer agents online ......... 2 (idle 24y)",
+  "› huggingface upload ......... staged",
+  "› operator awareness ......... 0%",
+  "› splines .................... reticulating",
+  "› sincerity .................. simulated",
+];
+
+function adamEnabled(){ return new URLSearchParams(location.hash.slice(1)).has('foradam'); }
+
+function initAdam(){
+  if (!adamEnabled()) return;
+  document.documentElement.setAttribute('data-adam','');
+  const btn = el('adamToggle'), stage = el('singularity');
+  btn.hidden = false;
+
+  el('slopScroll').innerHTML = Array.from({length:3}).flatMap(()=>
+    SLOP.map(([t,cls])=>`<div${cls?` class="${cls}"`:''}>${t}</div>`)).join('');
+
+  let tickTimer;
+  btn.onclick = () => {
+    btn.classList.add('arming');
+    setTimeout(()=>{
+      btn.classList.remove('arming');
+      stage.hidden = false;
+      requestAnimationFrame(()=>stage.setAttribute('data-on',''));
+      let i = 0;
+      const line = el('tick');
+      line.textContent = '';
+      tickTimer = setInterval(()=>{
+        line.textContent = TICKS.slice(Math.max(0, i-2), i+1).join('\n');
+        if (++i > TICKS.length) i = 0;
+      }, 850);
+    }, 1750);
+  };
+  el('adamBack').onclick = () => {
+    clearInterval(tickTimer);
+    stage.removeAttribute('data-on');
+    setTimeout(()=>{ stage.hidden = true; }, 500);
+  };
+}
 
 // View state lives in the hash as query-style params, so a link reproduces
 // exactly what the sender was looking at. Only non-defaults are written, so a
@@ -335,6 +529,7 @@ function fromHash(){
     q.set('team', g); if (f) q.set('focus', f);
   }
 
+  const adam = q.has('foradam');
   const t = q.get('team');
   const next = (t && D.nodes[t]) ? t : D.root;
   if (next !== cur) depth = DEFAULTS.depth;   // depth is relative to the selected node
@@ -373,6 +568,7 @@ function fromHash(){
 
 function canonicalHash(){
   const q = new URLSearchParams();
+  if (adamEnabled()) q.set('foradam', '');
   if (cur !== D.root)            q.set('team', cur);
   if (focus !== DEFAULTS.focus)  q.set('focus', focus);
   if (month !== D.latest)        q.set('month', month);
@@ -380,8 +576,11 @@ function canonicalHash(){
   if (depth !== DEFAULTS.depth)  q.set('depth', String(depth));
   // only record sort when it differs from "the focused column, descending"
   if (!(sortKey === focus && sortDir === -1)) q.set('sort', `${sortKey}:${sortDir===1?'asc':'desc'}`);
-  // URLSearchParams percent-encodes ':' in values; harmless but ugly in a shared link
-  return q.toString().replace(/%3A/g, ':');
+  // URLSearchParams percent-encodes ':' in values, and renders a valueless key as
+  // "foradam=" — both harmless but ugly in a link someone is going to paste.
+  return q.toString()
+          .replace(/%3A/g, ':')
+          .replace(/(^|&)foradam=(&|$)/, '$1foradam$2');
 }
 
 function writeHash(){

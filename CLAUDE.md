@@ -167,6 +167,21 @@ points. Worth knowing because the opposite is the natural assumption.
 `change_failure_rate` is in the table but excluded from the score upstream due to low
 adoption. Carried through the snapshot, unused by the UI.
 
+## The Adam mode
+
+`#foradam` in the hash pins the page dark and adds a "Switch to light mode" button
+that declines, revealing a 3D crawl of AI slop about the singularity, HuggingFace and
+unused AOL chatrooms. An in-joke about AI tools only shipping unreadable dark mode.
+
+Off unless the URL asks for it — nobody else ever sees it, and it touches no data or
+view state. The param survives navigation so shared links keep it. Respects
+`prefers-reduced-motion`.
+
+Geometry note if you ever touch the crawl: anchor the rotated plane to the viewport
+with `inset:0` and rotate about its centre, then scroll an inner track in pixels.
+Animating the rotated plane itself does not work — percentage translates resolve
+against the rotated box, so the plane wanders off-screen.
+
 ## Pending: custom domain
 
 [dh-cloudflare-dns-tf#4103](https://github.com/deliveryhero/dh-cloudflare-dns-tf/pull/4103)
