@@ -12,6 +12,7 @@ WITH src AS (
   SELECT
     report_month,
     group_id,
+    hierarchy_full_display_name AS raw_hierarchy,
     REGEXP_EXTRACT(hierarchy_full_display_name, r'^\[([A-Z-]+)\]')    AS level,
     -- drop the "[LEVEL] " prefix and the trailing " (group-slug)"
     REGEXP_REPLACE(
@@ -65,7 +66,8 @@ joined AS (
        ARRAY_TO_STRING(
          ARRAY_SLICE(SPLIT(l.label_path, ' / '), 0,
                      ARRAY_LENGTH(SPLIT(l.label_path, ' / ')) - 1), ' / '))      AS parent_path,
-    s.* EXCEPT (report_month, group_id, level, path)
+    s.raw_hierarchy,
+    s.* EXCEPT (report_month, group_id, level, path, raw_hierarchy)
   FROM src s
   JOIN latest l USING (group_id)
   WHERE s.group_id NOT IN (SELECT group_id FROM excluded)
@@ -74,6 +76,8 @@ joined AS (
 SELECT
   FORMAT_DATE('%Y-%m', report_month) AS month,
   group_id, level, name, label_path, parent_path,
+  -- untouched display name: Looker Studio's team filter matches on this exactly
+  raw_hierarchy,
   ROUND(overall_score * 100, 2) AS score,
   ROUND(dev_satisf_nps, 2)               AS dev_satisf_nps,
   ROUND(num_bugs_per_engineer, 3)        AS bugs_per_eng,

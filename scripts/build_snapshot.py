@@ -35,12 +35,15 @@ for r in rows:
     n = nodes.setdefault(gid, {
         "id": gid, "name": r["name"], "level": r["level"],
         "path": r["label_path"], "parent_path": r["parent_path"],
+        # untouched display name; Looker Studio's team filter matches it exactly
+        "raw": r.get("raw_hierarchy"),
         "children": [], "series": {},
     })
     # path/name track the most recent month, since reorgs rewrite the path
     if month >= max(n["series"], default=""):
         n.update(name=r["name"], level=r["level"],
-                 path=r["label_path"], parent_path=r["parent_path"])
+                 path=r["label_path"], parent_path=r["parent_path"],
+                 raw=r.get("raw_hierarchy"))
     m = {"score": num(r["score"]),
          "imputed": r["has_imputed_metric"] in (True, "true")}
     for k in RAW:

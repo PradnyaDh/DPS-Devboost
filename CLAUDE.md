@@ -67,6 +67,29 @@ rename where the old id stopped reporting), the longest-lived id wins. Data star
 **The current month is partial** and excluded from trends and the month picker. A
 partial month rendered beside full ones reads as a drop that isn't real.
 
+## Linking out to the official DevBoost report
+
+The provenance panel deep-links each team into the Looker Studio report. Its filter
+values are `include<U+E000>0<U+E000>IN<U+E000><value>`, double-URL-encoded, with every
+filter in one JSON `params` object:
+
+| Param | Filter |
+|---|---|
+| `df249` | team — matches `hierarchy_full_display_name` **exactly** |
+| `df105`, `df117` | period, as a quarter string like `2026'Q1` |
+| `df53`, `df55`, `df145` | contributor scope |
+| `df207` | Human / HeroGen |
+
+`df249` is why the snapshot carries `raw_hierarchy` untouched as each node's `raw`:
+the display path shown in the UI is stripped of its `[LEVEL]` prefix and `(slug)`
+suffix, but the filter needs the original string. Report id, page id and the `s=`
+source were taken from a working link; verified by regenerating that link and
+comparing decoded params field by field.
+
+Not verified: whether the filter accepts a `[SQUAD]`-level value. The reference link
+was a product line, so squad-level links may land unfiltered if that filter is fed
+from a coarser field.
+
 ## Known upstream bugs, surfaced not fixed
 
 **Code coverage is scored ~100x low.** Raw `code_coverage` is a fraction (0.82 = 82%)

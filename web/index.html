@@ -38,6 +38,30 @@
   .crumb.here:hover { background:none; }
   .sep { color:var(--muted); }
 
+  .prov { margin:-0.4rem 0 1rem; font-size:0.8rem; }
+  .prov > summary { cursor:pointer; color:var(--muted); font-size:0.75rem;
+                    list-style:none; display:inline-flex; align-items:center; gap:0.35rem; }
+  .prov > summary::-webkit-details-marker { display:none; }
+  .prov > summary::before { content:'▸'; font-size:0.7rem; }
+  .prov[open] > summary::before { content:'▾'; }
+  .prov > summary:hover { color:var(--text); }
+  .prov-body { background:var(--surface); border:1px solid var(--border); border-radius:10px;
+               padding:0.9rem 1rem; margin-top:0.6rem; }
+  .prov-links { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.85rem; }
+  .prov-links a { display:inline-flex; align-items:center; gap:0.3rem; text-decoration:none;
+                  background:var(--surface2); border:1px solid var(--border); border-radius:7px;
+                  padding:0.28rem 0.6rem; font-size:0.76rem; }
+  .prov-links a:hover { border-color:var(--accent); }
+  .prov-tbl { width:100%; border-collapse:collapse; font-size:0.76rem; }
+  .prov-tbl th { text-align:left; font-size:0.65rem; text-transform:uppercase; letter-spacing:0.06em;
+                 color:var(--muted); padding:0.3rem 0.5rem 0.3rem 0; border-bottom:1px solid var(--border);
+                 cursor:default; }
+  .prov-tbl td { padding:0.38rem 0.5rem 0.38rem 0; border-bottom:1px solid var(--border);
+                 vertical-align:top; color:var(--muted); }
+  .prov-tbl td.mname { color:var(--text); font-weight:600; white-space:nowrap; }
+  .prov-tbl td.mrange { font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .prov-tbl tr.on td { background:color-mix(in srgb, var(--accent) 9%, transparent); }
+  .prov-foot { margin-top:0.7rem; font-size:0.72rem; color:var(--muted); }
   .hero { display:grid; grid-template-columns:260px 1fr; gap:1rem; margin-bottom:1.25rem; }
   @media (max-width:860px){ .hero{ grid-template-columns:1fr; } }
   .card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.25rem; }
@@ -137,6 +161,11 @@
 
   <nav class="crumbs" id="crumbs"></nav>
 
+  <details class="prov" id="prov">
+    <summary>Where these numbers come from</summary>
+    <div class="prov-body" id="provBody"></div>
+  </details>
+
   <div class="hero">
     <div class="card scorebox">
       <div class="score-num" id="score">—</div>
@@ -184,6 +213,62 @@ const METRICS = [
   {k:'code_security',   label:'Code security issues',       w:0.05, good:'lo', fmt:v=>v.toFixed(2)},
 ];
 const OVERALL = {k:'score', label:'Overall DevBoost score', good:'hi', fmt:v=>v.toFixed(1), unit:''};
+
+// What each metric measures, its scoring bounds, and where the number comes from.
+const ABOUT = {
+  dev_satisf_nps:  {range:'−100 → 100', src:'Developer Experience Survey (quarterly)',
+                    note:'NPS over "how satisfied are you with how your team develops and delivers software". Held constant between surveys.'},
+  focus_nps:       {range:'−100 → 100', src:'Developer Experience Survey (quarterly)',
+                    note:'NPS over the focus-time question. Held constant between surveys.'},
+  prs_per_eng_day: {range:'0 → 1',      src:'GitHub PRs merged ÷ working days ÷ engineers',
+                    note:'Engineer count is headcount at month end, from Workday P&T via DevHub.'},
+  pr_review_hrs:   {range:'15h → 1h',   src:'GitHub PR review time, median',
+                    note:'Median rather than mean, so a few stale PRs do not dominate.'},
+  pr_lifetime_hrs: {range:'60h → 5h',   src:'GitHub PR lifetime, median',
+                    note:'Open to merged. Median for the same reason as review time.'},
+  bugs_per_eng:    {range:'5 → 0',      src:'Jira open bugs ÷ engineers',
+                    note:'Open bugs at month end, not bugs created during the month.'},
+  depl_per_eng_day:{range:'0 → 1',      src:'Deployment events ÷ working days ÷ engineers',
+                    note:'Depends on deployment events reaching DataStreams; teams not wired up read as zero.'},
+  code_coverage:   {range:'0% → 100%',  src:'Sonar / Codacy covered ÷ coverable lines',
+                    note:'Scored against a maximum of 100 upstream though the raw value is a fraction, so it credits ~100× too little.'},
+  code_security:   {range:'100 → 0',    src:'Codacy issues, weighted, ÷ engineers',
+                    note:'minor×0.3 + medium×0.5 + critical×1, per engineer.'},
+};
+const DEVHUB = 'https://dev.deliveryhero.net/catalog/default/group/';
+
+// Deep link into the official DevBoost Looker Studio report, filtered to one team.
+// Its filter values are "include<U+E000>0<U+E000>IN<U+E000><value>", double-encoded,
+// and the team filter (df249) matches hierarchy_full_display_name exactly — which is
+// why the snapshot carries that string untouched as `raw`.
+const DEVBOOST_REPORT = '7f35fd6c-839d-42f1-b4f5-a6357b16a018';
+const DEVBOOST_PAGE = 'EojEF';
+const DEVBOOST_SRC = 'm1Y11HWY8Dw';
+const SEP = '\ue000';
+const dsFilter = v => `include${SEP}0${SEP}IN${SEP}${v}`;
+// The report's period filters take a quarter, e.g. "2026'Q1".
+function quarterOf(m){
+  const [y, mo] = m.split('-').map(Number);
+  return `${y}'Q${Math.floor((mo-1)/3)+1}`;
+}
+function devboostUrl(node, m){
+  if (!node.raw) return null;
+  // Contributor + bot filters are carried over from the report's own defaults so the
+  // numbers match what someone sees when they open it themselves.
+  const contributors = dsFilter('Contributor: PRs created by team contributors (humans + HeroGen)');
+  const q = dsFilter(quarterOf(m || month));
+  const params = {
+    df53: contributors, df55: contributors, df145: contributors,
+    df105: q, df117: q,
+    df207: dsFilter('Human' + SEP + 'HeroGen'),
+    df249: dsFilter(node.raw),
+  };
+  const enc = Object.fromEntries(Object.entries(params).map(([k,v])=>[k, encodeURIComponent(v)]));
+  return `https://datastudio.google.com/reporting/${DEVBOOST_REPORT}/page/${DEVBOOST_PAGE}`
+       + `?s=${DEVBOOST_SRC}&params=${encodeURIComponent(JSON.stringify(enc))}`;
+}
+// group_id is "group:<slug>"; DevHub routes on the bare slug
+const slug = gid => gid.replace(/^group:/, '');
 const metricByKey = k => k==='score' ? OVERALL : METRICS.find(m=>m.k===k);
 const hue = t => t>=.75 ? 'var(--green)' : t>=.45 ? 'var(--amber)' : 'var(--red)';
 // Five buckets on share-of-points-earned, red -> green. Absolute, not relative to
@@ -350,10 +435,46 @@ function render(){
     el('scoreMeta').innerHTML = meta;
   }
 
+  drawProv(node);
   drawSpark(node);
   drawMetrics(s, bs);
   drawChildren(node);
   drawNotes(node, s);
+}
+
+// Links out to the authoritative sources, plus what each metric means. Collapsed
+// by default: it answers "where does this come from", which is a question people
+// ask once per team, not on every glance.
+function drawProv(node){
+  const sl = slug(node.id);
+  const links = [
+    ['Repositories & services', DEVHUB + sl + '/owned-applications'],
+    ['Members', DEVHUB + sl + '/members'],
+    ['DevHub group', DEVHUB + sl],
+    [`DevBoost dashboard · ${quarterOf(month)}`, devboostUrl(node, month) || 'https://datastudio.google.com/s/' + DEVBOOST_SRC],
+    ['Score methodology', 'https://deliveryhero.atlassian.net/wiki/spaces/techfoundations/pages/231211183/DevBoost+DevBoost+score'],
+  ];
+  const rows = METRICS.map(m=>{
+    const a = ABOUT[m.k] || {};
+    return `<tr class="${focus===m.k?'on':''}">
+      <td class="mname">${m.label}</td>
+      <td class="mrange">${(m.w*100).toFixed(0)}%</td>
+      <td class="mrange">${a.range||''}</td>
+      <td>${a.src||''}${a.note?`<br><span style="opacity:0.8">${a.note}</span>`:''}</td>
+    </tr>`;
+  }).join('');
+  el('provBody').innerHTML = `
+    <div class="prov-links">${links.map(([t,u])=>`<a href="${u}" target="_blank" rel="noopener">${t} ↗</a>`).join('')}</div>
+    <table class="prov-tbl">
+      <thead><tr><th>Metric</th><th>Weight</th><th>Scored over</th><th>Source</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div class="prov-foot">
+      Engineer headcount (used by every per-engineer metric) comes from Workday P&amp;T via
+      DevHub and is not exposed in the score table, so it cannot be shown here — the
+      Members link above is the authoritative view.
+      Scores are DevBoost's own per-level rows, read directly rather than aggregated.
+    </div>`;
 }
 
 function drawSpark(node){
