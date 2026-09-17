@@ -121,6 +121,17 @@ percentage, but its score reads `overall_score` from this table, so for `log-del
 2026-09 it shows 60% where the corrected value is 64.58. No consumer holds a correct
 value; fixing the table fixes all of them.
 
+The fault is not in the pipeline code — `normalized_code_coverage` is computed as
+`code_coverage / code_coverage_best`, correct min-max normalization. It is one value in
+`dh-gsre-jira-metrics.dev_productivity_metrics.devboost_weights_for_overall_score`:
+`performance_code_coverage_best_score` is 100 where it should be 1.
+
+That config is **effective-dated**, and the score table is rebuilt with `WRITE_TRUNCATE`
+over all months on every run. So updating the existing row in place backfills all 19
+months automatically, while inserting a new effective-dated row would fix only future
+months and leave a false ~4-point step in every team's trend. In place is correct here —
+this is a unit error, not a weight change.
+
 The snapshot carries a corrected `n_code_coverage_fixed` alongside the official value,
 and the UI shows the real coverage bar with a warning. Evidence:
 `docs/coverage-scale-defect.html`.

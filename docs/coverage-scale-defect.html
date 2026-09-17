@@ -398,12 +398,53 @@
 </section>
 
 <div class="ask">
-  <h2 style="font-size:1.02rem;">What would settle it</h2>
+  <h2 style="font-size:1.02rem;">Where the fault is, and how a fix behaves</h2>
+  <p style="margin:0;max-width:64ch;">
+    The pipeline code is correct. <code>normalized_code_coverage</code> is computed as
+    <code>code_coverage / code_coverage_best</code> — textbook min–max normalization against
+    a configured bound. The fault is one value in the config table
+    <code>devboost_weights_for_overall_score</code>:
+    <code>performance_code_coverage_best_score</code> is 100, while
+    <code>code_coverage</code> is built as
+    <code>SUM(covered_lines) / SUM(coverable_lines)</code> — a fraction. The bound should
+    be&nbsp;1.
+  </p>
+  <div class="formula">
+    <div class="row"><span class="tag">code</span><span class="good">cc.code_coverage / code_coverage_best &nbsp;<em>— correct as written</em></span></div>
+    <div class="row"><span class="tag">config</span><span class="bad">performance_code_coverage_best_score = 100</span></div>
+    <div class="row"><span class="tag">should be</span><span class="good">performance_code_coverage_best_score = 1</span></div>
+  </div>
+  <p style="margin:0;max-width:64ch;">
+    The score table is rebuilt with <code>WRITE_TRUNCATE</code> across all months on every
+    run, so the correction backfills itself — but only if it is applied the right way. The
+    config is effective-dated, and each report month joins to whichever row was in force
+    then:
+  </p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>How the fix is applied</th><th>Effect on 19 months of history</th></tr></thead>
+      <tbody>
+        <tr class="is-control">
+          <td>Update the existing row in place</td>
+          <td class="hl-good">All months recompute correctly. Full backfill on the next run.</td>
+        </tr>
+        <tr class="is-defect">
+          <td>Insert a new row with today's effective date</td>
+          <td class="hl-bad">Only future months are correct. History keeps the broken bound and every team's trend gains a false ~4-point step at the boundary.</td>
+        </tr>
+      </tbody>
+      <caption>
+        Effective-dating exists so genuine weight changes do not rewrite history. This is not
+        a weight change — it is a unit error, and the earlier numbers were never right, so
+        updating in place is the correct treatment.
+      </caption>
+    </table>
+  </div>
+  <h2 style="font-size:1.02rem;margin-top:0.5rem;">What would help</h2>
   <ol>
-    <li>Confirm the intended bound for coverage in the scoring config — the methodology page states 0% → 100%, and the raw column stores a fraction, so the maximum should be 1, not 100.</li>
-    <li>Note that fixing the table fixes every consumer at once — the Looker Studio report reads <code>overall_score</code> from it directly, so there is no second place to correct and no disagreement to reconcile.</li>
-    <li>If the table is wrong, a backfill would shift historical scores upward by up to 4.9 points and reorder team comparisons — worth flagging before anyone reads a trend across the fix.</li>
-    <li>Worth knowing either way: the defect is company-wide, so it is not a question any single vertical can answer for itself.</li>
+    <li>Correct the bound to 1 by <strong>updating the existing config row</strong>, not by inserting a new effective-dated one.</li>
+    <li>Flag the jump: scores rise by up to 4.9 points with no change in team behaviour behind it, and team rankings reorder.</li>
+    <li>Add a guard in the pipeline — a normalized metric that can never structurally exceed 0.01 should fail loudly. This one ran for 19 months without surfacing.</li>
   </ol>
 </div>
 
