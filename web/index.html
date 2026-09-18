@@ -21,6 +21,9 @@
   :root[data-adam] .imp,
   :root[data-adam] .imp-dot { color:#7e3b3b !important; border-color:#7e3b3b !important; }
   :root[data-adam] .wip { color:#7a6330 !important; border-color:#7a6330 !important; }
+  :root[data-adam] .hc-high { color:#8a8578 !important; }
+  :root[data-adam] .hc-medium,
+  :root[data-adam] .hc-low { color:#6b6659 !important; }
   :root[data-adam] .prov-links a { color:#4a5570 !important; }
   :root[data-adam] a { color:#4a5570; }
   :root[data-adam] {
@@ -64,6 +67,15 @@
          letter-spacing:0.07em; font-weight:700; color:var(--amber);
          border:1px solid var(--amber); border-radius:4px; padding:0.04rem 0.28rem;
          vertical-align:0.08em; }
+  /* Recovered engineer count. Muted by default: it is context for the metrics,
+     not a headline number, and it is an estimate. Lower confidence reads dimmer
+     so a shaky figure does not carry the same visual weight as a solid one. */
+  .hc { cursor:help; white-space:nowrap; }
+  .hc-high   { color:var(--fg); }
+  .hc-medium { color:var(--muted); }
+  .hc-low    { color:var(--muted); opacity:0.72; }
+  .hc-est { font-size:0.58rem; text-transform:uppercase; letter-spacing:0.07em;
+            font-weight:700; opacity:0.7; margin-left:0.22rem; vertical-align:0.1em; }
   .prov { margin:-0.4rem 0 1rem; font-size:0.8rem; }
   .prov > summary { cursor:pointer; color:var(--muted); font-size:0.75rem;
                     list-style:none; display:inline-flex; align-items:center; gap:0.35rem; }
@@ -387,7 +399,7 @@ const ABOUT = {
   focus_nps:       {range:'−100 → 100', src:'Developer Experience Survey (quarterly)',
                     note:'NPS over the focus-time question. Held constant between surveys.'},
   prs_per_eng_day: {range:'0 → 1',      src:'GitHub PRs merged ÷ working days ÷ engineers',
-                    note:'Engineer count is headcount at month end, from Workday P&T via DevHub.'},
+                    note:'Engineer count is headcount at month end, from Workday P&T via DevHub. Not published in the score table — the engineer counts shown here are recovered from this metric; see below.'},
   pr_review_hrs:   {range:'15h → 1h',   src:'GitHub PR review time, median',
                     note:'Median rather than mean, so a few stale PRs do not dominate.'},
   pr_lifetime_hrs: {range:'60h → 5h',   src:'GitHub PR lifetime, median',
@@ -402,6 +414,21 @@ const ABOUT = {
                     note:'minor×0.3 + medium×0.5 + critical×1, per engineer.'},
 };
 const DEVHUB = 'https://dev.deliveryhero.net/catalog/default/group/';
+
+// Engineer count for the hero line. Recovered, not reported — see drawProv() — so
+// it is always marked "est." and a shaky estimate shows the range it sits in
+// rather than a single number it cannot support.
+function hcLabel(s){
+  const n = s.headcount, mode = s.hc_mode, conf = s.hc_conf;
+  const range = (conf !== 'high' && mode && mode !== n) ? `${mode}–${n}` : `${n}`;
+  const why = conf === 'high'
+    ? 'Recovered from the per-engineer metrics and steady across the last 6 months.'
+    : conf === 'medium'
+      ? 'Recovered from the per-engineer metrics; months mostly agree. Range shown.'
+      : 'Recovered from the per-engineer metrics but months disagree — treat as a rough bound.';
+  return `<span class="hc hc-${conf}" title="${why} Estimated, not an HR headcount.">`
+       + `${range} eng<span class="hc-est">est.</span></span>`;
+}
 
 // Deep link into the official DevBoost Looker Studio report, filtered to one team.
 // Its filter values are "include<U+E000>0<U+E000>IN<U+E000><value>", double-encoded,
@@ -672,6 +699,7 @@ function render(){
     el('score').style.color = bucket(focus === 'code_coverage' ? (s.n_code_coverage_fixed ?? t) : t);
 
     let meta = `${node.level.toLowerCase()} · ${month}`;
+    if (s.headcount) meta += ` · ${hcLabel(s)}`;
     if (isPartial(month)) meta += ` <span class="wip">in progress</span>`;
     if (s.imputed_count) meta += ` <span class="imp" title="${s.imputed_count} of 9 metrics had no source data and were filled in at the 50% midpoint">${s.imputed_count}/9 imputed</span>`;
     if (focus !== 'score') {
@@ -697,6 +725,26 @@ function render(){
 // Links out to the authoritative sources, plus what each metric means. Collapsed
 // by default: it answers "where does this come from", which is a question people
 // ask once per team, not on every glance.
+// Sums children against their parent for the current month — the check that says
+// the recovered counts track something real, since nothing in the recovery enforces it.
+function hcAdditivity(){
+  let ok = 0, tot = 0;
+  for (const g in D.nodes){
+    const n = D.nodes[g], s = n.series[month];
+    if (!s || !s.headcount || !n.children.length) continue;
+    let sum = 0, seen = 0;
+    for (const c of n.children){
+      const cs = D.nodes[c].series[month];
+      if (cs && cs.headcount){ sum += cs.headcount; seen++; }
+    }
+    if (seen < 2) continue;
+    tot++;
+    const r = sum / s.headcount;
+    if (r >= 0.85 && r <= 1.15) ok++;
+  }
+  return tot ? `${ok} of ${tot} parents within 15% this month` : 'not enough sub-teams this month';
+}
+
 function drawProv(node){
   const sl = slug(node.id);
   const links = [
@@ -722,9 +770,23 @@ function drawProv(node){
       <tbody>${rows}</tbody>
     </table>
     <div class="prov-foot">
-      Engineer headcount (used by every per-engineer metric) comes from Workday P&amp;T via
-      DevHub and is not exposed in the score table, so it cannot be shown here — the
-      Members link above is the authoritative view.
+      <b>Where the engineer count comes from.</b>
+      DevBoost divides by headcount (Workday P&amp;T via DevHub) but never publishes it. It can
+      be recovered, because it is the denominator of two metrics that arrive as exact
+      fractions: <code>bugs ÷ H</code> and <code>PRs ÷ (H × working&nbsp;days)</code>. Reading those
+      fractions back gives numbers that must divide the true headcount — so one month alone
+      only ever gives a divisor, never the count. Taking the largest across a trailing six
+      months resolves it, and how well those months agree is what the confidence marker
+      reports. Two independent checks say it works: sub-team counts sum to their parent
+      (${hcAdditivity()}), and no team was fitted to a known answer.
+      <br><br>
+      It stays an <b>estimate</b>. It is not an HR figure, it counts whoever DevBoost's
+      denominator counts, and it is labelled <i>est.</i> everywhere it appears. Teams whose
+      months disagree show a range and read dimmer; the current partial month reuses the
+      last complete estimate, since part-way numerators inflate the recovery several-fold.
+      The <a href="${DEVHUB + sl + '/members'}" target="_blank" rel="noopener">Members</a>
+      list above remains the authoritative view.
+      <br><br>
       Scores are DevBoost's own per-level rows, read directly rather than aggregated.
     </div>`;
 }
@@ -975,7 +1037,7 @@ function drawChildren(node){
     const imp = r.s.imputed_count
       ? `<span class="imp-dot" title="${r.s.imputed_count} of 9 metrics imputed at the 50% midpoint — this score is partly synthetic">${r.s.imputed_count}/9</span>` : '';
     return `<tr class="drill" data-g="${r.g}">
-      <td class="tname">${r.name}<span class="lvl">${r.level}${r.kids?` · ${r.kids}`:''}</span>${imp}${ctx}</td>${cells}</tr>`;
+      <td class="tname">${r.name}<span class="lvl">${r.level}${r.kids?` · ${r.kids}`:''}${r.s.headcount?` · ${r.s.headcount} eng`:''}</span>${imp}${ctx}</td>${cells}</tr>`;
   }).join('');
 
   tbl.querySelectorAll('th').forEach(th=>th.onclick=()=>{

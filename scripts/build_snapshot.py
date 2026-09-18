@@ -8,8 +8,10 @@ Output:
   nodes     : {group_id: {name, level, path, parent (group_id|None),
                           children[], series{month: metrics}}}
 """
-import json, sys
-from datetime import datetime, timezone
+import json, sys, math, calendar
+from collections import Counter
+from datetime import datetime, timezone, date
+from fractions import Fraction
 
 WEIGHTS = {  # from the DevBoost methodology; verified exact against overall_score
     "dev_satisf_nps": 0.15, "bugs_per_eng": 0.10, "code_coverage": 0.05,
@@ -17,6 +19,80 @@ WEIGHTS = {  # from the DevBoost methodology; verified exact against overall_sco
     "pr_review_hrs": 0.15, "pr_lifetime_hrs": 0.15, "focus_nps": 0.10,
 }
 RAW = list(WEIGHTS) + ["change_failure_rate"]
+
+def working_days(month):
+    """Weekdays in a YYYY-MM month. Public holidays are ignored — DevBoost's own
+    denominator appears to use plain weekdays, which is what the recovery below
+    reproduces."""
+    y, m = (int(x) for x in month.split("-"))
+    n = calendar.monthrange(y, m)[1]
+    return sum(1 for d in range(1, n + 1) if date(y, m, d).weekday() < 5)
+
+
+def headcount_candidate(bugs, prs, month):
+    """Smallest headcount consistent with one month's per-engineer metrics.
+
+    Headcount is not published, but it divides the per-engineer metrics:
+        bugs_per_engineer = bugs / H            -> denominator divides H
+        prs_per_engineer  = prs / (H * workdays)-> denominator divides H*workdays
+    Both arrive as exact rationals. Python recovers them in *lowest terms*, so a
+    single month yields only a divisor of H, never H itself — which is why this
+    returns a candidate and resolve_headcount() needs several months.
+
+    PRs carry far more information than bugs: the extra working-days factor makes
+    the denominator large, so it rarely collapses. Bugs alone degenerates to 1
+    for ~16% of rows (an integer bugs-per-engineer tells you nothing).
+    """
+    need = []
+    if bugs is not None:
+        need.append(Fraction(bugs).limit_denominator(3000).denominator)
+    if prs is not None:
+        d = Fraction(prs).limit_denominator(30000).denominator
+        need.append(d // math.gcd(d, working_days(month)))
+    if not need:
+        return None
+    h = 1
+    for d in need:
+        h = h * d // math.gcd(h, d)
+    return h
+
+
+HC_WINDOW = 6   # months of history used per estimate
+
+def resolve_headcount(cands):
+    """Pick a headcount from per-month candidates, with a confidence flag.
+
+    Every candidate divides the true headcount, so the maximum over the window is
+    the best estimate and the mode says whether it is stable.
+
+    The window matters: teams genuinely change size, so judging stability over all
+    19 months conflates real growth with recovery noise. Over 18 months only 15 of
+    63 nodes look stable; over a trailing 6 they agree 41 of 63 — the difference is
+    hiring, not error. Six rather than four because three or four samples cannot
+    tell a stable team from a lucky one.
+    """
+    vals = [v for v in cands if v]
+    if not vals:
+        return None, None, None
+    best = max(vals)
+    # Discard collapsed months before judging agreement. Every candidate divides
+    # the true count, so a month whose numerator shared a factor reads as an exact
+    # fraction of it (the platform row yields 155 and 158 against 317 — halves, not
+    # evidence the org halved). Only candidates within 25% of the max are treated
+    # as real observations; the rest carry no information about the true value.
+    near = [v for v in vals if v >= best * 0.75]
+    mode, hits = Counter(near).most_common(1)[0]
+    if len(vals) < 3:
+        conf = "low"
+    elif len(near) >= max(3, len(vals) * 0.6) and hits >= len(near) / 2:
+        conf = "high"
+    elif len(near) >= len(vals) / 2:
+        conf = "medium"
+    else:
+        conf = "low"
+    # Low end of the plausible range: the smallest non-collapsed observation.
+    return best, conf, min(near)
+
 
 def num(v):
     if v is None or v == "":
@@ -52,6 +128,9 @@ for r in rows:
     for k in WEIGHTS:
         m["n_" + k] = num(r.get("n_" + k))
     m["n_code_coverage_fixed"] = num(r.get("n_code_coverage_fixed"))
+    # Per-month headcount candidate — a divisor of the true count, resolved below.
+    m["hc_cand"] = headcount_candidate(num(r.get("hc_bugs_raw")),
+                                       num(r.get("hc_prs_raw")), month)
     n["series"][month] = m
 
 # link parents by path. A path can map to several ids when a team is renamed
@@ -103,6 +182,34 @@ months = sorted(months)
 now = datetime.now(timezone.utc)
 partial = f"{now.year:04d}-{now.month:02d}"
 complete = [m for m in months if m != partial]
+
+# Resolve headcount per node from its complete months. The partial current month
+# is excluded: its numerators are part-way through, which inflates the recovered
+# denominator wildly (observed 3-6x on a month two days in).
+hc_stats = Counter()
+for n in nodes.values():
+    # Per month, resolved from that month and the HC_WINDOW-1 before it, so the
+    # figure tracks the selected month instead of being one static number.
+    for i, mth in enumerate(complete):
+        if mth not in n["series"]:
+            continue
+        window = [m for m in complete[max(0, i - HC_WINDOW + 1): i + 1] if m in n["series"]]
+        best, conf, mode = resolve_headcount(
+            [n["series"][m].get("hc_cand") for m in window])
+        n["series"][mth]["headcount"] = best
+        n["series"][mth]["hc_conf"] = conf
+        n["series"][mth]["hc_mode"] = mode
+    # The partial month reuses the last complete estimate: its own numerators are
+    # part-way through, so recovering from them inflates the count several-fold.
+    if partial in n["series"]:
+        prev = next((m for m in reversed(complete) if m in n["series"]), None)
+        if prev:
+            n["series"][partial]["headcount"] = n["series"][prev].get("headcount")
+            n["series"][partial]["hc_conf"] = n["series"][prev].get("hc_conf")
+            n["series"][partial]["hc_mode"] = n["series"][prev].get("hc_mode")
+    last = next((m for m in reversed(complete) if m in n["series"]), None)
+    hc_stats[(n["series"][last].get("hc_conf") if last else None) or "none"] += 1
+print("headcount confidence (latest month):", dict(hc_stats))
 
 root = next((g for g, n in nodes.items() if n["parent"] is None), None)
 json.dump({

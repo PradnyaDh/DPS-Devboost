@@ -103,6 +103,34 @@ current partial month, while this explorer defaults to the last complete one. Se
 the in-progress month here to reconcile — verified for Customer Product Line, where
 all eleven metrics and the score match the report exactly for 2026-09.
 
+## Engineer counts are recovered, not published
+
+DevBoost divides by headcount (Workday P&T via DevHub) but never publishes the number.
+It is recoverable because it is the *denominator* of two metrics that arrive as exact
+rationals: `num_bugs_per_engineer` = bugs/H and `num_prs_merged_per_engineer` =
+prs/(H x working_days). Reading those back with `Fraction(...).limit_denominator()`
+yields divisors of H.
+
+**A single month is never enough.** Python recovers fractions in lowest terms, so when
+the numerator shares a factor with H the denominator collapses — the platform row yields
+155 and 158 against a true 317, exact halves. Bugs alone degenerates to 1 for ~16% of
+rows. PRs carry far more information because the working-days factor makes the
+denominator large; only 1 of 66 rows collapses fully.
+
+`resolve_headcount()` therefore takes the **max over a trailing 6 months**, discards
+candidates below 75% of it as collapsed, and grades confidence on how many months
+survive that filter. Window length matters: judged over all 19 months only 15 of 63
+nodes look stable, over a trailing 6 it is 41 — the difference is real hiring, not error.
+
+Two independent checks say the values are real, neither of which the method optimises
+for: sub-team counts sum to their parent (17 of 22 parents within 15% for 2026-08, many
+exact), and the platform total lands at 304-317, a credible Logistics org size.
+
+Caveats that must stay attached to the number: it is an estimate, labelled `est.`
+everywhere; it counts whoever DevBoost's denominator counts; teams whose months disagree
+show a range and render dimmer; and the partial month reuses the last complete estimate,
+because part-way numerators inflate the recovery several-fold.
+
 ## Known upstream bugs, surfaced not fixed
 
 **Code coverage is scored exactly 100x low.** Raw `code_coverage` is a fraction

@@ -89,6 +89,14 @@ SELECT
   ROUND(median_pr_lifetime, 2)           AS pr_lifetime_hrs,
   ROUND(focus_nps, 2)                    AS focus_nps,
   ROUND(change_failure_rate, 4)          AS change_failure_rate,
+  -- Headcount is not published, but it is the denominator of the per-engineer
+  -- metrics, so it can be recovered. bugs_per_engineer is bugs/headcount and
+  -- prs_per_engineer is prs/(headcount*working_days); both arrive as exact
+  -- rationals, so the reduced denominators constrain headcount from two
+  -- directions. Emitted raw here and resolved in build_snapshot.py, which has
+  -- the months of history needed to pick the true value out of the divisors.
+  num_bugs_per_engineer                  AS hc_bugs_raw,
+  num_prs_merged_per_engineer            AS hc_prs_raw,
   -- normalized 0-1 values, already weight-ready
   ROUND(normalized_dev_satisf_nps, 4)               AS n_dev_satisf_nps,
   ROUND(normalized_num_bugs_per_engineer, 4)        AS n_bugs_per_eng,
