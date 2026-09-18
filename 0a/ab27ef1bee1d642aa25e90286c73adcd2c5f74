@@ -1,0 +1,34 @@
+scripts/build_snapshot.py
+  s_627688691446f6::t_a4bcd8407de509 11-14,23-59,62-64,73-77,85-86,88,90-92,95
+  s_627688691446f6::t_0eb9ad12f08863 78-84,87,89,93-94
+  s_627688691446f6::t_85601f55aec3a5 60-61,65-72,191-212
+  s_627688691446f6::t_990e0b0d0d53f7 131-133,186-190
+  s_627688691446f6::t_4cfd92a4ea03e0 96,213
+sql/snapshot.sql
+  s_627688691446f6::t_42d20393d318d7 92-99
+web/data/snapshot.json
+  s_627688691446f6::t_8bd5b9464c117d 1
+CLAUDE.md
+  s_627688691446f6::t_76b0d7ef37e189 106-133
+web/index.html
+  s_627688691446f6::t_2234f5aa315cff 402,728-747,773-789
+  s_627688691446f6::t_71f02f149877bc 1040
+  s_627688691446f6::t_2030f3ef944144 418-432,702
+  s_627688691446f6::t_91d73355f3e8f3 24-26,70-78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "0aab27ef1bee1d642aa25e90286c73adcd2c5f74",
+  "prompts": {},
+  "sessions": {
+    "s_627688691446f6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "287de661-c622-4699-af73-8715356a4651",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Brad Moore <brad.moore@deliveryhero.com>"
+    }
+  }
+}
