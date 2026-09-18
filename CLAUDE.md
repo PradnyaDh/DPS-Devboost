@@ -148,15 +148,38 @@ including all three PR metrics — 45 points of the composite. Their published s
 (43.7 and 33.7) are substantially synthetic. Company-wide the worst case is
 `Data Science Service` at 7 of 9.
 
-**The PR gap has a likely cause: squad rosters disagree between systems.** DevBoost knows
-only `Machine Learning Platform` under the Data & ML domain. The Logistics AI adoption
-tracker attributes all 13 Data & ML repos — 752 PRs — to a `Data Engineering` squad that
-DevBoost has no row for. So the PR activity is real and visible in the tracker while
-absent from DevBoost, which then imputes. Worth chasing as a DevHub registration gap
-rather than a pipeline fault.
+**The PR gap has a confirmed cause: squad rosters disagree between systems.** DevBoost knows
+only `Machine Learning Platform` under the Data & ML domain. The AI adoption dashboard in
+[`deliveryhero/logistics-prompt-delivery`](https://github.com/deliveryhero/logistics-prompt-delivery)
+(`adoption/`, curated list at `adoption/scripts/devhub-repos.json`) attributes the
+Data & ML repos — 12 repos, 515 PRs as of 2026-09 — to a `Data Engineering` squad that
+DevBoost has no row for.
+So the PR activity is real and visible in the dashboard while absent from DevBoost, which
+then imputes. A DevHub registration gap, not a pipeline fault.
 
-Neither has been raised with Tech Foundations, who own the methodology. That's
-deliberate and Brad's call to make.
+This generalizes: comparing the two repo sets (2026-09) found **14 Logistics squads with
+registered repos but no DevBoost row**, covering 56 repos — every Data Science squad
+(Choice, Seamless, Deliveries, Workforce), `Data Engineering`, `Wallet & Payroll`,
+`Routing Models`, `Payment Incentives`, `Tech Council`. A further 14 tracked repos are
+absent from `tech_log_devhub_catalog` entirely, so they cannot reach DevBoost by any route.
+
+The adoption dashboard now carries a **Discipline** filter (Data Science vs Software
+Engineering) for reading its numbers with the data science squads separated out, which is
+what makes the two systems comparable: DevBoost omits those squads, so its Logistics
+figures are already close to the dashboard's Software-Engineering-only view.
+
+Two join defects worth knowing before anyone else compares these sources. `squad_id` in
+the catalog and DevBoost's `group_id` share an ID space, but **two squads carry a
+different id on each side** — `Tracking UI` is `group:log-tracking-ui` in the catalog and
+`group:log-tracking-sdk` in DevBoost; `Agent workflows` is `group:ticketing-experience`
+vs `group:log-agent-workflows`. Matching on id alone reports their repos as uncovered.
+And a repo can be registered under several applications with **different** squads, so
+coverage must be "reported under any registration" — first-wins picks by row order and
+mis-sorts three repos.
+
+Neither upstream bug — the coverage scale error or the imputation — has been raised
+with Tech Foundations, who own the methodology, and nor has the roster mismatch above.
+That's deliberate and Brad's call to make.
 
 **Survey metrics are genuinely per-squad.** `dev_satisf_nps` and `focus_nps` are 25% of
 the composite and quarterly, but they are *not* inherited from the parent org — every
