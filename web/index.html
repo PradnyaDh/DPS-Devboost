@@ -49,6 +49,17 @@
   select { background:var(--surface2); color:var(--text); border:1px solid var(--border);
            border-radius:8px; padding:0.4rem 0.6rem; font-size:0.85rem; font-family:inherit; }
   label.ctl { font-size:0.75rem; color:var(--muted); display:flex; gap:0.35rem; align-items:center; }
+  label.ctl.chk { cursor:pointer; }
+  label.ctl.chk input { margin:0; cursor:pointer; accent-color:var(--accent); }
+  /* The year-ago toggle affects only this chart, unlike the header controls,
+     which scope the whole page — so it sits on the chart's own caption row
+     rather than in the header. The caption shrinks to make room instead of
+     reserving a fixed gutter, so the toggle sits hard against the card edge,
+     flush with the plot below it. Wraps to a second line when narrow. */
+  .trendhead { display:flex; align-items:baseline; gap:1rem;
+               justify-content:space-between; flex-wrap:wrap; }
+  .trendhead .cap { margin-bottom:0; min-width:0; }
+  .trendhead .chk { white-space:nowrap; flex-shrink:0; }
 
   nav.crumbs { display:flex; gap:0.35rem; align-items:center; flex-wrap:wrap;
                margin:1.1rem 0 1rem; font-size:0.85rem; }
@@ -112,6 +123,7 @@
 
   h3.cap { font-size:0.7rem; text-transform:uppercase; letter-spacing:0.09em;
            color:var(--muted); margin-bottom:0.9rem; }
+  .trendhead { margin-bottom:0.9rem; }
   .sparkwrap { position:relative; }
   .spark { width:100%; height:130px; display:block; }
   .spark .hit { fill:transparent; cursor:pointer; }
@@ -351,7 +363,10 @@
       <div class="score-meta" id="scoreMeta"></div>
     </div>
     <div class="card">
-      <h3 class="cap" id="trendCap">Score trend</h3>
+      <div class="trendhead">
+        <h3 class="cap" id="trendCap">Score trend</h3>
+        <label class="ctl chk" title="Overlays the same months a year earlier on the trend chart, to separate a seasonal dip from a real one. Off by default: the two years share one axis, so showing both compresses the current line."><input type="checkbox" id="yoy"> Year ago</label>
+      </div>
       <div class="sparkwrap">
         <svg class="spark" id="spark"></svg>
         <div class="tip" id="tip" hidden></div>
@@ -474,7 +489,7 @@ function share(col, s){
 }
 const el = id => document.getElementById(id);
 
-let D, cur, month, winFrom, cmpMode='prev', sortKey='score', sortDir=-1, focus='score', depth=1;
+let D, cur, month, winFrom, cmpMode='prev', yoy=false, sortKey='score', sortDir=-1, focus='score', depth=1;
 
 fetch('data/snapshot.json').then(r=>r.json()).then(d=>{
   D = d; cur = d.root;
@@ -495,15 +510,10 @@ fetch('data/snapshot.json').then(r=>r.json()).then(d=>{
   };
   winFrom = defaultWindow();
   drawWindowOptions();
-  el('month').onchange = e => {
-    month = e.target.value;
-    // A window must contain the month it ends on; pull the start back if the
-    // selection moved behind it rather than rendering an empty range.
-    if (winFrom > month) { winFrom = earliestMonth(); drawWindowOptions(); }
-    if (!writeHash()) render();
-  };
+  el('month').onchange = e => setMonth(e.target.value);
   el('win').onchange   = e => { winFrom = e.target.value; if (!writeHash()) render(); };
   el('cmp').onchange   = e => { cmpMode = e.target.value; if (!writeHash()) render(); };
+  el('yoy').onchange   = e => { yoy = e.target.checked; if (!writeHash()) render(); };
   initAdam();
   el('gen').textContent = `Generated ${d.generated.replace('T',' ').replace('+00:00','Z')}`;
   const n = Object.keys(d.nodes).length;
@@ -595,7 +605,7 @@ function initAdam(){
 // View state lives in the hash as query-style params, so a link reproduces
 // exactly what the sender was looking at. Only non-defaults are written, so a
 // plain drill-down stays short: #team=group:log-deliveries
-const DEFAULTS = {focus:'score', depth:1, cmp:'prev'};
+const DEFAULTS = {focus:'score', depth:1, cmp:'prev', yoy:false};
 
 // The month the explorer opens on: the in-progress one when it is present.
 // It reads low — cumulative metrics (PRs, deployments) are only part-way through
@@ -613,22 +623,31 @@ function defaultWindow(){
   return febs.length ? febs[febs.length-1] : ms[0];
 }
 
-function earliestMonth(){ return D.complete_months[0]; }
+// The one place a month selection is applied, shared by the Month dropdown and
+// by clicking a point on the trend chart. The window is untouched: it is set by
+// its own control and spans to the end of the data either way.
+function setMonth(m){
+  month = m;
+  el('month').value = month;
+  if (!writeHash()) render();
+}
 
-// Only months at or before the selected one can start a window. Rebuilt whenever
-// the month changes so the list never offers a start that would empty the view.
+// Every complete month can start a window: the range runs to the end of the
+// data, so no choice here can empty the view.
 function drawWindowOptions(){
-  const opts = D.complete_months.filter(m => m <= month);
-  el('win').innerHTML = opts.map(m =>
+  el('win').innerHTML = D.complete_months.map(m =>
     `<option value="${m}"${m===winFrom?' selected':''}>${m}${m===defaultWindow()?' (Feb)':''}</option>`
   ).join('');
   el('win').value = winFrom;
 }
 
-// Months in view: the window start through the selected month, inclusive.
+// Months in view: the window start through the end of the data. Deliberately
+// independent of the selected month — selecting one moves the marker and the
+// hero figures within the window rather than truncating the chart at it, so
+// clicking an early point does not collapse the range you set.
 function windowMonths(){
   const all = D.partial_month ? [...D.complete_months, D.partial_month] : D.complete_months;
-  return all.filter(m => m >= winFrom && m <= month);
+  return all.filter(m => m >= winFrom);
 }
 const isPartial = m => m === D.partial_month;
 
@@ -656,11 +675,12 @@ function fromHash(){
   const c = q.get('cmp');
   cmpMode = ['prev','first','none'].includes(c) ? c : DEFAULTS.cmp;
 
-  // Window start: must be a real month at or before the selected one, else the
-  // February default. Resolved after `month` because it is clamped against it.
+  yoy = q.get('yoy') === 'on';
+
+  // Window start: any real complete month, else the February default. No longer
+  // clamped against the selection — the two are independent.
   const wf = q.get('from');
-  winFrom = (wf && D.complete_months.includes(wf) && wf <= month) ? wf : defaultWindow();
-  if (winFrom > month) winFrom = earliestMonth();
+  winFrom = (wf && D.complete_months.includes(wf)) ? wf : defaultWindow();
 
   const d = parseInt(q.get('depth'), 10);
   depth = Number.isFinite(d) && d >= 1 ? Math.min(d, Math.max(1, maxDepth(cur))) : DEFAULTS.depth;
@@ -677,6 +697,7 @@ function fromHash(){
   el('month').value = month;
   drawWindowOptions();
   el('cmp').value = cmpMode;
+  el('yoy').checked = yoy;
   render();
   // If anything was out of range or unknown, replace the URL with the state we
   // actually rendered, so copying the link shares the real view.
@@ -692,6 +713,7 @@ function canonicalHash(){
   if (focus !== DEFAULTS.focus)  q.set('focus', focus);
   if (month !== defaultMonth())  q.set('month', month);
   if (cmpMode !== DEFAULTS.cmp)  q.set('cmp', cmpMode);
+  if (yoy !== DEFAULTS.yoy)      q.set('yoy', 'on');
   if (winFrom !== defaultWindow()) q.set('from', winFrom);
   if (depth !== DEFAULTS.depth)  q.set('depth', String(depth));
   // only record sort when it differs from "the focused column, descending"
@@ -719,7 +741,8 @@ function baseline(node){
   if (cmpMode === 'none') return null;
   if (cmpMode === 'first') {
     // First month of the window, not of all history — "first" should mean first
-    // of what is in view. With the default window that is February.
+    // of what is in view. With the default window that is February. Bounded by
+    // the selection too: a baseline ahead of the month being read is not one.
     const k = Object.keys(node.series).filter(m => m >= winFrom && m <= month).sort();
     return k.length > 1 ? k[0] : null;
   }
@@ -857,22 +880,47 @@ function drawSpark(node){
   const svg = el('spark'), tip = el('tip');
   tip.hidden = true;
   const trimmed = winFrom > D.complete_months[0];
-  el('trendCap').textContent = `${M.label} · ${ms.length} month${ms.length===1?'':'s'}` +
+  let cap = `${M.label} · ${ms.length} month${ms.length===1?'':'s'}` +
     (trimmed ? ` · from ${winFrom}` : '') +
     (pIdx >= 0 ? ` · ${D.partial_month} in progress` : '') +
     (M.good === 'lo' ? ' · lower is better' : '');
   if (ms.length < 2) {
+    el('trendCap').textContent = cap;
     svg.removeAttribute('viewBox');
     svg.innerHTML = `<text x="8" y="20" fill="var(--muted)" font-size="12">Not enough history for ${M.label}</text>`;
     return;
   }
-  const W=900, H=130, padX=46, padT=16, padB=30;
+  // Asymmetric side padding: the left gutter carries the axis labels, the right
+  // one only has to clear the selected-month dot, so the plot runs almost to the
+  // card edge instead of floating inside it.
+  const W=900, H=130, padX=46, padR=7, padT=16, padB=30;
   const vals = ms.map(m=>node.series[m][focus]);
+  // Same calendar months a year earlier, aligned by index so the two lines sit
+  // on the same x positions and a seasonal dip lines up with its counterpart.
+  // Nulls are kept, not dropped: the index has to stay in step with `ms`, and a
+  // missing month must break the line rather than be bridged over — quarterly
+  // NPS metrics and teams that only reported part of last year both leave holes.
+  const prior = m => `${+m.slice(0,4)-1}${m.slice(4)}`;
+  const pv = !yoy ? null : ms.map((m,i)=>{
+    // Stop at the last complete month: the in-progress month is part-way through
+    // its cumulative metrics, so pairing it with a finished month a year ago
+    // would read as a collapse that has not happened.
+    if (pIdx >= 0 && i >= pIdx) return null;
+    const ps = node.series[prior(m)];
+    return ps && ps[focus] != null ? ps[focus] : null;
+  });
+  const pvSeen = pv ? pv.filter(v=>v!=null).length : 0;
   let lo = Math.min(...vals), hi = Math.max(...vals);
+  if (pvSeen) {
+    // One shared domain, so the gap between the years is readable as distance.
+    // It costs vertical range — the current line can drop to a quarter of the
+    // plot height when the years sit far apart — which is why this is a toggle.
+    for (const v of pv) if (v != null) { lo = Math.min(lo, v); hi = Math.max(hi, v); }
+  }
   const span = (hi - lo) || Math.abs(hi) || 1;
   lo -= span*0.12; hi += span*0.12;
   if (focus === 'score') { lo = Math.max(0, lo); hi = Math.min(100, hi); }
-  const x = i => padX + i*(W-2*padX)/(ms.length-1);
+  const x = i => padX + i*(W-padX-padR)/(ms.length-1);
   const y = v => H-padB - (v-lo)/(hi-lo)*(H-padT-padB);
   const pts = vals.map((v,i)=>`${x(i)},${y(v)}`).join(' ');
   // solid through the last complete month; dashed into the in-progress one
@@ -880,6 +928,24 @@ function drawSpark(node){
   const solidPts = vals.slice(0, solidEnd+1).map((v,i)=>`${x(i)},${y(v)}`).join(' ');
   const dashPts = pIdx > 0 ? `${x(pIdx-1)},${y(vals[pIdx-1])} ${x(pIdx)},${y(vals[pIdx])}` : '';
   const ci = ms.indexOf(month);
+
+  // Year-ago overlay: one polyline per contiguous run, so a gap stays a gap.
+  let priorLine = '';
+  if (pv) {
+    let run = [];
+    const flush = () => {
+      if (run.length > 1) priorLine += `<polyline points="${run.join(' ')}" fill="none" stroke="var(--muted)" stroke-width="2" opacity="0.55" stroke-linejoin="round"/>`;
+      else if (run.length === 1) priorLine += `<circle cx="${run[0].split(',')[0]}" cy="${run[0].split(',')[1]}" r="2" fill="var(--muted)" opacity="0.55"/>`;
+      run = [];
+    };
+    pv.forEach((v,i)=>{ if (v == null) flush(); else run.push(`${x(i)},${y(v)}`); });
+    flush();
+  }
+  // No legend when the overlay is drawn: the checkbox already says it is on, and
+  // one muted line behind one accent line needs no key. Only its absence is worth
+  // a word, so a ticked box with no second line does not read as a failure.
+  if (yoy && !pvSeen) cap += ` · <span style="color:var(--muted)">no data a year earlier</span>`;
+  el('trendCap').innerHTML = cap;
 
   // Label about every third month, always including first and last, so 18 months
   // of ticks stay legible at this width. The rest get a short minor tick.
@@ -897,14 +963,14 @@ function drawSpark(node){
   }).join('');
 
   const zero = (lo < 0 && hi > 0)
-    ? `<line x1="${padX}" y1="${y(0)}" x2="${W-padX}" y2="${y(0)}" stroke="var(--border)" stroke-width="1" stroke-dasharray="3 3"/>
+    ? `<line x1="${padX}" y1="${y(0)}" x2="${W-padR}" y2="${y(0)}" stroke="var(--border)" stroke-width="1" stroke-dasharray="3 3"/>
        <text x="${padX-6}" y="${y(0)+3}" fill="var(--muted)" font-size="10" text-anchor="end">0</text>` : '';
   const area = `${x(0)},${H-padB} ${pts} ${x(ms.length-1)},${H-padB}`;
   // One hit rect per month, spanning the midpoints either side, so the nearest
   // point is picked without any distance math on mousemove.
   const hits = ms.map((m,i)=>{
     const l = i===0 ? padX-10 : (x(i-1)+x(i))/2;
-    const r = i===ms.length-1 ? W-padX+10 : (x(i)+x(i+1))/2;
+    const r = i===ms.length-1 ? W-padR : (x(i)+x(i+1))/2;
     return `<rect class="hit" data-i="${i}" x="${l}" y="${padT}" width="${Math.max(1,r-l)}" height="${H-padT-padB}"/>`;
   }).join('');
 
@@ -912,8 +978,9 @@ function drawSpark(node){
   svg.innerHTML = `
     <polygon points="${area}" fill="var(--accent)" opacity="0.10"/>
     ${zero}
-    <line x1="${padX}" y1="${H-padB}" x2="${W-padX}" y2="${H-padB}" stroke="var(--border)" stroke-width="1"/>
+    <line x1="${padX}" y1="${H-padB}" x2="${W-padR}" y2="${H-padB}" stroke="var(--border)" stroke-width="1"/>
     ${ticks}
+    ${priorLine}
     <polyline points="${solidPts}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>
     ${dashPts?`<polyline points="${dashPts}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3" opacity="0.75"/>
                <circle cx="${x(pIdx)}" cy="${y(vals[pIdx])}" r="3.5" fill="var(--bg)" stroke="var(--accent)" stroke-width="2"/>`:''}
@@ -939,7 +1006,17 @@ function drawSpark(node){
       const col = d===0 ? 'var(--muted)' : better ? 'var(--green)' : 'var(--red)';
       delta = ` <span class="d" style="color:${col}">${d>=0?'+':''}${M.fmt(d)}</span>`;
     }
-    tip.innerHTML = `${ms[i]}${isPartial(ms[i])?' <span class="wip">in progress</span>':''} · <b>${M.fmt(vals[i])}${M.unit?' '+M.unit:''}</b>${delta}`;
+    // Year-ago line, when overlaid and present for this month. Same colouring
+    // rule as the step-over-step delta, so "better" reads the same either way.
+    let yl = '';
+    if (pv && pv[i] != null) {
+      const d = vals[i]-pv[i];
+      const better = M.good === 'hi' ? d > 0 : d < 0;
+      const col = d===0 ? 'var(--muted)' : better ? 'var(--green)' : 'var(--red)';
+      yl = `<br><span style="color:var(--muted)">${prior(ms[i])} · ${M.fmt(pv[i])}</span>`
+         + ` <span class="d" style="color:${col}">${d>=0?'+':''}${M.fmt(d)} YoY</span>`;
+    }
+    tip.innerHTML = `${ms[i]}${isPartial(ms[i])?' <span class="wip">in progress</span>':''} · <b>${M.fmt(vals[i])}${M.unit?' '+M.unit:''}</b>${delta}${yl}`;
     tip.hidden = false;
     // position in CSS pixels: the viewBox scales to the rendered width
     const box = svg.getBoundingClientRect();
@@ -951,7 +1028,7 @@ function drawSpark(node){
     const i = +r.dataset.i;
     r.onmouseenter = () => show(i);
     r.onmousemove  = () => show(i);
-    r.onclick = () => { month = ms[i]; el('month').value = month; if (!writeHash()) render(); };
+    r.onclick = () => { setMonth(ms[i]); };
   });
   svg.onmouseleave = hide;
 }

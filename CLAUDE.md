@@ -83,6 +83,32 @@ chart and the "vs first month" baseline; "vs previous month" stays month-over-mo
 inside any window, since a long window in view and a short comparison are both useful
 at once.
 
+**The window and the selected month are independent.** The window runs from its start
+to the end of the data; selecting a month moves the marker and the hero figures within
+it. An earlier version ended the window at the selection, which meant clicking an early
+point on the chart collapsed the range to a single month and silently dropped `from`
+from the URL — the window was not "reset", it was redefined out from under the reader.
+Keep them decoupled: no clamp between `winFrom` and `month` in `fromHash`, and no
+filtering of the window's options against the selection. The one place the two still
+meet is the "vs first month" baseline, which is bounded by the selection because a
+baseline ahead of the month being read is not a baseline.
+
+**The year-ago overlay** plots the same calendar months a year earlier, off by default
+behind a "Year ago" checkbox on the trend card — not in the header, because unlike
+Focus / Month / Window / Compare it scopes one chart rather than the page. Off by
+default because both years must share one y-axis for the gap to be readable as
+distance, and that costs vertical range: at the Logistics root the current line drops
+to roughly a quarter of the plot height, and `prs_per_eng_day` is no better. Always-on
+would degrade the default reading of every metric to serve an occasional question.
+
+Three rules the overlay has to keep. It stops at the last complete month: a partial
+month paired with a finished one a year earlier reads as a collapse that has not
+happened. It draws one polyline per contiguous run, never bridging a gap — the window
+opens in February but data starts 2025-03, and nineteen of sixty-five nodes have no
+prior year at all. And it is a muted solid line, never dashed, because dashing already
+means "partial" on this chart. When a team has no year-ago data the caption says so
+rather than leaving a ticked box with nothing drawn.
+
 ## Linking out to the official DevBoost report
 
 The provenance panel deep-links each team into the Looker Studio report. Its filter
