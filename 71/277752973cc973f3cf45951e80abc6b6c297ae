@@ -1,0 +1,22 @@
+CLAUDE.md
+  s_627688691446f6::t_b3e400f1334b07 151-153,157-178
+  s_627688691446f6::t_e849b8569f3731 154-156
+  s_627688691446f6::t_9fdbaebd4fe731 180-182
+  s_627688691446f6::t_6ce0be102550c9 179
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "71277752973cc973f3cf45951e80abc6b6c297ae",
+  "prompts": {},
+  "sessions": {
+    "s_627688691446f6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "287de661-c622-4699-af73-8715356a4651",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Brad Moore <brad.moore@deliveryhero.com>"
+    }
+  }
+}
