@@ -328,6 +328,7 @@
     <div class="controls">
       <label class="ctl">Focus <select id="focus"></select></label>
       <label class="ctl">Month <select id="month"></select></label>
+      <label class="ctl" title="Earliest month in view. Deltas and the trend chart start here; December and January are distorted by holiday PTO, so February is the default starting point for reading growth.">Window from <select id="win"></select></label>
       <label class="ctl">Compare <select id="cmp">
         <option value="prev">vs previous month</option>
         <option value="first">vs first month</option>
@@ -473,31 +474,41 @@ function share(col, s){
 }
 const el = id => document.getElementById(id);
 
-let D, cur, month, cmpMode='prev', sortKey='score', sortDir=-1, focus='score', depth=1;
+let D, cur, month, winFrom, cmpMode='prev', sortKey='score', sortDir=-1, focus='score', depth=1;
 
 fetch('data/snapshot.json').then(r=>r.json()).then(d=>{
   D = d; cur = d.root;
   const ms = d.complete_months;
-  // The in-progress month is selectable but never the default: its cumulative
-  // metrics (PRs, deployments) are part-way through and read low.
+  // The in-progress month is the default, matching the official DevBoost report's
+  // own range. It reads low on cumulative metrics, so it is labelled here and
+  // flagged again on the hero, the trend caption and the chart.
   const pickable = d.partial_month ? [...ms, d.partial_month] : ms;
   el('month').innerHTML = pickable.map(m=>
-    `<option value="${m}"${m===d.latest?' selected':''}>${m}${m===d.partial_month?' (in progress)':''}</option>`
+    `<option value="${m}"${m===(d.partial_month||d.latest)?' selected':''}>${m}${m===d.partial_month?' (in progress)':''}</option>`
   ).join('');
-  month = d.latest;
+  month = d.partial_month || d.latest;
   el('focus').innerHTML = `<option value="score">Overall DevBoost score</option>` +
     METRICS.map(m=>`<option value="${m.k}">${m.label}</option>`).join('');
   el('focus').onchange = e => {
     focus = e.target.value; sortKey = focus; sortDir = -1;
     if (!writeHash()) render();
   };
-  el('month').onchange = e => { month = e.target.value; if (!writeHash()) render(); };
+  winFrom = defaultWindow();
+  drawWindowOptions();
+  el('month').onchange = e => {
+    month = e.target.value;
+    // A window must contain the month it ends on; pull the start back if the
+    // selection moved behind it rather than rendering an empty range.
+    if (winFrom > month) { winFrom = earliestMonth(); drawWindowOptions(); }
+    if (!writeHash()) render();
+  };
+  el('win').onchange   = e => { winFrom = e.target.value; if (!writeHash()) render(); };
   el('cmp').onchange   = e => { cmpMode = e.target.value; if (!writeHash()) render(); };
   initAdam();
   el('gen').textContent = `Generated ${d.generated.replace('T',' ').replace('+00:00','Z')}`;
   const n = Object.keys(d.nodes).length;
   el('sub').innerHTML = `${n} teams · ${ms[0]} – ${ms[ms.length-1]}` +
-    (d.partial_month ? ` · <span title="excluded: month still in progress">${d.partial_month} partial, excluded</span>` : '');
+    (d.partial_month ? ` · <span title="Shown by default and included in the window, but still accumulating: PRs merged and deployments read low until the month ends, while medians and NPS are already meaningful.">${d.partial_month} in progress</span>` : '');
   addEventListener('hashchange', fromHash);
   fromHash();
 });
@@ -585,6 +596,40 @@ function initAdam(){
 // exactly what the sender was looking at. Only non-defaults are written, so a
 // plain drill-down stays short: #team=group:log-deliveries
 const DEFAULTS = {focus:'score', depth:1, cmp:'prev'};
+
+// The month the explorer opens on: the in-progress one when it is present.
+// It reads low — cumulative metrics (PRs, deployments) are only part-way through
+// the month, while medians and NPS are already meaningful — so it is marked
+// "in progress" everywhere it appears rather than presented as settled.
+function defaultMonth(){ return D.partial_month || D.latest; }
+
+// Default window start: the most recent February present in the data at or before
+// the latest month. February because December and January are distorted by holiday
+// PTO — per-engineer throughput dips for reasons that are not about how teams work.
+// Computed rather than hardcoded so it rolls forward each year.
+function defaultWindow(){
+  const ms = D.complete_months;
+  const febs = ms.filter(m => m.endsWith('-02') && m <= (D.latest || ms[ms.length-1]));
+  return febs.length ? febs[febs.length-1] : ms[0];
+}
+
+function earliestMonth(){ return D.complete_months[0]; }
+
+// Only months at or before the selected one can start a window. Rebuilt whenever
+// the month changes so the list never offers a start that would empty the view.
+function drawWindowOptions(){
+  const opts = D.complete_months.filter(m => m <= month);
+  el('win').innerHTML = opts.map(m =>
+    `<option value="${m}"${m===winFrom?' selected':''}>${m}${m===defaultWindow()?' (Feb)':''}</option>`
+  ).join('');
+  el('win').value = winFrom;
+}
+
+// Months in view: the window start through the selected month, inclusive.
+function windowMonths(){
+  const all = D.partial_month ? [...D.complete_months, D.partial_month] : D.complete_months;
+  return all.filter(m => m >= winFrom && m <= month);
+}
 const isPartial = m => m === D.partial_month;
 
 function fromHash(){
@@ -606,10 +651,16 @@ function fromHash(){
   focus = (f === 'score' || METRICS.some(m=>m.k===f)) ? f : DEFAULTS.focus;
 
   const m = q.get('month');
-  month = (m && D.months.includes(m)) ? m : D.latest;
+  month = (m && D.months.includes(m)) ? m : defaultMonth();
 
   const c = q.get('cmp');
   cmpMode = ['prev','first','none'].includes(c) ? c : DEFAULTS.cmp;
+
+  // Window start: must be a real month at or before the selected one, else the
+  // February default. Resolved after `month` because it is clamped against it.
+  const wf = q.get('from');
+  winFrom = (wf && D.complete_months.includes(wf) && wf <= month) ? wf : defaultWindow();
+  if (winFrom > month) winFrom = earliestMonth();
 
   const d = parseInt(q.get('depth'), 10);
   depth = Number.isFinite(d) && d >= 1 ? Math.min(d, Math.max(1, maxDepth(cur))) : DEFAULTS.depth;
@@ -624,6 +675,7 @@ function fromHash(){
 
   el('focus').value = focus;
   el('month').value = month;
+  drawWindowOptions();
   el('cmp').value = cmpMode;
   render();
   // If anything was out of range or unknown, replace the URL with the state we
@@ -638,8 +690,9 @@ function canonicalHash(){
   if (adamEnabled()) q.set('foradam', '');
   if (cur !== D.root)            q.set('team', cur);
   if (focus !== DEFAULTS.focus)  q.set('focus', focus);
-  if (month !== D.latest)        q.set('month', month);
+  if (month !== defaultMonth())  q.set('month', month);
   if (cmpMode !== DEFAULTS.cmp)  q.set('cmp', cmpMode);
+  if (winFrom !== defaultWindow()) q.set('from', winFrom);
   if (depth !== DEFAULTS.depth)  q.set('depth', String(depth));
   // only record sort when it differs from "the focused column, descending"
   if (!(sortKey === focus && sortDir === -1)) q.set('sort', `${sortKey}:${sortDir===1?'asc':'desc'}`);
@@ -665,9 +718,13 @@ function prevMonth(m){
 function baseline(node){
   if (cmpMode === 'none') return null;
   if (cmpMode === 'first') {
-    const k = Object.keys(node.series).filter(m=>m<=month).sort();
+    // First month of the window, not of all history — "first" should mean first
+    // of what is in view. With the default window that is February.
+    const k = Object.keys(node.series).filter(m => m >= winFrom && m <= month).sort();
     return k.length > 1 ? k[0] : null;
   }
+  // Month-over-month, deliberately independent of the window: a long window in
+  // view and a short comparison are both useful at once.
   return prevMonth(month);
 }
 
@@ -793,12 +850,15 @@ function drawProv(node){
 
 function drawSpark(node){
   const M = metricByKey(focus);
-  const all = D.partial_month ? [...D.complete_months, D.partial_month] : D.complete_months;
-  const ms = all.filter(m=>node.series[m] && node.series[m][focus] != null);
+  // Only the window is charted, so the trend answers "how has this moved over the
+  // period I am looking at" rather than over all history.
+  const ms = windowMonths().filter(m=>node.series[m] && node.series[m][focus] != null);
   const pIdx = ms.indexOf(D.partial_month);   // -1 when this team has no partial data
   const svg = el('spark'), tip = el('tip');
   tip.hidden = true;
+  const trimmed = winFrom > D.complete_months[0];
   el('trendCap').textContent = `${M.label} · ${ms.length} month${ms.length===1?'':'s'}` +
+    (trimmed ? ` · from ${winFrom}` : '') +
     (pIdx >= 0 ? ` · ${D.partial_month} in progress` : '') +
     (M.good === 'lo' ? ' · lower is better' : '');
   if (ms.length < 2) {

@@ -63,13 +63,25 @@ labels come from each group's most recent path. Where one path maps to several i
 rename where the old id stopped reporting), the longest-lived id wins. Data starts
 2025-03 and the hierarchy only settled ~2025-06; one pre-reorg orphan is dropped.
 
-**The current month is partial** and never the default, but it is selectable and
-visible — marked "in progress" on the hero, in the trend caption and on the sub-teams
-heading, and drawn as a dashed segment with a hollow point on the chart. Its
-cumulative metrics (PRs merged, deployments) are part-way through and read low, while
-medians and NPS are already meaningful, so the composite is biased downward rather
-than merely noisy. It is selectable because the official DevBoost report defaults to
-a range including it, so reconciling the two requires being able to view it.
+**The current month is partial and now the default**, matching the official DevBoost
+report, which also opens on a range including it — so the two reconcile on load rather
+than only after changing a control. Earlier versions defaulted to the last complete
+month; that was changed deliberately, not by oversight.
+
+Because it is the default it has to be unmissable: marked "in progress" on the hero,
+in the subtitle, the trend caption and the sub-teams heading, and drawn as a dashed
+segment with a hollow point. Its cumulative metrics (PRs merged, deployments) are
+part-way through and read low, while medians and NPS are already meaningful, so the
+composite is biased downward rather than merely noisy — treat a month-over-month drop
+into the partial month as an artifact until the month closes.
+
+**The window picker** sets the earliest month in view and defaults to the most recent
+February, computed rather than hardcoded so it rolls forward each year. February
+because December and January are distorted by holiday PTO, which moves per-engineer
+throughput for reasons that are not about how teams work. The window scopes the trend
+chart and the "vs first month" baseline; "vs previous month" stays month-over-month
+inside any window, since a long window in view and a short comparison are both useful
+at once.
 
 ## Linking out to the official DevBoost report
 
