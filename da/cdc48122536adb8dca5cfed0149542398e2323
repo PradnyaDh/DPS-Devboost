@@ -1,0 +1,34 @@
+web/index.html
+  s_15a305cf212d4b::t_e2b639e3e001fa 808-816
+  s_15a305cf212d4b::t_fcc2fcb37f1d0a 498,502-505
+  s_15a305cf212d4b::t_437479b07a6ced 1236-1245,1247,1276-1285,1287
+  s_15a305cf212d4b::t_f308f380d50681 1215-1217,1294-1369,1371-1374,1378-1393,1395-1396,1400-1413,1415-1416,1420-1434,1436-1437,1441-1445
+  s_15a305cf212d4b::t_16b1d1f02d3a82 1257-1275,1286,1288-1290,1376,1398,1418,1439
+  s_15a305cf212d4b::t_8a521213565bec 500-501
+  s_15a305cf212d4b::t_fa22b810eb282b 1218-1224,1226-1229,1231-1235,1246,1248-1256,1370,1375,1394,1397,1414,1417,1435,1438
+  s_15a305cf212d4b::t_ad38c1af7ed7be 1225,1230
+  s_15a305cf212d4b::t_0a12a7c5867d1f 359-363
+  s_15a305cf212d4b::t_5c3256c1d04e37 499
+  s_15a305cf212d4b::t_0ff49a9724b65e 1291-1293
+  s_15a305cf212d4b::t_f3cfc77b24b35f 1377
+  s_15a305cf212d4b::t_fbbde5137b9f75 1399
+  s_15a305cf212d4b::t_6f079a5ffa35d2 1419
+  s_15a305cf212d4b::t_fed36be375edb5 1440
+  s_15a305cf212d4b::t_0c88abfd88b1fb 1446
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "dacdc48122536adb8dca5cfed0149542398e2323",
+  "prompts": {},
+  "sessions": {
+    "s_15a305cf212d4b": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "3a87a1bd-8fc7-4ebf-9107-1096d3055bbf",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Pradnya Tukaram Shelar <pradnya.shelar@deliveryhero.com>"
+    }
+  }
+}
