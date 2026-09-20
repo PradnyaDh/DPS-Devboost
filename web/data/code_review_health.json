@@ -1,0 +1,127 @@
+[
+  {
+    "label": "Reviewer A",
+    "count": 52,
+    "hours": 43.4
+  },
+  {
+    "label": "Reviewer B",
+    "count": 29,
+    "hours": 173.2
+  },
+  {
+    "label": "Reviewer C",
+    "count": 23,
+    "hours": 155.0
+  },
+  {
+    "label": "Reviewer D",
+    "count": 19,
+    "hours": 24.5
+  },
+  {
+    "label": "Reviewer E",
+    "count": 18,
+    "hours": 241.3
+  },
+  {
+    "label": "Reviewer F",
+    "count": 14,
+    "hours": 167.3
+  },
+  {
+    "label": "Reviewer G",
+    "count": 14,
+    "hours": 104.6
+  },
+  {
+    "label": "Reviewer H",
+    "count": 13,
+    "hours": 437.2
+  },
+  {
+    "label": "Reviewer I",
+    "count": 12,
+    "hours": 209.3
+  },
+  {
+    "label": "Reviewer J",
+    "count": 11,
+    "hours": 57.8
+  },
+  {
+    "label": "Reviewer K",
+    "count": 10,
+    "hours": 143.8
+  },
+  {
+    "label": "Reviewer L",
+    "count": 10,
+    "hours": 122.2
+  },
+  {
+    "label": "Reviewer M",
+    "count": 10,
+    "hours": 222.2
+  },
+  {
+    "label": "Reviewer N",
+    "count": 9,
+    "hours": 59.0
+  },
+  {
+    "label": "Reviewer O",
+    "count": 9,
+    "hours": 155.3
+  },
+  {
+    "label": "Reviewer P",
+    "count": 9,
+    "hours": 261.9
+  },
+  {
+    "label": "Reviewer Q",
+    "count": 8,
+    "hours": 220.1
+  },
+  {
+    "label": "Reviewer R",
+    "count": 8,
+    "hours": 153.3
+  },
+  {
+    "label": "Reviewer S",
+    "count": 6,
+    "hours": 78.7
+  },
+  {
+    "label": "Reviewer T",
+    "count": 5,
+    "hours": 160.8
+  },
+  {
+    "label": "Reviewer U",
+    "count": 5,
+    "hours": 35.6
+  },
+  {
+    "label": "Reviewer V",
+    "count": 3,
+    "hours": 607.7
+  },
+  {
+    "label": "Reviewer W",
+    "count": 3,
+    "hours": 352.7
+  },
+  {
+    "label": "Reviewer X",
+    "count": 1,
+    "hours": 301.0
+  },
+  {
+    "label": "Reviewer Y",
+    "count": 1,
+    "hours": 213.0
+  }
+]

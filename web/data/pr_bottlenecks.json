@@ -1,0 +1,838 @@
+{
+  "group:pricing": [
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 1654,
+      "title": "Deterministic xtest lane + restore dropped coverage (squashed onto master)",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1319"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 1109,
+      "title": "LOGDPA-1870 : Component/Assignment List \u2014 Support for source_system Filter Parameter",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3173"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 1007,
+      "title": "Pre-filter experiments by business vertical before Get Experiments",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/277"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 791,
+      "title": "LOGDPW-2727: Return actual discount amount instead of percentage from getIncentiveFees",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/376"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 672,
+      "title": "docs: scaffold AI-maturity ops runbooks and fix broken doc references",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/371"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 620,
+      "title": "LOGDPW-2705/2716 Add assignments & field parity to getIncentiveFees business log",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/380"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 525,
+      "title": "Logdpa 2037",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1368"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 480,
+      "title": "add claude in gitignore",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/169"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 480,
+      "title": "Logdpw 2729 move vendor group task to jobs",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3237"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 480,
+      "title": "LOGDPA-2039:Connecting Assignments and presets",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3238"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 473,
+      "title": "fix: preserve user input and state during slow vendor filter loads in\u2026",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1373"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 460,
+      "title": "LOGDPA-2040: (Admin) Remove Solution 1 & add VP assignment type",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3208"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 457,
+      "title": "Logdpw 2681 csv improvements use collections for the import",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3207"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 435,
+      "title": "Added Listing page for VGF Presets",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1354"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 419,
+      "title": "LOGDPW-2747",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/385"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 378,
+      "title": "add pinned MILP optimizer",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/330"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 343,
+      "title": "[LOGDPO-1662] Add static ToD Optimizer listing",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1369"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 337,
+      "title": "LOGDPA-2042: Improve Assigned Scheme modal with component type visibility",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1356"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 335,
+      "title": "feat(LOGDPO-1661): add Algo Pricing tab shell",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1364"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 335,
+      "title": "Logdpa 2036",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3201"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 328,
+      "title": "housekeeping experiments part 2",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3248"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 308,
+      "title": "APDS 302 - Elasticity Wiring to DBDF & Impact Estimation",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/331"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 296,
+      "title": "LOGDPA-2014 POST endpoint implemented for VP MOV and DF",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3221"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 290,
+      "title": "LOGDPO-1624 Make hypothesis optional on Draft experiment",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3249"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 290,
+      "title": "Fix/removing unwanted constraints with new optimizer",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/336"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 290,
+      "title": "LOGDPO-1624 Make hypothesis optional",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1383"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 280,
+      "title": "feat: add fix fee price points optimization mode",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/339"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 266,
+      "title": "LOGDPA-2046 added VP assignment",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3229"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 264,
+      "title": "Update .gitignore to include .claude directory",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/335"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 263,
+      "title": "House keeping experiments",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3230"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 242,
+      "title": "Feat/moving to countries table",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/337"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 240,
+      "title": "LOGDPA-2045 VpAssignment Price Calculation Layer Integration",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/386"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 215,
+      "title": "feat(LOGDPO-1663): add target group import append option",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1375"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 215,
+      "title": "LOGDPA-2053 fix regression: infinite loop when snapshoting ASA for DH\u2026",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3216"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 191,
+      "title": "LOGDPO-1699: [BE] Timeout sweep for stale pending ToD Optimizer runs",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3252"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 191,
+      "title": "fix validator",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3231"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 190,
+      "title": "add fp + om tests",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/179"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 187,
+      "title": "LOGDPO-1456: Add QA debug endpoint to trigger all JobExecutor tasks",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3253"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 183,
+      "title": "LOGDPW-2757 Suppress delivery-fee incentives for pickup orders",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/400"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 173,
+      "title": "LOGDPO-1677- Add load-time instrumentation and performance monitoring",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1372"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 172,
+      "title": "LOGPO-1690: Support Long Distance Fee and Priority Fee in Meal For One ASA",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1371"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 172,
+      "title": "LOGDPO-1659 Revisit Power Analysis UI feedback",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1358"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 167,
+      "title": "LOGDPO-1690: support Long Distance Fee and Priority Fee for Meal for One",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3235"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 163,
+      "title": "LOGDPO-1686: expose smallest variation to FE",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3222"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 162,
+      "title": "feat: implemented API with custom logic for gv-xx and yemek cases",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/180"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 161,
+      "title": "LOGDPW-2749: Gate quantity-based benefit capping on the SubscriptionB\u2026",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/387"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 155,
+      "title": "LOGDPA-2057 : Fallback service VP price calculation",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/394"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 137,
+      "title": "LOGDPO-1725 - Add missing FwF protocol IDs for DPS objectives",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3245"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 122,
+      "title": "feat: integrate DL thread inputs into pipeline",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/170"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 117,
+      "title": "LOGDPW-2758: model subscription ids as String, not Long",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/395"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 93,
+      "title": "fix: unit tests from last PR",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/178"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 90,
+      "title": "CM reporting: dynamic currency labels from order data",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/168"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 90,
+      "title": "Feat/using qcomm and sfee elasticities in the estimates",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/372"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 88,
+      "title": "NOREF: Chore noref fix deploy docs and verification task",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1390"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 73,
+      "title": "LOGDPO-1727: Fix ToD Optimizer submit validation gaps against PRD/DS \u2026",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3259"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 73,
+      "title": "LOGDPA-2064 (1/4): enforce guardrails \u2014 ratcheting typecheck, husky, talisman, commitlint",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1376"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 73,
+      "title": "LOGDPA-2064 (2/4): provider-agnostic agent setup, enforced skill guideline, rewritten README",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1377"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 72,
+      "title": "LOGDPA-2064 (4/4): routable knowledge corpus, path verification, whole-repo formatting",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1379"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 72,
+      "title": "LOGDPA-2064 (3/4): blocking Drone gates, deploy pipelines restructured, measured flakiness",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1378"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 71,
+      "title": "[LOGDPO-1703] Add ToD optimizer experiment details",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1386"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 48,
+      "title": "Cleaning code + adding fields in the query",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/369"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 48,
+      "title": "fixing orders query",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/370"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 46,
+      "title": "LOGDPO-1664 - Guard experiment allocation against guest customer ids",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/396"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 45,
+      "title": "Fix: point type No-Go classification in reporting",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/166"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 44,
+      "title": "cleanup after the sts sidecar global rollout",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3261"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 43,
+      "title": "feat: make Pareto report warnings actionable with user-facing messages",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/174"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 43,
+      "title": "fixing gv query",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/373"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 27,
+      "title": "Chore/improving memory usage",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/347"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 26,
+      "title": "[APDS-377] migrate to v3 order descriptors",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/334"
+    }
+  ],
+  "group:log-pricing-benefits": [
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 1654,
+      "title": "Deterministic xtest lane + restore dropped coverage (squashed onto master)",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1319"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 791,
+      "title": "LOGDPW-2727: Return actual discount amount instead of percentage from getIncentiveFees",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/376"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 672,
+      "title": "docs: scaffold AI-maturity ops runbooks and fix broken doc references",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/371"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 620,
+      "title": "LOGDPW-2705/2716 Add assignments & field parity to getIncentiveFees business log",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/380"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 525,
+      "title": "Logdpa 2037",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1368"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 473,
+      "title": "fix: preserve user input and state during slow vendor filter loads in\u2026",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1373"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 435,
+      "title": "Added Listing page for VGF Presets",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1354"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 419,
+      "title": "LOGDPW-2747",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/385"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 343,
+      "title": "[LOGDPO-1662] Add static ToD Optimizer listing",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1369"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 337,
+      "title": "LOGDPA-2042: Improve Assigned Scheme modal with component type visibility",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1356"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 335,
+      "title": "feat(LOGDPO-1661): add Algo Pricing tab shell",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1364"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 290,
+      "title": "LOGDPO-1624 Make hypothesis optional",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1383"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 240,
+      "title": "LOGDPA-2045 VpAssignment Price Calculation Layer Integration",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/386"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 215,
+      "title": "feat(LOGDPO-1663): add target group import append option",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1375"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 183,
+      "title": "LOGDPW-2757 Suppress delivery-fee incentives for pickup orders",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/400"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 173,
+      "title": "LOGDPO-1677- Add load-time instrumentation and performance monitoring",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1372"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 172,
+      "title": "LOGPO-1690: Support Long Distance Fee and Priority Fee in Meal For One ASA",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1371"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 172,
+      "title": "LOGDPO-1659 Revisit Power Analysis UI feedback",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1358"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 161,
+      "title": "LOGDPW-2749: Gate quantity-based benefit capping on the SubscriptionB\u2026",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/387"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 155,
+      "title": "LOGDPA-2057 : Fallback service VP price calculation",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/394"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 117,
+      "title": "LOGDPW-2758: model subscription ids as String, not Long",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/395"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 88,
+      "title": "NOREF: Chore noref fix deploy docs and verification task",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1390"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 73,
+      "title": "LOGDPA-2064 (1/4): enforce guardrails \u2014 ratcheting typecheck, husky, talisman, commitlint",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1376"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 73,
+      "title": "LOGDPA-2064 (2/4): provider-agnostic agent setup, enforced skill guideline, rewritten README",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1377"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 72,
+      "title": "LOGDPA-2064 (4/4): routable knowledge corpus, path verification, whole-repo formatting",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1379"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 72,
+      "title": "LOGDPA-2064 (3/4): blocking Drone gates, deploy pipelines restructured, measured flakiness",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1378"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 71,
+      "title": "[LOGDPO-1703] Add ToD optimizer experiment details",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1386"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 46,
+      "title": "LOGDPO-1664 - Guard experiment allocation against guest customer ids",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/396"
+    }
+  ],
+  "group:log-pricing-foundations": [
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 1109,
+      "title": "LOGDPA-1870 : Component/Assignment List \u2014 Support for source_system Filter Parameter",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3173"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 480,
+      "title": "Logdpw 2729 move vendor group task to jobs",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3237"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 480,
+      "title": "LOGDPA-2039:Connecting Assignments and presets",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3238"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 460,
+      "title": "LOGDPA-2040: (Admin) Remove Solution 1 & add VP assignment type",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3208"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 457,
+      "title": "Logdpw 2681 csv improvements use collections for the import",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3207"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 335,
+      "title": "Logdpa 2036",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3201"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 328,
+      "title": "housekeeping experiments part 2",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3248"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 296,
+      "title": "LOGDPA-2014 POST endpoint implemented for VP MOV and DF",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3221"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 290,
+      "title": "LOGDPO-1624 Make hypothesis optional on Draft experiment",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3249"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 266,
+      "title": "LOGDPA-2046 added VP assignment",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3229"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 263,
+      "title": "House keeping experiments",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3230"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 215,
+      "title": "LOGDPA-2053 fix regression: infinite loop when snapshoting ASA for DH\u2026",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3216"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 191,
+      "title": "LOGDPO-1699: [BE] Timeout sweep for stale pending ToD Optimizer runs",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3252"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 191,
+      "title": "fix validator",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3231"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 187,
+      "title": "LOGDPO-1456: Add QA debug endpoint to trigger all JobExecutor tasks",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3253"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 167,
+      "title": "LOGDPO-1690: support Long Distance Fee and Priority Fee for Meal for One",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3235"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 163,
+      "title": "LOGDPO-1686: expose smallest variation to FE",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3222"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 137,
+      "title": "LOGDPO-1725 - Add missing FwF protocol IDs for DPS objectives",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3245"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 73,
+      "title": "LOGDPO-1727: Fix ToD Optimizer submit validation gaps against PRD/DS \u2026",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3259"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 44,
+      "title": "cleanup after the sts sidecar global rollout",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3261"
+    }
+  ],
+  "group:log-pricing-orchestration": [
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 1007,
+      "title": "Pre-filter experiments by business vertical before Get Experiments",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/277"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 480,
+      "title": "add claude in gitignore",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/169"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 378,
+      "title": "add pinned MILP optimizer",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/330"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 308,
+      "title": "APDS 302 - Elasticity Wiring to DBDF & Impact Estimation",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/331"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 290,
+      "title": "Fix/removing unwanted constraints with new optimizer",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/336"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 280,
+      "title": "feat: add fix fee price points optimization mode",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/339"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 264,
+      "title": "Update .gitignore to include .claude directory",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/335"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 242,
+      "title": "Feat/moving to countries table",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/337"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 190,
+      "title": "add fp + om tests",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/179"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 162,
+      "title": "feat: implemented API with custom logic for gv-xx and yemek cases",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/180"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 122,
+      "title": "feat: integrate DL thread inputs into pipeline",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/170"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 93,
+      "title": "fix: unit tests from last PR",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/178"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 90,
+      "title": "CM reporting: dynamic currency labels from order data",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/168"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 90,
+      "title": "Feat/using qcomm and sfee elasticities in the estimates",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/372"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 48,
+      "title": "Cleaning code + adding fields in the query",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/369"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 48,
+      "title": "fixing orders query",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/370"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 45,
+      "title": "Fix: point type No-Go classification in reporting",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/166"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 43,
+      "title": "feat: make Pareto report warnings actionable with user-facing messages",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/174"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 43,
+      "title": "fixing gv query",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/373"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 27,
+      "title": "Chore/improving memory usage",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/347"
+    },
+    {
+      "repo": "pp-dbdf-calibration-tool",
+      "hours": 26,
+      "title": "[APDS-377] migrate to v3 order descriptors",
+      "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/334"
+    }
+  ]
+}
