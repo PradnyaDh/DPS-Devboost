@@ -13,7 +13,8 @@ Focused on a single metric:
 ## Use it
 
 ```bash
-./scripts/refresh.sh          # regenerate web/data/snapshot.json from BigQuery
+./scripts/refresh.sh          # regenerate web/data/ from BigQuery
+./scripts/refresh.sh --snapshot-only   # scores only, skip the slower repo map
 cd web && python3 -m http.server 8787
 open http://localhost:8787
 ```
@@ -48,11 +49,59 @@ source (e.g. the Logistics prompt-delivery adoption tracker) without a rewrite:
 | `sql/snapshot.sql` | One query over the DevBoost table, all levels, Mar 2025 onward |
 | `scripts/build_snapshot.py` | Reshapes rows into a nested tree keyed by `group_id` |
 | `web/index.html` | Self-contained explorer; reads `data/snapshot.json`, no dependencies |
+| `sql/repo_map.sql` | Which repos each squad owns, plus Codacy issue counts per repo |
+| `scripts/build_repo_map.py` | Rolls those up the hierarchy and reconciles the sources |
+| `sql/security_issues.sql` | The individual open Codacy findings, per month |
+| `scripts/build_security_issues.py` | Packs them into the file the UI fetches on demand |
 
 Source table: `fulfillment-dwh-production.curated_data_shared_psf.devboost_overall_monthly_score`
 
 Queries are billed to `BILLING_PROJECT` (default `dhub-data-commune`) because
 most people can read the table but cannot create jobs in its host project.
+
+## The team → repo mapping
+
+`refresh.sh` also writes a mapping of teams to the GitHub repos they own, at every
+level of the hierarchy, with Codacy security-issue counts per repo:
+
+| File | Contents |
+|---|---|
+| `web/data/repo-map-repos.csv` | one row per (team, repo) — 906 rows across 65 teams |
+| `web/data/repo-map-summary.csv` | per team: repo count, Codacy coverage, issue totals |
+| `web/data/repo-map-reconciliation.json` | where the three source systems disagree |
+
+Repos attach to squads; a product line's set is the union of its squads'. Customer
+Product Line owns 35 repos, the Logistics platform 181.
+
+Nothing in the explorer reads these yet — they are a separate artifact, and a failed
+repo-map query leaves the snapshot intact rather than breaking the refresh.
+
+**Three populations, and they do not agree.** 37 squads are scored by DevBoost;
+52 catalog squads own repos, and 16 of those have no DevBoost row at all (every Data
+Science squad, `log-data-engineering`, `log-rider-payroll`, `log-routing-models`,
+`log-payment-incentives`, `log-tech-council`, others). So 269 catalog repos reduce to
+181 once placed in the hierarchy — the rest belong to teams DevBoost never scores.
+148 of 275 registrations are analysed by Codacy at all; `in_codacy` separates "not
+analysed" from "analysed and clean", which would otherwise both read as zero issues.
+
+Severity is an inference, not a contract: Codacy's raw levels are High / Error /
+Warning / Info, and the DevBoost report displays CRITICAL / MEDIUM. The mapping used
+here (High+Error → CRITICAL, Warning → MEDIUM) was read off by comparing the table
+against the report's own rendering for `logistics-pyosrm`.
+
+## Open security issues
+
+With **Code security issues** in focus, a collapsed panel at the foot of the page
+lists the actual Codacy findings for the selected team and month — repo, severity,
+message, and a link to the issue in Codacy. Filter by severity, 50 at a time.
+
+The data (`web/data/security-issues.json`, ~790KB gzipped) is fetched only when the
+panel is first expanded, so it costs nothing to anyone who does not open it.
+
+Issues are keyed to each month's last weekly Codacy scan, so the list follows the
+month selector. It is a point-in-time list rather than a monthly delta: an issue open
+for six months appears in all six. Severity is Codacy's own — the official report
+renders High and Critical alike, this does not.
 
 ## What the data does and doesn't say
 

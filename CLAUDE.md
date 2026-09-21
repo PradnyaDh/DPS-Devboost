@@ -109,6 +109,82 @@ The provenance panel deep-links each team into the Looker Studio report. The fil
 encoding and the verification notes live in the `devboost-report-links` skill
 (`.claude/skills/devboost-report-links/SKILL.md`).
 
+## The team → repo mapping
+
+`sql/repo_map.sql` + `scripts/build_repo_map.py`, run as the second stage of
+`refresh.sh`, write the repos each team owns with Codacy issue counts. Nothing in the
+UI reads them yet.
+
+**Joined on `squad_id` only.** The catalog carries its own `product_line` / `tribe` /
+`domain` columns and they disagree with DevBoost's, so the hierarchy comes from the
+snapshot instead and repos roll up through it. Verified every parent's repo set equals
+the union of its children's, across all 65 nodes, with no duplicate (team, repo) rows.
+
+**Both documented id mismatches are handled, and they differ.** `log-tracking-ui`
+(catalog) is `log-tracking-sdk` (DevBoost) and genuinely needs the alias or its repo
+lands nowhere. `ticketing-experience` → `log-agent-workflows` is cosmetic: that repo is
+registered under both ids, so the alias only stops a phantom unscored squad appearing.
+
+**Ordering matters for reproducibility.** Six repos are registered to more than one
+squad. Attributing them by set-iteration order made consecutive runs differ; the
+descendant walk is sorted so `via_squad` is stable. Check `md5` across two runs after
+touching that loop.
+
+**The residuals are the deliverable, not noise.** 16 catalog squads own repos but have
+no DevBoost row, which is why 269 catalog repos become 181 in the hierarchy. That is
+the same roster gap documented above under the PR-imputation section, now measured
+rather than estimated. `in_codacy` distinguishes "not analysed" from "analysed and
+clean" — collapsing them would make 127 unanalysed repos look like clean ones.
+
+**Severity is inferred.** Codacy's raw levels are High / Error / Warning / Info; the
+report shows CRITICAL / MEDIUM. High+Error → CRITICAL and Warning → MEDIUM was read off
+by comparing the table against the report's rendering for `logistics-pyosrm`. No
+documentation confirms it, and the weighted total only approximately reproduces
+`code_security` (60.5 weighted over ~8 engineers vs a published 6.938 for Optimal
+Choice), so treat the split as an interpretation.
+
+**`bq` needs `--quiet` here.** Without it progress lines go to stdout and corrupt the
+JSON the builder reads — the snapshot query gets away with it, this one does not.
+
+## The open security issues panel
+
+A `<details>` at the foot of the page, shown only when code security is focused and
+the team has a real value. Collapsed by default; `web/data/security-issues.json`
+(~790KB gzipped) is fetched on first expand, so the default page weight is unchanged
+for everyone who never looks at this metric.
+
+**Issues are keyed to each month's last weekly Codacy load**, so the list tracks the
+selected month like every other metric. Without that it would show today's issues
+under a February score — the same category of mismatch as the coverage defect. The
+footer names the load date. A month with no load falls back to the most recent and
+says so.
+
+It is a point-in-time list, not a delta: an issue open for six months appears in all
+six. Say so wherever these counts are quoted.
+
+**Severity is Codacy's own three tiers, not the report's two.** The DevBoost report
+renders High and Error alike as CRITICAL; Codacy's UI shows HIGH and CRITICAL
+separately, and the raw pattern ids agree with Codacy — `critical` patterns appear
+only under `Error`, `high` only under `High`, `medium` only under `Warning`. Confirmed
+against Codacy's own issue page for `logistics-pyosrm`, so this is now verified rather
+than the inference recorded earlier.
+
+**Links go to Codacy, not GitHub.** `app.codacy.com/gh/deliveryhero/<repo>/issues?issueId=<id>`
+lands on the issue itself; verified by loading one and seeing the target row first in
+Codacy's list. A GitHub `blob/<sha>/<path>#L<line>` link also resolves (15/15 sampled)
+but 24% of issues carry no commit sha, and Codacy is where someone would action the
+finding anyway.
+
+**The 15MB raw query is packed to ~2.3MB** by interning repos, patterns, messages and
+file paths, and storing issues as arrays rather than objects. Messages dominate:
+3,760 distinct strings, 580KB, because one CVE description repeats across every
+lockfile row that carries it. If the file grows uncomfortable, dropping months below
+the window is the next lever.
+
+Counts differ from the official report's for large teams: these come from the DevHub
+catalog join over the 181 placed repos, the report uses its own mapping. At squad
+level they agree.
+
 ## Engineer counts are recovered, not published
 
 DevBoost divides by headcount (Workday P&T via DevHub) but never publishes the number.
