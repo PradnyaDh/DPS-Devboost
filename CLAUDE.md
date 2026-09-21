@@ -6,29 +6,23 @@ platform root down to a squad, see its scorecard, compare its sub-teams side by 
 - Repo: `deliveryhero/log-devboost-explorer` (internal). Direct pushes to `main` work.
 - Live: https://logistics-devboost.deliveryhero.net — private Pages, requires DH GitHub
   org login. Anonymous requests get GitHub's login wall, not the data.
+- Deploy: `.github/workflows/pages.yml` publishes `web/` on push to `main`.
 
 An earlier `deliveryhero/devboost-explorer` was abandoned: it inherited the org's
 `global-branch-protection` ruleset, which required an approving review and had zero
 bypass actors, so nothing could ever be merged. Creating a repo in the DH org does not
 make you its admin. Before assuming a new repo is writable, check
 `gh api repos/OWNER/REPO/rules/branches/main`.
-- Deploy: `.github/workflows/pages.yml` publishes `web/` on push to `main`.
 
-## Layout
-
-| Path | Role |
-|---|---|
-| `sql/snapshot.sql` | One query over the DevBoost table, all levels, from 2025-03 |
-| `scripts/build_snapshot.py` | Reshapes rows into a tree keyed by `group_id` |
-| `scripts/refresh.sh` | Runs both, writes `web/data/snapshot.json` |
-| `web/index.html` | Self-contained explorer, no dependencies |
+## Refreshing the snapshot
 
 Data and presentation are deliberately split: the UI only reads `data/snapshot.json`
 and knows nothing about BigQuery, so pointing it at another source (e.g. folding into
 the adoption tracker) is a data swap, not a rewrite.
 
 Refreshing is manual — `./scripts/refresh.sh`, then commit and push the snapshot.
-A scheduled Action would need BigQuery credentials in the repo.
+A scheduled Action would need BigQuery credentials in the repo, and the service
+account to mint them cannot be created with the access available here.
 
 ## The data source
 
