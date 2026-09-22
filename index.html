@@ -1662,25 +1662,21 @@ const SQUAD_JIRA_MAP = {
   'group:log-pricing-foundations': ['LOGDPA'],
   'group:log-pricing-orchestration': ['LOGDPA'],
 
-  // Customer Choice Domain & Squads (Demand Management is LAAS, CCDS, CPLCHOICEO; Optimal Choice is LOGL)
-  'group:log-choice-customer-logistics': ['LAAS', 'LOGL', 'CCDS', 'CPLCHOICEO'],
+  // Customer Choice Domain & Squads
+  'group:log-choice-customer-logistics': ['LAAS', 'LOGL'],
   'group:log-optimal-choice': ['LOGL'],
-  'group:log-demand-management': ['LAAS', 'CCDS', 'CPLCHOICEO'],
+  'group:log-demand-management': ['LAAS'],
 
-  // Seamless Domain & Squads (Order Tracking, Time Predictions, Tracking SDK)
+  // Seamless Domain & Squads
   'group:log-seamless-customer-logistics': ['LOGOTX', 'LOGTP', 'LOGTES'],
   'group:log-order-tracking-experience': ['LOGOTX'],
   'group:log-tracking-sdk': ['LOGOTX'],
   'group:log-time-predictions': ['LOGTP', 'LOGTES'],
-
-  // Customer Product Line & Logistics Platform
-  'group:customer-product-line': ['LOGDPA', 'LOGDPW', 'LOGL', 'LAAS', 'LOGOTX', 'LOGTP', 'LOGPP'],
-  'group:log-customer': ['LOGDPA', 'LOGDPW', 'LOGL', 'LAAS', 'LOGOTX', 'LOGTP', 'LOGPP'],
   'group:log-delivery-acceptance': ['LOGPP'],
   'group:pick-dash-up-and-drop-dash-off': ['LOGPP', 'LOGX'],
+  'group:log-ml-platform': ['LOGDS', 'ALGO'],
 
   // Rider Product Line, Dispatching & Routing
-  'group:rider-product-line': ['ROTW', 'RACC', 'RAVL', 'RXP', 'LOGX', 'LOGOP', 'LOGAD', 'ALGO', 'LOGWS', 'LOGWM', 'LRP', 'LOGRRE'],
   'group:on-the-way': ['ROTW'],
   'group:order-dispatching': ['LOGX'],
   'group:order-processing-lpar-optimization-rpar': ['LOGOP'],
@@ -1693,26 +1689,43 @@ const SQUAD_JIRA_MAP = {
   'group:mobile-infrastructure': ['LRTMI'],
   'group:rider-recruitment': ['LOGREC'],
   'group:rider-scheduling': ['LOGWS'],
-  'group:workforce-lifecycle-workforce-management': ['LOGWM'],
+  'group:workforce-lifecycle-workforce-management': ['LOGWM', 'LOGWD'],
   'group:rider-compliance': ['RACC'],
   'group:rider-payments': ['LRP', 'LOGPA', 'LRPA'],
   'group:rider-rewards': ['LOGRRE'],
 
   // Service Product Line & Communications
-  'group:service-product-line': ['LOGC', 'LOGSUP', 'IVUR'],
   'group:communications-core': ['LOGC'],
   'group:log-experience': ['LOGSUP', 'IVUR'],
   'group:log-cfx': ['LOGSUP'],
   'group:log-ai-agents': ['LOGSUP', 'IVUR'],
-  'group:log-1vu-agent-intelligence': ['IVUR'],
+  'group:log-1vu-agent-intelligence': ['IVUR', 'IVUAR'],
   'group:log-1vu-agent-resolution': ['IVUR'],
   'group:log-agent-quality': ['LOGSUP'],
   'group:log-agent-workflows': ['LOGSUP'],
   'group:compensation': ['LOGSUP', 'LRP'],
-
-  // Parent Platform (Logistics)
-  'group:logistics': ['LOGDPA', 'LOGDPW', 'LOGL', 'LAAS', 'LOGOTX', 'LOGTP', 'ROTW', 'LOGX', 'RACC', 'ALGO', 'LOGWS', 'LRP', 'LOGC', 'LOGSUP']
+  'group:log-automation-optimisation': ['LOGSUP']
 };
+
+// Recursive helper that aggregates 100% of all descendant sub-projects for Product Lines and Domains
+function getKeysForNode(nodeId) {
+  const node = DATA.nodes[nodeId];
+  if (!node) return SQUAD_JIRA_MAP[nodeId] || ['LOGDPA'];
+  
+  // If explicitly mapped leaf squad with no children, return directly
+  if (SQUAD_JIRA_MAP[nodeId] && (!node.children || node.children.length === 0)) {
+    return SQUAD_JIRA_MAP[nodeId];
+  }
+  
+  // Aggregate keys from the node and recursively across ALL of its child branches
+  let allKeys = new Set(SQUAD_JIRA_MAP[nodeId] || []);
+  if (node.children && node.children.length > 0) {
+    node.children.forEach(cid => {
+      getKeysForNode(cid).forEach(k => allKeys.add(k));
+    });
+  }
+  return allKeys.size > 0 ? Array.from(allKeys) : (SQUAD_JIRA_MAP[nodeId] || ['LOGDPA']);
+}
 
 // Exact true engineering bug counts from Jira to ensure 100% match with JQL results
 const SQUAD_EXACT_BUGS = {
@@ -1735,8 +1748,8 @@ function drawJiraBugs(node, s) {
   // Use exact project backlog count if registered, or fall back to scorecard density calculation
   let bugsCount = SQUAD_EXACT_BUGS[squadId] ?? (Math.round(s.bugs_per_eng * s.headcount) || 0);
   
-  // Resolve project keys for the selected squad
-  const keys = SQUAD_JIRA_MAP[squadId] || ['LOGDPA'];
+  // Resolve 100% of all sub-project keys for this node (whether squad, domain, or product line!)
+  const keys = getKeysForNode(squadId);
   
   let projectClause = "";
   if (keys.length === 1) {
