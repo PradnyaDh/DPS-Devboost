@@ -1652,6 +1652,59 @@ function renderSreAudit(squadId) {
   }
   el('sreAuditBody').innerHTML = html;
 }
+// Master mapping linking all squads, domains, and tribes under Logistics to their active Jira project keys
+const SQUAD_JIRA_MAP = {
+  // Pricing Domain & Squads
+  'group:pricing': ['LOGDPA', 'LOGDPW'],
+  'group:log-pricing-benefits': ['LOGDPA', 'LOGDPW'],
+  'group:log-pricing-foundations': ['LOGDPA'],
+  'group:log-pricing-orchestration': ['ALGO', 'LOGDS', 'LOGDPA'],
+  'group:log-demand-management': ['LOGPP', 'LOGDPA'],
+  'group:log-optimal-choice': ['LOGDPA', 'LOGPP'],
+
+  // Customer Product Line & Tracking
+  'group:customer-product-line': ['LOGDPA', 'LOGDPW', 'LOGOTX', 'LOGTP', 'LOGPP'],
+  'group:log-order-tracking-experience': ['LOGOTX'],
+  'group:log-tracking-sdk': ['LOGOTX'],
+  'group:log-time-predictions': ['LOGTP', 'LOGTES'],
+  'group:log-delivery-acceptance': ['LOGPP'],
+  'group:pick-dash-up-and-drop-dash-off': ['LOGPP', 'LOGX'],
+
+  // Rider Product Line, Dispatching & Routing
+  'group:rider-product-line': ['ROTW', 'RACC', 'RAVL', 'RXP', 'LOGX', 'LOGOP', 'LOGAD', 'ALGO', 'LOGWS', 'LOGWM', 'LRP', 'LOGRRE'],
+  'group:on-the-way': ['ROTW'],
+  'group:order-dispatching': ['LOGX'],
+  'group:order-processing-lpar-optimization-rpar': ['LOGOP'],
+  'group:rider-access': ['RACC'],
+  'group:rider-availability': ['RAVL'],
+  'group:rider-experience': ['RXP'],
+  'group:routing-experimentation': ['LOGAD'],
+  'group:log-algo': ['ALGO'],
+  'group:routing-infrastructure': ['LOGRM', 'LOGRTS'],
+  'group:mobile-infrastructure': ['LRTMI'],
+  'group:rider-recruitment': ['LOGREC'],
+  'group:rider-scheduling': ['LOGWS'],
+  'group:workforce-lifecycle-workforce-management': ['LOGWM'],
+  'group:rider-compliance': ['RACC'],
+  'group:rider-payments': ['LRP', 'LOGPA', 'LRPA'],
+  'group:rider-rewards': ['LOGRRE'],
+
+  // Service Product Line & Communications
+  'group:service-product-line': ['LOGC', 'LOGSUP', 'IVUR'],
+  'group:communications-core': ['LOGC'],
+  'group:log-experience': ['LOGSUP', 'IVUR'],
+  'group:log-cfx': ['LOGSUP'],
+  'group:log-ai-agents': ['LOGSUP', 'IVUR'],
+  'group:log-1vu-agent-intelligence': ['IVUR'],
+  'group:log-1vu-agent-resolution': ['IVUR'],
+  'group:log-agent-quality': ['LOGSUP'],
+  'group:log-agent-workflows': ['LOGSUP'],
+  'group:compensation': ['LOGSUP', 'LRP'],
+
+  // Parent Platform (Logistics)
+  'group:logistics': ['LOGDPA', 'LOGDPW', 'LOGOTX', 'LOGTP', 'ROTW', 'LOGX', 'RACC', 'ALGO', 'LOGWS', 'LRP', 'LOGC', 'LOGSUP']
+};
+
 function drawJiraBugs(node, s) {
   const panel = el('jiraPanel');
   const show = focus === 'bugs_per_eng' && s && s[focus] != null;
@@ -1661,18 +1714,19 @@ function drawJiraBugs(node, s) {
   const squadId = node.id;
   let bugsCount = Math.round(s.bugs_per_eng * s.headcount) || 0;
   
-  let jqlUrl = "";
-  if (squadId === 'group:pricing') {
-    jqlUrl = "https://deliveryhero.atlassian.net/issues/?jql=project%20IN%20%28LOGDPA%2C%20LOGDPW%29%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done%20AND%20created%20%3C%20-180d";
-  } else if (squadId === 'group:log-pricing-benefits') {
-    jqlUrl = "https://deliveryhero.atlassian.net/issues/?jql=project%20IN%20%28LOGDPA%2C%20LOGDPW%29%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done%20AND%20created%20%3C%20-180d";
-  } else if (squadId === 'group:log-pricing-foundations') {
-    jqlUrl = "https://deliveryhero.atlassian.net/issues/?jql=project%20IN%20%28LOGDPA%2C%20LOGDPW%29%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done%20AND%20created%20%3C%20-180d";
-  } else if (squadId === 'group:log-pricing-orchestration') {
-    jqlUrl = "https://deliveryhero.atlassian.net/issues/?jql=project%20IN%20%28LOGDPA%2C%20LOGDPW%29%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done%20AND%20created%20%3C%20-180d";
+  // Resolve project keys for the selected squad/node
+  const keys = SQUAD_JIRA_MAP[squadId] || ['LOGDPA', 'LOGDPW'];
+  
+  let projectClause = "";
+  if (keys.length === 1) {
+    projectClause = `project = ${keys[0]}`;
   } else {
-    jqlUrl = "https://deliveryhero.atlassian.net/issues/?jql=issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done%20AND%20created%20%3C%20-180d";
+    projectClause = `project IN (${keys.join(', ')})`;
   }
+  
+  // Use native encodeURIComponent to guarantee 100% compliant URL encoding for parentheses (%28, %29), commas, and spaces
+  const encodedProjectClause = encodeURIComponent(projectClause);
+  const jqlUrl = `https://deliveryhero.atlassian.net/issues/?jql=${encodedProjectClause}%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done%20AND%20created%20%3C%20-180d`;
 
   el('jiraTitle').textContent = `Open Jira Bugs - ${bugsCount}`;
   el('jiraLink').href = jqlUrl;
