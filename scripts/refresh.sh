@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regenerate the generated data in web/data/ from BigQuery:
+# Regenerate the generated data in data/ from BigQuery:
 #   snapshot.json        - the scores the explorer reads
 #   repo-map.*           - which repos each team owns, and their Codacy issue counts
 #   security-issues.json - the individual open issues, fetched on demand by the UI
@@ -30,24 +30,24 @@ if [[ "${1:-}" == "--snapshot-only" ]]; then exit 0; fi
 echo "Querying repo map (billing: $BILLING_PROJECT)..."
 # --quiet: bq otherwise writes progress lines to stdout and corrupts the JSON.
 if bq --quiet query --use_legacy_sql=false --project_id="$BILLING_PROJECT" \
-      --format=prettyjson --max_rows=10000 < sql/repo_map.sql > web/data/repo-map.raw.json; then
-  python3 scripts/build_repo_map.py web/data/repo-map.raw.json "$OUT" web/data/repo-map
-  rm -f web/data/repo-map.raw.json
+      --format=prettyjson --max_rows=10000 < sql/repo_map.sql > data/repo-map.raw.json; then
+  python3 scripts/build_repo_map.py data/repo-map.raw.json "$OUT" data/repo-map
+  rm -f data/repo-map.raw.json
 else
   echo "WARNING: repo map query failed - snapshot is still current" >&2
-  rm -f web/data/repo-map.raw.json
+  rm -f data/repo-map.raw.json
 fi
 
 # Individual security issues, for the list the UI fetches when someone expands it.
 # ~15MB raw, packed to ~2MB (790KB over the wire) by interning repeated strings.
-# Same containment as above: a failure leaves the rest of web/data/ usable.
+# Same containment as above: a failure leaves the rest of data/ usable.
 echo "Querying security issues (billing: $BILLING_PROJECT)..."
 if bq --quiet query --use_legacy_sql=false --project_id="$BILLING_PROJECT" \
-      --format=prettyjson --max_rows=200000 < sql/security_issues.sql > web/data/security.raw.json; then
-  python3 scripts/build_security_issues.py web/data/security.raw.json "$OUT" \
-          web/data/security-issues.json
-  rm -f web/data/security.raw.json
+      --format=prettyjson --max_rows=200000 < sql/security_issues.sql > data/security.raw.json; then
+  python3 scripts/build_security_issues.py data/security.raw.json "$OUT" \
+          data/security-issues.json
+  rm -f data/security.raw.json
 else
   echo "WARNING: security issue query failed - the issue list will be stale" >&2
-  rm -f web/data/security.raw.json
+  rm -f data/security.raw.json
 fi
