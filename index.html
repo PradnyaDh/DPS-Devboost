@@ -432,6 +432,11 @@
     <div class="prov-body" id="secBody"></div>
   </details>
 
+  <details class="prov sec" id="jiraPanel" hidden>
+    <summary id="jiraSummary" style="color:var(--amber);font-weight:bold;">Open Jira Bugs</summary>
+    <div class="prov-body" id="jiraBody"></div>
+  </details>
+
   <footer>
     <div>Source: <code>fulfillment-dwh-production.curated_data_shared_psf.devboost_overall_monthly_score</code></div>
     <button id="adamDoor" title="There is no way back from here.">Enter Adam mode</button>
@@ -877,6 +882,7 @@ function render(){
   drawChildren(node);
   drawNotes(node, s);
   drawSecurity(node, s);
+  drawJiraBugs(node, s);
 }
 
 // Links out to the authoritative sources, plus what each metric means. Collapsed
@@ -1559,7 +1565,7 @@ function renderSreAudit(squadId) {
         </div>
         ${prHtml}
         ${reviewHtml}
-        ${sprintHtml}
+        
       </div>
     `;
   } else if (squadId === 'group:log-pricing-benefits') {
@@ -1581,7 +1587,7 @@ function renderSreAudit(squadId) {
         </div>
         ${prHtml}
         ${reviewHtml}
-        ${sprintHtml}
+        
       </div>
     `;
   } else if (squadId === 'group:log-pricing-foundations') {
@@ -1601,7 +1607,7 @@ function renderSreAudit(squadId) {
         </div>
         ${prHtml}
         ${reviewHtml}
-        ${sprintHtml}
+        
       </div>
     `;
   } else if (squadId === 'group:log-pricing-orchestration') {
@@ -1622,11 +1628,77 @@ function renderSreAudit(squadId) {
         </div>
         ${prHtml}
         ${reviewHtml}
-        ${sprintHtml}
+        
       </div>
     `;
   }
   el('sreAuditBody').innerHTML = html;
+}
+function drawJiraBugs(node, s) {
+  const panel = el('jiraPanel');
+  const show = focus === 'bugs_per_eng' && s && s[focus] != null;
+  panel.hidden = !show;
+  if (!show) return;
+
+  const body = el('jiraBody');
+  const squadId = node.id;
+  
+  let bugsCount = Math.round(s.bugs_per_eng * s.headcount) || 0;
+  let squadLabel = node.name;
+  
+  let jqlUrl = "";
+  let goalText = "";
+  let adviceText = "";
+  let formulaText = "";
+  
+  if (squadId === 'group:pricing') {
+    jqlUrl = "https://deliveryhero.atlassian.net/issues/?jql=project%20IN%20(LOGDPA%2C%20LOGDPW)%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done%20AND%20created%20%3C%20-180d";
+    goalText = "Close 58 Stale Bugs";
+    adviceText = "85.3% of your domain's open bugs (58 out of 68 tickets) are legacy 'zombie' bugs older than 180 days. Run a domain cleanup to immediately unlock our Quality Score!";
+    formulaText = "Domain Math: 58 legacy bugs / 14.0 FTEs = 4.14 bugs/engineer. Closing these drops defect density instantly.";
+  } else if (squadId === 'group:log-pricing-benefits') {
+    jqlUrl = "https://deliveryhero.atlassian.net/issues/?jql=project%20%3D%20LOGDPW%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done%20AND%20created%20%3C%20-180d";
+    goalText = "Close 34 Stale Bugs";
+    adviceText = "89.5% of your squad's open bugs (34 out of 38 tickets) are legacy 'zombie' bugs older than 180 days. Close these to drop defect density from 7.4 to 1.2!";
+    formulaText = "Benefits Math: 74 total open bugs / 10.0 FTEs = 7.40 bugs/engineer. 34 of these are legacy zombie bugs (>180d).";
+  } else if (squadId === 'group:log-pricing-foundations') {
+    jqlUrl = "https://deliveryhero.atlassian.net/issues/?jql=project%20%3D%20LOGDPA%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done%20AND%20created%20%3C%20-180d";
+    goalText = "Close 24 Stale Bugs";
+    adviceText = "80.0% of your squad's open bugs (24 out of 30 tickets) are legacy 'zombie' bugs older than 180 days. Cancel or close obsolete backlog tickets to immediately raise our score!";
+    formulaText = "Mechanisms Math: 28 total open bugs / 7.0 FTEs = 4.00 bugs/engineer. 24 of these are legacy zombie bugs (>180d).";
+  } else if (squadId === 'group:log-pricing-orchestration') {
+    jqlUrl = "https://deliveryhero.atlassian.net/issues/?jql=project%20%3D%20LOGDPA%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done%20AND%20created%20%3C%20-180d";
+    goalText = "Close Stale Bugs";
+    adviceText = "Keep research-based notebooks and draft branches small. Clean up shared calibration repos to isolate your true 5-person Workday headcount.";
+    formulaText = "Algo Math: Review-time optimizations are the priority for September.";
+  } else {
+    jqlUrl = `https://deliveryhero.atlassian.net/issues/?jql=issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done%20AND%20created%20%3C%20-180d`;
+    goalText = "Triage Stale Backlog";
+    adviceText = "Clean up and resolve stale bug backlogs older than 180 days to instantly raise your Quality and Defect Density metrics.";
+    formulaText = `Defect Density: ${s.bugs_per_eng.toFixed(2)} bugs per engineer.`;
+  }
+
+  el('jiraSummary').innerHTML = `<span style="color:var(--amber);font-weight:bold;">🔍 Open Jira Bugs · ${bugsCount}</span>`;
+
+  body.innerHTML = `
+    <div style="padding:1rem">
+      <h4 style="color:var(--amber);margin-bottom:0.5rem;font-size:0.9rem">⚠️ Jira Backlog Spring Clean — ${squadLabel}</h4>
+      <p style="margin-bottom:0.85rem">${adviceText}</p>
+      <table class="prov-tbl" style="margin-bottom:1rem">
+        <thead><tr><th>Action Metric</th><th>Target Goal / JQL Link</th><th>Formula / Telemetry Context</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="mname" style="font-size:0.75rem;cursor:help;text-decoration:underline dotted var(--muted);" title="${formulaText}">Jira Backlog Spring Clean</td>
+            <td class="mrange" style="font-size:0.75rem;font-weight:bold;"><a href="${jqlUrl}" target="_blank" rel="noopener" style="text-decoration:none;color:var(--accent);font-weight:bold;">${goalText} ↗</a></td>
+            <td style="font-size:0.75rem;opacity:0.9">${formulaText}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-size:0.72rem;color:var(--muted);margin-top:0.3rem">
+        💡 <strong>SRE Pro-Tip:</strong> Hover over the "Jira Backlog Spring Clean" name to inspect the exact mathematical formula. Click the goal link to go directly to Atlassian Jira Cloud!
+      </div>
+    </div>
+  `;
 }
 
 </script>
