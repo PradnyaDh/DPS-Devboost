@@ -1494,7 +1494,7 @@ function renderSreAudit(squadId) {
     projectFilter = "project%20%3D%20LOGDPA";
     bugsNum = 30;
   }
-  let jiraUrl = `https://deliveryhero.atlassian.net/issues/?jql=${projectFilter}%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done`;
+  let jiraUrl = `https://deliveryhero.atlassian.net/issues/?jql=${projectFilter}%20AND%20issuetype%20IN%20%28Bug%2C%20Defect%2C%20%22Sub-bug%22%2C%20Incident%2C%20Problem%29%20AND%20statusCategory%20%21%3D%20Done`;
 
   let sprintHtml = `
     <div style="margin-top:1rem;border-top:1px dashed var(--border);padding-top:1rem;">
@@ -1664,10 +1664,10 @@ const SQUAD_JIRA_MAP = {
   'group:log-pricing-foundations': ['LOGDPA'],
   'group:log-pricing-orchestration': ['LOGDPA'],
 
-  // Customer Choice Domain & Squads (Demand Management is LAAS, Optimal Choice is LOGL)
-  'group:log-choice-customer-logistics': ['LAAS', 'LOGL'],
+  // Customer Choice Domain & Squads (Demand Management is LAAS, CCDS, CPLCHOICEO; Optimal Choice is LOGL)
+  'group:log-choice-customer-logistics': ['LAAS', 'LOGL', 'CCDS', 'CPLCHOICEO'],
   'group:log-optimal-choice': ['LOGL'],
-  'group:log-demand-management': ['LAAS'],
+  'group:log-demand-management': ['LAAS', 'CCDS', 'CPLCHOICEO'],
 
   // Seamless Domain & Squads (Order Tracking, Time Predictions, Tracking SDK)
   'group:log-seamless-customer-logistics': ['LOGOTX', 'LOGTP', 'LOGTES'],
@@ -1737,7 +1737,7 @@ function drawJiraBugs(node, s) {
   
   // Use native encodeURIComponent to guarantee 100% compliant URL encoding for parentheses (%28, %29), commas, and spaces
   const encodedProjectClause = encodeURIComponent(projectClause);
-  const jqlUrl = `https://deliveryhero.atlassian.net/issues/?jql=${encodedProjectClause}%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done`;
+  const jqlUrl = `https://deliveryhero.atlassian.net/issues/?jql=${encodedProjectClause}%20AND%20issuetype%20IN%20%28Bug%2C%20Defect%2C%20%22Sub-bug%22%2C%20Incident%2C%20Problem%29%20AND%20statusCategory%20%21%3D%20Done`;
 
   el('jiraTitle').textContent = `Open Jira Bugs - ${bugsCount}`;
   el('jiraLink').href = jqlUrl;
