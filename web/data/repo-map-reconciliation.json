@@ -1,0 +1,37 @@
+{
+  "codacy_loaded_date": "2026-09-21",
+  "catalog_rows": 275,
+  "distinct_repos_in_catalog": 269,
+  "repos_mapped_into_hierarchy": 181,
+  "devboost_squads": 37,
+  "catalog_squads_with_repos": 52,
+  "scored_squads_with_no_repos": [
+    "group:log-cfx"
+  ],
+  "catalog_squads_absent_from_devboost": [
+    "group:1vu-customer",
+    "group:1vu-rider",
+    "group:log-choice-data-science",
+    "group:log-customer-foundation",
+    "group:log-data-engineering",
+    "group:log-data-science-service",
+    "group:log-deliveries-data-science",
+    "group:log-payment-incentives",
+    "group:log-pricing-data-science",
+    "group:log-rider-payroll",
+    "group:log-routing-models",
+    "group:log-seamless-data-science",
+    "group:log-shared-self-service",
+    "group:log-shared-workforce",
+    "group:log-tech-council",
+    "group:log-workforce-data-science"
+  ],
+  "repos_registered_to_multiple_squads": [
+    "gcc-ov-copilot",
+    "log-herocare-ap-supervisor-tools-backend",
+    "logistics-ds-multioutput-utr-suggestions",
+    "logistics-kubernetes",
+    "logistics-rider-payments",
+    "logistics-tracking-delivery-time"
+  ]
+}

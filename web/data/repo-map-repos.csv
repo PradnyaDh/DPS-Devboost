@@ -1,0 +1,907 @@
+group_id,team,level,path,repo,via_squad,in_codacy,sec_issues,sec_critical,sec_medium,sec_minor,all_issues
+group:logistics,Logistics,PLATFORM,Logistics,arara-api,group:rider-recruitment,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,arara-dashboard,group:rider-recruitment,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,delivery-fee-tiers-generation,group:log-pricing-foundations,True,1,0,1,0,1
+group:logistics,Logistics,PLATFORM,Logistics,dh-cc-automations,group:compensation,True,5,5,0,0,5
+group:logistics,Logistics,PLATFORM,Logistics,dh-cc-exploit-service,group:compensation,True,0,0,0,0,50
+group:logistics,Logistics,PLATFORM,Logistics,dh-gst-events,group:log-experience,True,1,1,0,0,1
+group:logistics,Logistics,PLATFORM,Logistics,dh-helpcenter-automations,group:log-automation-optimisation,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,dh-helpcenter-backoffice,group:log-automation-optimisation,True,0,0,0,0,2
+group:logistics,Logistics,PLATFORM,Logistics,dh-helpcenter-bo-flows,group:log-automation-optimisation,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,dh-helpcenter-chat,group:communications-core,True,0,0,0,0,41
+group:logistics,Logistics,PLATFORM,Logistics,dh-helpcenter-conditions,group:log-experience,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,dh-helpcenter-fakes,group:log-automation-optimisation,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,dh-helpcenter-files,group:log-experience,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,dh-self-service-frontend,group:log-experience,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,ds-conversation-service-poc,group:log-ai-agents,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,gcc-chat-server,group:communications-core,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,gcc-ov-autopilot,group:log-ai-agents,True,0,0,0,0,20
+group:logistics,Logistics,PLATFORM,Logistics,gcc-ov-copilot,group:log-1vu-agent-intelligence,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,gcc-ov-mercury,group:log-1vu-agent-resolution,True,0,0,0,0,50
+group:logistics,Logistics,PLATFORM,Logistics,gcc-ov-services,group:log-1vu-agent-resolution,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,gcc-ov-ticket-api,group:log-agent-workflows,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,gcc-starling-aion,group:rider-scheduling,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,gst-api-signatures,group:log-1vu-agent-resolution,True,10,8,1,1,10
+group:logistics,Logistics,PLATFORM,Logistics,gst-chat-web-workspace,group:communications-core,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,herocare-communications,group:log-agent-quality,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,herocare-quality-assurance,group:log-agent-quality,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,log-customer-choice-gdp-infra,group:log-demand-management,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,log-herocare-ap-backend,group:log-agent-quality,True,168,168,0,0,168
+group:logistics,Logistics,PLATFORM,Logistics,log-herocare-ap-portal-backend,group:log-agent-quality,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,log-herocare-ap-supervisor-tools-backend,group:log-agent-workflows,True,4,2,1,1,4
+group:logistics,Logistics,PLATFORM,Logistics,log-pricing-ds-dbdf-elasticity-estimates,group:log-pricing-orchestration,True,4,4,0,0,4
+group:logistics,Logistics,PLATFORM,Logistics,logistics-ab-dashboard,group:routing-experimentation,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-arara-api,group:rider-recruitment,True,85,85,0,0,117
+group:logistics,Logistics,PLATFORM,Logistics,logistics-arara-dashboard,group:rider-recruitment,True,52,52,0,0,52
+group:logistics,Logistics,PLATFORM,Logistics,logistics-assignment-algorithm,group:log-algo,True,0,0,0,0,24
+group:logistics,Logistics,PLATFORM,Logistics,logistics-comms,group:rider-experience,True,0,0,0,0,10
+group:logistics,Logistics,PLATFORM,Logistics,logistics-company-management,group:workforce-lifecycle-workforce-management,True,2,2,0,0,19
+group:logistics,Logistics,PLATFORM,Logistics,logistics-company-management-dashboard,group:workforce-lifecycle-workforce-management,True,56,37,18,1,65
+group:logistics,Logistics,PLATFORM,Logistics,logistics-customer-notifications,group:log-order-tracking-experience,True,1,1,0,0,38
+group:logistics,Logistics,PLATFORM,Logistics,logistics-customer-weather,group:log-order-tracking-experience,True,7,7,0,0,82
+group:logistics,Logistics,PLATFORM,Logistics,logistics-delay-service,group:log-optimal-choice,True,5,5,0,0,20
+group:logistics,Logistics,PLATFORM,Logistics,logistics-delivery-flow-api,group:pick-dash-up-and-drop-dash-off,True,2,2,0,0,2
+group:logistics,Logistics,PLATFORM,Logistics,logistics-deliveryareas,group:log-optimal-choice,True,7,4,3,0,19
+group:logistics,Logistics,PLATFORM,Logistics,logistics-deliveryareas-dashboard,group:log-optimal-choice,True,14,14,0,0,43
+group:logistics,Logistics,PLATFORM,Logistics,logistics-demand-manager,group:log-demand-management,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-demand-optimizer,group:log-demand-management,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-df-tasks,group:pick-dash-up-and-drop-dash-off,True,0,0,0,0,20
+group:logistics,Logistics,PLATFORM,Logistics,logistics-df-validation-service,group:pick-dash-up-and-drop-dash-off,True,0,0,0,0,16
+group:logistics,Logistics,PLATFORM,Logistics,logistics-dispatch-service-dashboard,group:routing-experimentation,True,8,8,0,0,8
+group:logistics,Logistics,PLATFORM,Logistics,logistics-dispatcher-dashboard,group:order-dispatching,True,0,0,0,0,24
+group:logistics,Logistics,PLATFORM,Logistics,logistics-dodo-api,group:rider-recruitment,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-dodo-landing-page,group:rider-recruitment,True,0,0,0,0,3
+group:logistics,Logistics,PLATFORM,Logistics,logistics-ds-rider-priority-index,group:log-ml-platform,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-dynamic-pricing,group:log-pricing-foundations,True,3,3,0,0,16
+group:logistics,Logistics,PLATFORM,Logistics,logistics-dynamic-pricing-analytics,group:log-pricing-orchestration,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-dynamic-pricing-api,group:log-pricing-benefits,True,6,6,0,0,16
+group:logistics,Logistics,PLATFORM,Logistics,logistics-dynamic-pricing-dashboard,group:log-pricing-benefits,True,49,49,0,0,49
+group:logistics,Logistics,PLATFORM,Logistics,logistics-dynamic-pricing-optimization,group:log-pricing-orchestration,True,1,1,0,0,12
+group:logistics,Logistics,PLATFORM,Logistics,logistics-dynamic-pricing-vp-proxy,group:log-pricing-foundations,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-fleet-management-service,group:routing-experimentation,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-fms-notifications,group:routing-experimentation,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-forecast,group:rider-scheduling,True,40,40,0,0,40
+group:logistics,Logistics,PLATFORM,Logistics,logistics-forecast-api,group:rider-scheduling,True,2,2,0,0,12
+group:logistics,Logistics,PLATFORM,Logistics,logistics-forms-dashboard,group:workforce-lifecycle-workforce-management,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-fraud-detection,group:order-dispatching,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-geo-tracking,group:on-the-way,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-geofence-manager,group:on-the-way,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-goldcrest-api,group:rider-recruitment,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-hurrier,group:order-processing-lpar-optimization-rpar,True,0,0,0,0,50
+group:logistics,Logistics,PLATFORM,Logistics,logistics-hurrier-dashboard-v2,group:order-dispatching,True,2,2,0,0,2
+group:logistics,Logistics,PLATFORM,Logistics,logistics-hurrier-delay-model,group:log-optimal-choice,True,22,17,5,0,22
+group:logistics,Logistics,PLATFORM,Logistics,logistics-hurrier-documentation,group:order-processing-lpar-optimization-rpar,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-hurrier-load-tests,group:order-processing-lpar-optimization-rpar,True,10,10,0,0,12
+group:logistics,Logistics,PLATFORM,Logistics,logistics-hyperlocal-delay-service,group:routing-experimentation,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-iam-login,group:rider-access,True,0,0,0,0,12
+group:logistics,Logistics,PLATFORM,Logistics,logistics-infra-helm,group:rider-payments,True,243,243,0,0,254
+group:logistics,Logistics,PLATFORM,Logistics,logistics-issue-service,group:order-dispatching,True,26,26,0,0,69
+group:logistics,Logistics,PLATFORM,Logistics,logistics-issue-service-dashboard,group:order-dispatching,True,0,0,0,0,30
+group:logistics,Logistics,PLATFORM,Logistics,logistics-kiwi,group:rider-scheduling,True,0,0,0,0,4
+group:logistics,Logistics,PLATFORM,Logistics,logistics-kong-migration,group:rider-recruitment,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-kubernetes,group:pick-dash-up-and-drop-dash-off,True,0,0,0,0,7
+group:logistics,Logistics,PLATFORM,Logistics,logistics-magpie,group:rider-scheduling,True,3,3,0,0,3
+group:logistics,Logistics,PLATFORM,Logistics,logistics-mp-delivery-times,group:log-time-predictions,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-multi-armed-bandit,group:log-pricing-orchestration,True,92,92,0,0,92
+group:logistics,Logistics,PLATFORM,Logistics,logistics-on-call-copilot,group:order-processing-lpar-optimization-rpar,True,7,3,3,1,7
+group:logistics,Logistics,PLATFORM,Logistics,logistics-optimization-abtest,group:routing-experimentation,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-optimization-dispatch-service,group:routing-infrastructure,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-optimization-osrm,group:log-algo,True,10,5,5,0,21
+group:logistics,Logistics,PLATFORM,Logistics,logistics-optimization-routes-service,group:routing-infrastructure,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-optimization-simulator,group:routing-experimentation,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-optimization-stabilizer,group:log-algo,True,1,0,1,0,13
+group:logistics,Logistics,PLATFORM,Logistics,logistics-optimization-valhalla,group:log-algo,True,0,0,0,0,12
+group:logistics,Logistics,PLATFORM,Logistics,logistics-order-delay-model,group:log-time-predictions,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-outbox-worker,group:rider-payments,True,1,1,0,0,1
+group:logistics,Logistics,PLATFORM,Logistics,logistics-payments-data-orchestrator,group:rider-payments,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-penguin,group:rider-scheduling,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-picapau,group:workforce-lifecycle-workforce-management,True,1,1,0,0,41
+group:logistics,Logistics,PLATFORM,Logistics,logistics-platform-notifier,group:order-dispatching,True,6,6,0,0,20
+group:logistics,Logistics,PLATFORM,Logistics,logistics-pyosrm,group:log-optimal-choice,True,19,14,5,0,20
+group:logistics,Logistics,PLATFORM,Logistics,logistics-recruitment-gateway,group:rider-recruitment,True,1,1,0,0,1
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-absences-app,group:workforce-lifecycle-workforce-management,True,28,28,0,0,28
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-app-android,group:mobile-infrastructure,True,6,4,2,0,14
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-app-ios,group:mobile-infrastructure,True,16,16,0,0,38
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-compliance,group:rider-compliance,True,2,2,0,0,53
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-compliance-app,group:rider-compliance,True,8,8,0,0,8
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-config-mgmt-api,group:rider-experience,True,1,1,0,0,1
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-config-mgmt-dashboard,group:rider-experience,True,23,23,0,0,33
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-crowdsourcing,group:on-the-way,True,26,26,0,0,77
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-dashboard,group:rider-experience,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-delivery-distance,group:rider-payments,True,0,0,0,0,11
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-experience-service,group:rider-experience,True,0,0,0,0,20
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-help-center,group:on-the-way,True,9,9,0,0,9
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-images,group:rider-scheduling,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-interactions,group:log-delivery-acceptance,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-loyalty,group:rider-rewards,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-loyalty-app,group:rider-rewards,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-loyalty-dashboard,group:rider-rewards,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-payments,group:rider-payments,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-payments-app,group:rider-payments,True,8,8,0,0,32
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-payments-boosts,group:rider-rewards,True,0,0,0,0,17
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-qualification-api,group:workforce-lifecycle-workforce-management,True,11,11,0,0,11
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rider-stats,group:rider-compliance,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rooster-api,group:workforce-lifecycle-workforce-management,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rooster-app,group:workforce-lifecycle-workforce-management,True,7,7,0,0,24
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rooster-dashboard,group:workforce-lifecycle-workforce-management,True,83,83,0,0,86
+group:logistics,Logistics,PLATFORM,Logistics,logistics-rooster-scoring,group:rider-compliance,True,2,2,0,0,2
+group:logistics,Logistics,PLATFORM,Logistics,logistics-routing-infra-event-router,group:routing-infrastructure,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-scheduler,group:rider-scheduling,True,3,3,0,0,3
+group:logistics,Logistics,PLATFORM,Logistics,logistics-send-to-vendor-service,group:routing-infrastructure,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-service-ds-copilot,group:log-1vu-agent-intelligence,True,18,18,0,0,18
+group:logistics,Logistics,PLATFORM,Logistics,logistics-shifts-evaluation,group:rider-scheduling,True,1,1,0,0,1
+group:logistics,Logistics,PLATFORM,Logistics,logistics-signing-service,group:rider-recruitment,True,0,0,0,0,11
+group:logistics,Logistics,PLATFORM,Logistics,logistics-simulator,group:routing-experimentation,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-simulator-acceptance,group:routing-experimentation,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-simulator-scheduler,group:routing-experimentation,True,14,14,0,0,14
+group:logistics,Logistics,PLATFORM,Logistics,logistics-start-working-api,group:rider-availability,True,0,0,0,0,31
+group:logistics,Logistics,PLATFORM,Logistics,logistics-stress-management,group:rider-scheduling,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-tes-ui,group:log-time-predictions,True,22,22,0,0,22
+group:logistics,Logistics,PLATFORM,Logistics,logistics-time-estimation-public,group:log-time-predictions,True,2,2,0,0,30
+group:logistics,Logistics,PLATFORM,Logistics,logistics-time-estimation-service,group:log-time-predictions,True,2,2,0,0,67
+group:logistics,Logistics,PLATFORM,Logistics,logistics-tracking-api,group:log-order-tracking-experience,True,0,0,0,0,80
+group:logistics,Logistics,PLATFORM,Logistics,logistics-tracking-delivery-time,group:log-order-tracking-experience,True,6,5,1,0,10
+group:logistics,Logistics,PLATFORM,Logistics,logistics-tracking-ui-bff,group:log-tracking-sdk,True,0,0,0,0,33
+group:logistics,Logistics,PLATFORM,Logistics,logistics-tweety,group:rider-rewards,True,38,35,3,0,38
+group:logistics,Logistics,PLATFORM,Logistics,logistics-tweety-app,group:rider-rewards,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-tweety-audience,group:rider-rewards,True,27,22,5,0,27
+group:logistics,Logistics,PLATFORM,Logistics,logistics-tweety-channels,group:rider-rewards,True,1,1,0,0,1
+group:logistics,Logistics,PLATFORM,Logistics,logistics-tweety-content-delivery,group:rider-rewards,True,1,1,0,0,1
+group:logistics,Logistics,PLATFORM,Logistics,logistics-tweety-dashboard,group:rider-rewards,True,2,2,0,0,2
+group:logistics,Logistics,PLATFORM,Logistics,logistics-tweety-inbox,group:rider-rewards,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,logistics-tweety-session,group:rider-rewards,True,1,1,0,0,1
+group:logistics,Logistics,PLATFORM,Logistics,logistics-vendor-availability,group:log-demand-management,True,1,1,0,0,21
+group:logistics,Logistics,PLATFORM,Logistics,logistics-vendor-availability-fallback,group:log-demand-management,True,2,2,0,0,2
+group:logistics,Logistics,PLATFORM,Logistics,logistics-vendor-lateness-model,group:log-order-tracking-experience,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,mahdi-gdp-test,group:order-processing-lpar-optimization-rpar,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,oneview-fe-release-server,group:log-1vu-agent-resolution,True,19,19,0,0,19
+group:logistics,Logistics,PLATFORM,Logistics,ops-portal-logistics-deliveryareas-plugin,group:log-optimal-choice,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,ops-portal-logistics-seamless-plugin,group:log-time-predictions,True,53,53,0,0,53
+group:logistics,Logistics,PLATFORM,Logistics,pd-casemanagement-agent,group:log-agent-workflows,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,pd-casemanagement-trigger,group:log-agent-workflows,True,2,2,0,0,2
+group:logistics,Logistics,PLATFORM,Logistics,pd-casemanagement-workflow,group:log-agent-workflows,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,pd-chatsystem,group:log-agent-quality,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,pd-cs-oneview-cs-be-translations,group:log-agent-workflows,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,pd-cs-pandacare-fwf-proxy,group:log-agent-quality,True,1,1,0,0,1
+group:logistics,Logistics,PLATFORM,Logistics,pd-herocare-chat-case-scheduler,group:log-agent-workflows,True,2,2,0,0,2
+group:logistics,Logistics,PLATFORM,Logistics,pd-oneview-frontend,group:log-agent-workflows,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,pd-oneview-mock-server,group:log-agent-workflows,True,22,22,0,0,22
+group:logistics,Logistics,PLATFORM,Logistics,pd-pandacare-case-gateway,group:log-agent-quality,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,pd-pandacare-metabase,group:log-agent-workflows,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,pd-pandacare-non-live-message,group:log-agent-quality,True,2,2,0,0,2
+group:logistics,Logistics,PLATFORM,Logistics,pp-dbdf-calibration-tool,group:log-pricing-orchestration,True,26,25,1,0,46
+group:logistics,Logistics,PLATFORM,Logistics,rider-live-operations,group:rider-scheduling,True,1,1,0,0,1
+group:logistics,Logistics,PLATFORM,Logistics,rider-quests,group:rider-compliance,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,rider-recruitment-web-app,group:rider-recruitment,True,3,3,0,0,17
+group:logistics,Logistics,PLATFORM,Logistics,route-service,group:log-order-tracking-experience,True,12,12,0,0,12
+group:logistics,Logistics,PLATFORM,Logistics,rrds-web-icons,group:rider-rewards,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,self-service-frontend,group:log-experience,True,0,0,0,0,1
+group:logistics,Logistics,PLATFORM,Logistics,service-oneview-ai-calls,group:log-1vu-agent-resolution,True,17,17,0,0,19
+group:logistics,Logistics,PLATFORM,Logistics,simulator-dashboard,group:routing-experimentation,False,0,0,0,0,0
+group:logistics,Logistics,PLATFORM,Logistics,simulator-router-service,group:routing-experimentation,True,2,2,0,0,2
+group:logistics,Logistics,PLATFORM,Logistics,user-token-management,group:rider-recruitment,False,0,0,0,0,0
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,delivery-fee-tiers-generation,group:log-pricing-foundations,True,1,0,1,0,1
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,log-customer-choice-gdp-infra,group:log-demand-management,False,0,0,0,0,0
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,log-pricing-ds-dbdf-elasticity-estimates,group:log-pricing-orchestration,True,4,4,0,0,4
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-customer-notifications,group:log-order-tracking-experience,True,1,1,0,0,38
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-customer-weather,group:log-order-tracking-experience,True,7,7,0,0,82
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-delay-service,group:log-optimal-choice,True,5,5,0,0,20
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-deliveryareas,group:log-optimal-choice,True,7,4,3,0,19
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-deliveryareas-dashboard,group:log-optimal-choice,True,14,14,0,0,43
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-demand-manager,group:log-demand-management,False,0,0,0,0,0
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-demand-optimizer,group:log-demand-management,False,0,0,0,0,0
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-ds-rider-priority-index,group:log-ml-platform,False,0,0,0,0,0
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-dynamic-pricing,group:log-pricing-foundations,True,3,3,0,0,16
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-dynamic-pricing-analytics,group:log-pricing-orchestration,False,0,0,0,0,0
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-dynamic-pricing-api,group:log-pricing-benefits,True,6,6,0,0,16
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-dynamic-pricing-dashboard,group:log-pricing-benefits,True,49,49,0,0,49
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-dynamic-pricing-optimization,group:log-pricing-orchestration,True,1,1,0,0,12
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-dynamic-pricing-vp-proxy,group:log-pricing-foundations,False,0,0,0,0,0
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-hurrier-delay-model,group:log-optimal-choice,True,22,17,5,0,22
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-mp-delivery-times,group:log-time-predictions,False,0,0,0,0,0
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-multi-armed-bandit,group:log-pricing-orchestration,True,92,92,0,0,92
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-order-delay-model,group:log-time-predictions,False,0,0,0,0,0
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-pyosrm,group:log-optimal-choice,True,19,14,5,0,20
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-tes-ui,group:log-time-predictions,True,22,22,0,0,22
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-time-estimation-public,group:log-time-predictions,True,2,2,0,0,30
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-time-estimation-service,group:log-time-predictions,True,2,2,0,0,67
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-tracking-api,group:log-order-tracking-experience,True,0,0,0,0,80
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-tracking-delivery-time,group:log-order-tracking-experience,True,6,5,1,0,10
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-tracking-ui-bff,group:log-tracking-sdk,True,0,0,0,0,33
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-vendor-availability,group:log-demand-management,True,1,1,0,0,21
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-vendor-availability-fallback,group:log-demand-management,True,2,2,0,0,2
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,logistics-vendor-lateness-model,group:log-order-tracking-experience,False,0,0,0,0,0
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,ops-portal-logistics-deliveryareas-plugin,group:log-optimal-choice,False,0,0,0,0,0
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,ops-portal-logistics-seamless-plugin,group:log-time-predictions,True,53,53,0,0,53
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,pp-dbdf-calibration-tool,group:log-pricing-orchestration,True,26,25,1,0,46
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,route-service,group:log-order-tracking-experience,True,12,12,0,0,12
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,delivery-fee-tiers-generation,group:log-pricing-foundations,True,1,0,1,0,1
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,log-customer-choice-gdp-infra,group:log-demand-management,False,0,0,0,0,0
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,log-pricing-ds-dbdf-elasticity-estimates,group:log-pricing-orchestration,True,4,4,0,0,4
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-customer-notifications,group:log-order-tracking-experience,True,1,1,0,0,38
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-customer-weather,group:log-order-tracking-experience,True,7,7,0,0,82
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-delay-service,group:log-optimal-choice,True,5,5,0,0,20
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-deliveryareas,group:log-optimal-choice,True,7,4,3,0,19
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-deliveryareas-dashboard,group:log-optimal-choice,True,14,14,0,0,43
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-demand-manager,group:log-demand-management,False,0,0,0,0,0
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-demand-optimizer,group:log-demand-management,False,0,0,0,0,0
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-dynamic-pricing,group:log-pricing-foundations,True,3,3,0,0,16
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-dynamic-pricing-analytics,group:log-pricing-orchestration,False,0,0,0,0,0
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-dynamic-pricing-api,group:log-pricing-benefits,True,6,6,0,0,16
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-dynamic-pricing-dashboard,group:log-pricing-benefits,True,49,49,0,0,49
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-dynamic-pricing-optimization,group:log-pricing-orchestration,True,1,1,0,0,12
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-dynamic-pricing-vp-proxy,group:log-pricing-foundations,False,0,0,0,0,0
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-hurrier-delay-model,group:log-optimal-choice,True,22,17,5,0,22
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-mp-delivery-times,group:log-time-predictions,False,0,0,0,0,0
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-multi-armed-bandit,group:log-pricing-orchestration,True,92,92,0,0,92
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-order-delay-model,group:log-time-predictions,False,0,0,0,0,0
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-pyosrm,group:log-optimal-choice,True,19,14,5,0,20
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-tes-ui,group:log-time-predictions,True,22,22,0,0,22
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-time-estimation-public,group:log-time-predictions,True,2,2,0,0,30
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-time-estimation-service,group:log-time-predictions,True,2,2,0,0,67
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-tracking-api,group:log-order-tracking-experience,True,0,0,0,0,80
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-tracking-delivery-time,group:log-order-tracking-experience,True,6,5,1,0,10
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-tracking-ui-bff,group:log-tracking-sdk,True,0,0,0,0,33
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-vendor-availability,group:log-demand-management,True,1,1,0,0,21
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-vendor-availability-fallback,group:log-demand-management,True,2,2,0,0,2
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,logistics-vendor-lateness-model,group:log-order-tracking-experience,False,0,0,0,0,0
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,ops-portal-logistics-deliveryareas-plugin,group:log-optimal-choice,False,0,0,0,0,0
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,ops-portal-logistics-seamless-plugin,group:log-time-predictions,True,53,53,0,0,53
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,pp-dbdf-calibration-tool,group:log-pricing-orchestration,True,26,25,1,0,46
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,route-service,group:log-order-tracking-experience,True,12,12,0,0,12
+group:log-choice-customer-logistics,Choice - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Choice - Customer Logistics,log-customer-choice-gdp-infra,group:log-demand-management,False,0,0,0,0,0
+group:log-choice-customer-logistics,Choice - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Choice - Customer Logistics,logistics-delay-service,group:log-optimal-choice,True,5,5,0,0,20
+group:log-choice-customer-logistics,Choice - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Choice - Customer Logistics,logistics-deliveryareas,group:log-optimal-choice,True,7,4,3,0,19
+group:log-choice-customer-logistics,Choice - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Choice - Customer Logistics,logistics-deliveryareas-dashboard,group:log-optimal-choice,True,14,14,0,0,43
+group:log-choice-customer-logistics,Choice - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Choice - Customer Logistics,logistics-demand-manager,group:log-demand-management,False,0,0,0,0,0
+group:log-choice-customer-logistics,Choice - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Choice - Customer Logistics,logistics-demand-optimizer,group:log-demand-management,False,0,0,0,0,0
+group:log-choice-customer-logistics,Choice - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Choice - Customer Logistics,logistics-hurrier-delay-model,group:log-optimal-choice,True,22,17,5,0,22
+group:log-choice-customer-logistics,Choice - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Choice - Customer Logistics,logistics-pyosrm,group:log-optimal-choice,True,19,14,5,0,20
+group:log-choice-customer-logistics,Choice - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Choice - Customer Logistics,logistics-vendor-availability,group:log-demand-management,True,1,1,0,0,21
+group:log-choice-customer-logistics,Choice - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Choice - Customer Logistics,logistics-vendor-availability-fallback,group:log-demand-management,True,2,2,0,0,2
+group:log-choice-customer-logistics,Choice - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Choice - Customer Logistics,ops-portal-logistics-deliveryareas-plugin,group:log-optimal-choice,False,0,0,0,0,0
+group:log-demand-management,Demand Management,SQUAD,Logistics / Customer Product Line / Customer / Choice - Customer Logistics / Demand Management,log-customer-choice-gdp-infra,group:log-demand-management,False,0,0,0,0,0
+group:log-demand-management,Demand Management,SQUAD,Logistics / Customer Product Line / Customer / Choice - Customer Logistics / Demand Management,logistics-demand-manager,group:log-demand-management,False,0,0,0,0,0
+group:log-demand-management,Demand Management,SQUAD,Logistics / Customer Product Line / Customer / Choice - Customer Logistics / Demand Management,logistics-demand-optimizer,group:log-demand-management,False,0,0,0,0,0
+group:log-demand-management,Demand Management,SQUAD,Logistics / Customer Product Line / Customer / Choice - Customer Logistics / Demand Management,logistics-vendor-availability,group:log-demand-management,True,1,1,0,0,21
+group:log-demand-management,Demand Management,SQUAD,Logistics / Customer Product Line / Customer / Choice - Customer Logistics / Demand Management,logistics-vendor-availability-fallback,group:log-demand-management,True,2,2,0,0,2
+group:log-optimal-choice,Optimal Choice,SQUAD,Logistics / Customer Product Line / Customer / Choice - Customer Logistics / Optimal Choice,logistics-delay-service,group:log-optimal-choice,True,5,5,0,0,20
+group:log-optimal-choice,Optimal Choice,SQUAD,Logistics / Customer Product Line / Customer / Choice - Customer Logistics / Optimal Choice,logistics-deliveryareas,group:log-optimal-choice,True,7,4,3,0,19
+group:log-optimal-choice,Optimal Choice,SQUAD,Logistics / Customer Product Line / Customer / Choice - Customer Logistics / Optimal Choice,logistics-deliveryareas-dashboard,group:log-optimal-choice,True,14,14,0,0,43
+group:log-optimal-choice,Optimal Choice,SQUAD,Logistics / Customer Product Line / Customer / Choice - Customer Logistics / Optimal Choice,logistics-hurrier-delay-model,group:log-optimal-choice,True,22,17,5,0,22
+group:log-optimal-choice,Optimal Choice,SQUAD,Logistics / Customer Product Line / Customer / Choice - Customer Logistics / Optimal Choice,logistics-pyosrm,group:log-optimal-choice,True,19,14,5,0,20
+group:log-optimal-choice,Optimal Choice,SQUAD,Logistics / Customer Product Line / Customer / Choice - Customer Logistics / Optimal Choice,ops-portal-logistics-deliveryareas-plugin,group:log-optimal-choice,False,0,0,0,0,0
+group:pricing,Pricing - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics,delivery-fee-tiers-generation,group:log-pricing-foundations,True,1,0,1,0,1
+group:pricing,Pricing - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics,log-pricing-ds-dbdf-elasticity-estimates,group:log-pricing-orchestration,True,4,4,0,0,4
+group:pricing,Pricing - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics,logistics-dynamic-pricing,group:log-pricing-foundations,True,3,3,0,0,16
+group:pricing,Pricing - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics,logistics-dynamic-pricing-analytics,group:log-pricing-orchestration,False,0,0,0,0,0
+group:pricing,Pricing - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics,logistics-dynamic-pricing-api,group:log-pricing-benefits,True,6,6,0,0,16
+group:pricing,Pricing - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics,logistics-dynamic-pricing-dashboard,group:log-pricing-benefits,True,49,49,0,0,49
+group:pricing,Pricing - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics,logistics-dynamic-pricing-optimization,group:log-pricing-orchestration,True,1,1,0,0,12
+group:pricing,Pricing - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics,logistics-dynamic-pricing-vp-proxy,group:log-pricing-foundations,False,0,0,0,0,0
+group:pricing,Pricing - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics,logistics-multi-armed-bandit,group:log-pricing-orchestration,True,92,92,0,0,92
+group:pricing,Pricing - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics,pp-dbdf-calibration-tool,group:log-pricing-orchestration,True,26,25,1,0,46
+group:log-pricing-orchestration,Pricing Algo & Experimentation,SQUAD,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics / Pricing Algo & Experimentation,log-pricing-ds-dbdf-elasticity-estimates,group:log-pricing-orchestration,True,4,4,0,0,4
+group:log-pricing-orchestration,Pricing Algo & Experimentation,SQUAD,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics / Pricing Algo & Experimentation,logistics-dynamic-pricing-analytics,group:log-pricing-orchestration,False,0,0,0,0,0
+group:log-pricing-orchestration,Pricing Algo & Experimentation,SQUAD,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics / Pricing Algo & Experimentation,logistics-dynamic-pricing-optimization,group:log-pricing-orchestration,True,1,1,0,0,12
+group:log-pricing-orchestration,Pricing Algo & Experimentation,SQUAD,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics / Pricing Algo & Experimentation,logistics-multi-armed-bandit,group:log-pricing-orchestration,True,92,92,0,0,92
+group:log-pricing-orchestration,Pricing Algo & Experimentation,SQUAD,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics / Pricing Algo & Experimentation,pp-dbdf-calibration-tool,group:log-pricing-orchestration,True,26,25,1,0,46
+group:log-pricing-benefits,Pricing Benefits,SQUAD,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics / Pricing Benefits,logistics-dynamic-pricing-api,group:log-pricing-benefits,True,6,6,0,0,16
+group:log-pricing-benefits,Pricing Benefits,SQUAD,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics / Pricing Benefits,logistics-dynamic-pricing-dashboard,group:log-pricing-benefits,True,49,49,0,0,49
+group:log-pricing-foundations,Pricing Mechanisms,SQUAD,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics / Pricing Mechanisms,delivery-fee-tiers-generation,group:log-pricing-foundations,True,1,0,1,0,1
+group:log-pricing-foundations,Pricing Mechanisms,SQUAD,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics / Pricing Mechanisms,logistics-dynamic-pricing,group:log-pricing-foundations,True,3,3,0,0,16
+group:log-pricing-foundations,Pricing Mechanisms,SQUAD,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics / Pricing Mechanisms,logistics-dynamic-pricing-vp-proxy,group:log-pricing-foundations,False,0,0,0,0,0
+group:log-seamless-customer-logistics,Seamless - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics,logistics-customer-notifications,group:log-order-tracking-experience,True,1,1,0,0,38
+group:log-seamless-customer-logistics,Seamless - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics,logistics-customer-weather,group:log-order-tracking-experience,True,7,7,0,0,82
+group:log-seamless-customer-logistics,Seamless - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics,logistics-mp-delivery-times,group:log-time-predictions,False,0,0,0,0,0
+group:log-seamless-customer-logistics,Seamless - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics,logistics-order-delay-model,group:log-time-predictions,False,0,0,0,0,0
+group:log-seamless-customer-logistics,Seamless - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics,logistics-tes-ui,group:log-time-predictions,True,22,22,0,0,22
+group:log-seamless-customer-logistics,Seamless - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics,logistics-time-estimation-public,group:log-time-predictions,True,2,2,0,0,30
+group:log-seamless-customer-logistics,Seamless - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics,logistics-time-estimation-service,group:log-time-predictions,True,2,2,0,0,67
+group:log-seamless-customer-logistics,Seamless - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics,logistics-tracking-api,group:log-order-tracking-experience,True,0,0,0,0,80
+group:log-seamless-customer-logistics,Seamless - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics,logistics-tracking-delivery-time,group:log-order-tracking-experience,True,6,5,1,0,10
+group:log-seamless-customer-logistics,Seamless - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics,logistics-tracking-ui-bff,group:log-tracking-sdk,True,0,0,0,0,33
+group:log-seamless-customer-logistics,Seamless - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics,logistics-vendor-lateness-model,group:log-order-tracking-experience,False,0,0,0,0,0
+group:log-seamless-customer-logistics,Seamless - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics,ops-portal-logistics-seamless-plugin,group:log-time-predictions,True,53,53,0,0,53
+group:log-seamless-customer-logistics,Seamless - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics,route-service,group:log-order-tracking-experience,True,12,12,0,0,12
+group:log-order-tracking-experience,Order Tracking,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Order Tracking,logistics-customer-notifications,group:log-order-tracking-experience,True,1,1,0,0,38
+group:log-order-tracking-experience,Order Tracking,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Order Tracking,logistics-customer-weather,group:log-order-tracking-experience,True,7,7,0,0,82
+group:log-order-tracking-experience,Order Tracking,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Order Tracking,logistics-tracking-api,group:log-order-tracking-experience,True,0,0,0,0,80
+group:log-order-tracking-experience,Order Tracking,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Order Tracking,logistics-tracking-delivery-time,group:log-order-tracking-experience,True,6,5,1,0,10
+group:log-order-tracking-experience,Order Tracking,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Order Tracking,logistics-vendor-lateness-model,group:log-order-tracking-experience,False,0,0,0,0,0
+group:log-order-tracking-experience,Order Tracking,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Order Tracking,route-service,group:log-order-tracking-experience,True,12,12,0,0,12
+group:log-time-predictions,Time Estimations,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Time Estimations,logistics-mp-delivery-times,group:log-time-predictions,False,0,0,0,0,0
+group:log-time-predictions,Time Estimations,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Time Estimations,logistics-order-delay-model,group:log-time-predictions,False,0,0,0,0,0
+group:log-time-predictions,Time Estimations,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Time Estimations,logistics-tes-ui,group:log-time-predictions,True,22,22,0,0,22
+group:log-time-predictions,Time Estimations,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Time Estimations,logistics-time-estimation-public,group:log-time-predictions,True,2,2,0,0,30
+group:log-time-predictions,Time Estimations,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Time Estimations,logistics-time-estimation-service,group:log-time-predictions,True,2,2,0,0,67
+group:log-time-predictions,Time Estimations,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Time Estimations,ops-portal-logistics-seamless-plugin,group:log-time-predictions,True,53,53,0,0,53
+group:log-tracking-sdk,Tracking UI,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Tracking UI,logistics-tracking-ui-bff,group:log-tracking-sdk,True,0,0,0,0,33
+group:log-customer-data-ml,Data & ML,TRIBE,Logistics / Customer Product Line / Data & ML,logistics-ds-rider-priority-index,group:log-ml-platform,False,0,0,0,0,0
+group:log-data-ml,Data & ML,DOMAIN,Logistics / Customer Product Line / Data & ML / Data & ML,logistics-ds-rider-priority-index,group:log-ml-platform,False,0,0,0,0,0
+group:log-ml-platform,Machine Learning Platform,SQUAD,Logistics / Customer Product Line / Data & ML / Data & ML / Machine Learning Platform,logistics-ds-rider-priority-index,group:log-ml-platform,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,arara-api,group:rider-recruitment,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,arara-dashboard,group:rider-recruitment,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,gcc-starling-aion,group:rider-scheduling,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-ab-dashboard,group:routing-experimentation,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-arara-api,group:rider-recruitment,True,85,85,0,0,117
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-arara-dashboard,group:rider-recruitment,True,52,52,0,0,52
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-assignment-algorithm,group:log-algo,True,0,0,0,0,24
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-comms,group:rider-experience,True,0,0,0,0,10
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-company-management,group:workforce-lifecycle-workforce-management,True,2,2,0,0,19
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-company-management-dashboard,group:workforce-lifecycle-workforce-management,True,56,37,18,1,65
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-delivery-flow-api,group:pick-dash-up-and-drop-dash-off,True,2,2,0,0,2
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-df-tasks,group:pick-dash-up-and-drop-dash-off,True,0,0,0,0,20
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-df-validation-service,group:pick-dash-up-and-drop-dash-off,True,0,0,0,0,16
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-dispatch-service-dashboard,group:routing-experimentation,True,8,8,0,0,8
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-dispatcher-dashboard,group:order-dispatching,True,0,0,0,0,24
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-dodo-api,group:rider-recruitment,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-dodo-landing-page,group:rider-recruitment,True,0,0,0,0,3
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-fleet-management-service,group:routing-experimentation,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-fms-notifications,group:routing-experimentation,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-forecast,group:rider-scheduling,True,40,40,0,0,40
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-forecast-api,group:rider-scheduling,True,2,2,0,0,12
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-forms-dashboard,group:workforce-lifecycle-workforce-management,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-fraud-detection,group:order-dispatching,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-geo-tracking,group:on-the-way,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-geofence-manager,group:on-the-way,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-goldcrest-api,group:rider-recruitment,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-hurrier,group:order-processing-lpar-optimization-rpar,True,0,0,0,0,50
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-hurrier-dashboard-v2,group:order-dispatching,True,2,2,0,0,2
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-hurrier-documentation,group:order-processing-lpar-optimization-rpar,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-hurrier-load-tests,group:order-processing-lpar-optimization-rpar,True,10,10,0,0,12
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-hyperlocal-delay-service,group:routing-experimentation,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-iam-login,group:rider-access,True,0,0,0,0,12
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-infra-helm,group:rider-payments,True,243,243,0,0,254
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-issue-service,group:order-dispatching,True,26,26,0,0,69
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-issue-service-dashboard,group:order-dispatching,True,0,0,0,0,30
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-kiwi,group:rider-scheduling,True,0,0,0,0,4
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-kong-migration,group:rider-recruitment,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-kubernetes,group:pick-dash-up-and-drop-dash-off,True,0,0,0,0,7
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-magpie,group:rider-scheduling,True,3,3,0,0,3
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-on-call-copilot,group:order-processing-lpar-optimization-rpar,True,7,3,3,1,7
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-optimization-abtest,group:routing-experimentation,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-optimization-dispatch-service,group:routing-infrastructure,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-optimization-osrm,group:log-algo,True,10,5,5,0,21
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-optimization-routes-service,group:routing-infrastructure,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-optimization-simulator,group:routing-experimentation,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-optimization-stabilizer,group:log-algo,True,1,0,1,0,13
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-optimization-valhalla,group:log-algo,True,0,0,0,0,12
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-outbox-worker,group:rider-payments,True,1,1,0,0,1
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-payments-data-orchestrator,group:rider-payments,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-penguin,group:rider-scheduling,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-picapau,group:workforce-lifecycle-workforce-management,True,1,1,0,0,41
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-platform-notifier,group:order-dispatching,True,6,6,0,0,20
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-recruitment-gateway,group:rider-recruitment,True,1,1,0,0,1
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-absences-app,group:workforce-lifecycle-workforce-management,True,28,28,0,0,28
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-app-android,group:mobile-infrastructure,True,6,4,2,0,14
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-app-ios,group:mobile-infrastructure,True,16,16,0,0,38
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-compliance,group:rider-compliance,True,2,2,0,0,53
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-compliance-app,group:rider-compliance,True,8,8,0,0,8
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-config-mgmt-api,group:rider-experience,True,1,1,0,0,1
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-config-mgmt-dashboard,group:rider-experience,True,23,23,0,0,33
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-crowdsourcing,group:on-the-way,True,26,26,0,0,77
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-dashboard,group:rider-experience,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-delivery-distance,group:rider-payments,True,0,0,0,0,11
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-experience-service,group:rider-experience,True,0,0,0,0,20
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-help-center,group:on-the-way,True,9,9,0,0,9
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-images,group:rider-scheduling,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-interactions,group:log-delivery-acceptance,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-loyalty,group:rider-rewards,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-loyalty-app,group:rider-rewards,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-loyalty-dashboard,group:rider-rewards,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-payments,group:rider-payments,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-payments-app,group:rider-payments,True,8,8,0,0,32
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-payments-boosts,group:rider-rewards,True,0,0,0,0,17
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-qualification-api,group:workforce-lifecycle-workforce-management,True,11,11,0,0,11
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rider-stats,group:rider-compliance,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rooster-api,group:workforce-lifecycle-workforce-management,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rooster-app,group:workforce-lifecycle-workforce-management,True,7,7,0,0,24
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rooster-dashboard,group:workforce-lifecycle-workforce-management,True,83,83,0,0,86
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-rooster-scoring,group:rider-compliance,True,2,2,0,0,2
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-routing-infra-event-router,group:routing-infrastructure,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-scheduler,group:rider-scheduling,True,3,3,0,0,3
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-send-to-vendor-service,group:routing-infrastructure,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-shifts-evaluation,group:rider-scheduling,True,1,1,0,0,1
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-signing-service,group:rider-recruitment,True,0,0,0,0,11
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-simulator,group:routing-experimentation,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-simulator-acceptance,group:routing-experimentation,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-simulator-scheduler,group:routing-experimentation,True,14,14,0,0,14
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-start-working-api,group:rider-availability,True,0,0,0,0,31
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-stress-management,group:rider-scheduling,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-tweety,group:rider-rewards,True,38,35,3,0,38
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-tweety-app,group:rider-rewards,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-tweety-audience,group:rider-rewards,True,27,22,5,0,27
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-tweety-channels,group:rider-rewards,True,1,1,0,0,1
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-tweety-content-delivery,group:rider-rewards,True,1,1,0,0,1
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-tweety-dashboard,group:rider-rewards,True,2,2,0,0,2
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-tweety-inbox,group:rider-rewards,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,logistics-tweety-session,group:rider-rewards,True,1,1,0,0,1
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,mahdi-gdp-test,group:order-processing-lpar-optimization-rpar,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,rider-live-operations,group:rider-scheduling,True,1,1,0,0,1
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,rider-quests,group:rider-compliance,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,rider-recruitment-web-app,group:rider-recruitment,True,3,3,0,0,17
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,rrds-web-icons,group:rider-rewards,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,simulator-dashboard,group:routing-experimentation,False,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,simulator-router-service,group:routing-experimentation,True,2,2,0,0,2
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,user-token-management,group:rider-recruitment,False,0,0,0,0,0
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-comms,group:rider-experience,True,0,0,0,0,10
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-delivery-flow-api,group:pick-dash-up-and-drop-dash-off,True,2,2,0,0,2
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-df-tasks,group:pick-dash-up-and-drop-dash-off,True,0,0,0,0,20
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-df-validation-service,group:pick-dash-up-and-drop-dash-off,True,0,0,0,0,16
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-dispatcher-dashboard,group:order-dispatching,True,0,0,0,0,24
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-fraud-detection,group:order-dispatching,False,0,0,0,0,0
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-geo-tracking,group:on-the-way,False,0,0,0,0,0
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-geofence-manager,group:on-the-way,False,0,0,0,0,0
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-hurrier,group:order-processing-lpar-optimization-rpar,True,0,0,0,0,50
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-hurrier-dashboard-v2,group:order-dispatching,True,2,2,0,0,2
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-hurrier-documentation,group:order-processing-lpar-optimization-rpar,False,0,0,0,0,0
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-hurrier-load-tests,group:order-processing-lpar-optimization-rpar,True,10,10,0,0,12
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-iam-login,group:rider-access,True,0,0,0,0,12
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-issue-service,group:order-dispatching,True,26,26,0,0,69
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-issue-service-dashboard,group:order-dispatching,True,0,0,0,0,30
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-kubernetes,group:pick-dash-up-and-drop-dash-off,True,0,0,0,0,7
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-on-call-copilot,group:order-processing-lpar-optimization-rpar,True,7,3,3,1,7
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-platform-notifier,group:order-dispatching,True,6,6,0,0,20
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-rider-app-android,group:mobile-infrastructure,True,6,4,2,0,14
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-rider-app-ios,group:mobile-infrastructure,True,16,16,0,0,38
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-rider-config-mgmt-api,group:rider-experience,True,1,1,0,0,1
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-rider-config-mgmt-dashboard,group:rider-experience,True,23,23,0,0,33
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-rider-crowdsourcing,group:on-the-way,True,26,26,0,0,77
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-rider-dashboard,group:rider-experience,False,0,0,0,0,0
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-rider-experience-service,group:rider-experience,True,0,0,0,0,20
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-rider-help-center,group:on-the-way,True,9,9,0,0,9
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-rider-interactions,group:log-delivery-acceptance,False,0,0,0,0,0
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,logistics-start-working-api,group:rider-availability,True,0,0,0,0,31
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,mahdi-gdp-test,group:order-processing-lpar-optimization-rpar,False,0,0,0,0,0
+group:delivery-flow,Delivery Flow,DOMAIN,Logistics / Rider / Deliveries / Delivery Flow,logistics-delivery-flow-api,group:pick-dash-up-and-drop-dash-off,True,2,2,0,0,2
+group:delivery-flow,Delivery Flow,DOMAIN,Logistics / Rider / Deliveries / Delivery Flow,logistics-df-tasks,group:pick-dash-up-and-drop-dash-off,True,0,0,0,0,20
+group:delivery-flow,Delivery Flow,DOMAIN,Logistics / Rider / Deliveries / Delivery Flow,logistics-df-validation-service,group:pick-dash-up-and-drop-dash-off,True,0,0,0,0,16
+group:delivery-flow,Delivery Flow,DOMAIN,Logistics / Rider / Deliveries / Delivery Flow,logistics-geo-tracking,group:on-the-way,False,0,0,0,0,0
+group:delivery-flow,Delivery Flow,DOMAIN,Logistics / Rider / Deliveries / Delivery Flow,logistics-geofence-manager,group:on-the-way,False,0,0,0,0,0
+group:delivery-flow,Delivery Flow,DOMAIN,Logistics / Rider / Deliveries / Delivery Flow,logistics-kubernetes,group:pick-dash-up-and-drop-dash-off,True,0,0,0,0,7
+group:delivery-flow,Delivery Flow,DOMAIN,Logistics / Rider / Deliveries / Delivery Flow,logistics-rider-crowdsourcing,group:on-the-way,True,26,26,0,0,77
+group:delivery-flow,Delivery Flow,DOMAIN,Logistics / Rider / Deliveries / Delivery Flow,logistics-rider-help-center,group:on-the-way,True,9,9,0,0,9
+group:delivery-flow,Delivery Flow,DOMAIN,Logistics / Rider / Deliveries / Delivery Flow,logistics-rider-interactions,group:log-delivery-acceptance,False,0,0,0,0,0
+group:log-delivery-acceptance,Delivery Acceptance,SQUAD,Logistics / Rider / Deliveries / Delivery Flow / Delivery Acceptance,logistics-rider-interactions,group:log-delivery-acceptance,False,0,0,0,0,0
+group:pick-dash-up-and-drop-dash-off,Pick-up and Drop-off,SQUAD,Logistics / Rider / Deliveries / Delivery Flow / Pick-up and Drop-off,logistics-delivery-flow-api,group:pick-dash-up-and-drop-dash-off,True,2,2,0,0,2
+group:pick-dash-up-and-drop-dash-off,Pick-up and Drop-off,SQUAD,Logistics / Rider / Deliveries / Delivery Flow / Pick-up and Drop-off,logistics-df-tasks,group:pick-dash-up-and-drop-dash-off,True,0,0,0,0,20
+group:pick-dash-up-and-drop-dash-off,Pick-up and Drop-off,SQUAD,Logistics / Rider / Deliveries / Delivery Flow / Pick-up and Drop-off,logistics-df-validation-service,group:pick-dash-up-and-drop-dash-off,True,0,0,0,0,16
+group:pick-dash-up-and-drop-dash-off,Pick-up and Drop-off,SQUAD,Logistics / Rider / Deliveries / Delivery Flow / Pick-up and Drop-off,logistics-kubernetes,group:pick-dash-up-and-drop-dash-off,True,0,0,0,0,7
+group:on-the-way,Rider On The Way,SQUAD,Logistics / Rider / Deliveries / Delivery Flow / Rider On The Way,logistics-geo-tracking,group:on-the-way,False,0,0,0,0,0
+group:on-the-way,Rider On The Way,SQUAD,Logistics / Rider / Deliveries / Delivery Flow / Rider On The Way,logistics-geofence-manager,group:on-the-way,False,0,0,0,0,0
+group:on-the-way,Rider On The Way,SQUAD,Logistics / Rider / Deliveries / Delivery Flow / Rider On The Way,logistics-rider-crowdsourcing,group:on-the-way,True,26,26,0,0,77
+group:on-the-way,Rider On The Way,SQUAD,Logistics / Rider / Deliveries / Delivery Flow / Rider On The Way,logistics-rider-help-center,group:on-the-way,True,9,9,0,0,9
+group:order-management,Order Management,DOMAIN,Logistics / Rider / Deliveries / Order Management,logistics-dispatcher-dashboard,group:order-dispatching,True,0,0,0,0,24
+group:order-management,Order Management,DOMAIN,Logistics / Rider / Deliveries / Order Management,logistics-fraud-detection,group:order-dispatching,False,0,0,0,0,0
+group:order-management,Order Management,DOMAIN,Logistics / Rider / Deliveries / Order Management,logistics-hurrier,group:order-processing-lpar-optimization-rpar,True,0,0,0,0,50
+group:order-management,Order Management,DOMAIN,Logistics / Rider / Deliveries / Order Management,logistics-hurrier-dashboard-v2,group:order-dispatching,True,2,2,0,0,2
+group:order-management,Order Management,DOMAIN,Logistics / Rider / Deliveries / Order Management,logistics-hurrier-documentation,group:order-processing-lpar-optimization-rpar,False,0,0,0,0,0
+group:order-management,Order Management,DOMAIN,Logistics / Rider / Deliveries / Order Management,logistics-hurrier-load-tests,group:order-processing-lpar-optimization-rpar,True,10,10,0,0,12
+group:order-management,Order Management,DOMAIN,Logistics / Rider / Deliveries / Order Management,logistics-iam-login,group:rider-access,True,0,0,0,0,12
+group:order-management,Order Management,DOMAIN,Logistics / Rider / Deliveries / Order Management,logistics-issue-service,group:order-dispatching,True,26,26,0,0,69
+group:order-management,Order Management,DOMAIN,Logistics / Rider / Deliveries / Order Management,logistics-issue-service-dashboard,group:order-dispatching,True,0,0,0,0,30
+group:order-management,Order Management,DOMAIN,Logistics / Rider / Deliveries / Order Management,logistics-on-call-copilot,group:order-processing-lpar-optimization-rpar,True,7,3,3,1,7
+group:order-management,Order Management,DOMAIN,Logistics / Rider / Deliveries / Order Management,logistics-platform-notifier,group:order-dispatching,True,6,6,0,0,20
+group:order-management,Order Management,DOMAIN,Logistics / Rider / Deliveries / Order Management,logistics-rider-app-android,group:mobile-infrastructure,True,6,4,2,0,14
+group:order-management,Order Management,DOMAIN,Logistics / Rider / Deliveries / Order Management,logistics-rider-app-ios,group:mobile-infrastructure,True,16,16,0,0,38
+group:order-management,Order Management,DOMAIN,Logistics / Rider / Deliveries / Order Management,mahdi-gdp-test,group:order-processing-lpar-optimization-rpar,False,0,0,0,0,0
+group:mobile-infrastructure,Mobile Infra,SQUAD,Logistics / Rider / Deliveries / Order Management / Mobile Infra,logistics-rider-app-android,group:mobile-infrastructure,True,6,4,2,0,14
+group:mobile-infrastructure,Mobile Infra,SQUAD,Logistics / Rider / Deliveries / Order Management / Mobile Infra,logistics-rider-app-ios,group:mobile-infrastructure,True,16,16,0,0,38
+group:order-dispatching,Order Dispatching,SQUAD,Logistics / Rider / Deliveries / Order Management / Order Dispatching,logistics-dispatcher-dashboard,group:order-dispatching,True,0,0,0,0,24
+group:order-dispatching,Order Dispatching,SQUAD,Logistics / Rider / Deliveries / Order Management / Order Dispatching,logistics-fraud-detection,group:order-dispatching,False,0,0,0,0,0
+group:order-dispatching,Order Dispatching,SQUAD,Logistics / Rider / Deliveries / Order Management / Order Dispatching,logistics-hurrier-dashboard-v2,group:order-dispatching,True,2,2,0,0,2
+group:order-dispatching,Order Dispatching,SQUAD,Logistics / Rider / Deliveries / Order Management / Order Dispatching,logistics-issue-service,group:order-dispatching,True,26,26,0,0,69
+group:order-dispatching,Order Dispatching,SQUAD,Logistics / Rider / Deliveries / Order Management / Order Dispatching,logistics-issue-service-dashboard,group:order-dispatching,True,0,0,0,0,30
+group:order-dispatching,Order Dispatching,SQUAD,Logistics / Rider / Deliveries / Order Management / Order Dispatching,logistics-platform-notifier,group:order-dispatching,True,6,6,0,0,20
+group:order-processing-lpar-optimization-rpar,Order Processing,SQUAD,Logistics / Rider / Deliveries / Order Management / Order Processing,logistics-hurrier,group:order-processing-lpar-optimization-rpar,True,0,0,0,0,50
+group:order-processing-lpar-optimization-rpar,Order Processing,SQUAD,Logistics / Rider / Deliveries / Order Management / Order Processing,logistics-hurrier-documentation,group:order-processing-lpar-optimization-rpar,False,0,0,0,0,0
+group:order-processing-lpar-optimization-rpar,Order Processing,SQUAD,Logistics / Rider / Deliveries / Order Management / Order Processing,logistics-hurrier-load-tests,group:order-processing-lpar-optimization-rpar,True,10,10,0,0,12
+group:order-processing-lpar-optimization-rpar,Order Processing,SQUAD,Logistics / Rider / Deliveries / Order Management / Order Processing,logistics-on-call-copilot,group:order-processing-lpar-optimization-rpar,True,7,3,3,1,7
+group:order-processing-lpar-optimization-rpar,Order Processing,SQUAD,Logistics / Rider / Deliveries / Order Management / Order Processing,mahdi-gdp-test,group:order-processing-lpar-optimization-rpar,False,0,0,0,0,0
+group:rider-access,Rider Access,SQUAD,Logistics / Rider / Deliveries / Order Management / Rider Access,logistics-iam-login,group:rider-access,True,0,0,0,0,12
+group:rider-fundamentals,Rider Fundamentals,DOMAIN,Logistics / Rider / Deliveries / Rider Fundamentals,logistics-comms,group:rider-experience,True,0,0,0,0,10
+group:rider-fundamentals,Rider Fundamentals,DOMAIN,Logistics / Rider / Deliveries / Rider Fundamentals,logistics-rider-config-mgmt-api,group:rider-experience,True,1,1,0,0,1
+group:rider-fundamentals,Rider Fundamentals,DOMAIN,Logistics / Rider / Deliveries / Rider Fundamentals,logistics-rider-config-mgmt-dashboard,group:rider-experience,True,23,23,0,0,33
+group:rider-fundamentals,Rider Fundamentals,DOMAIN,Logistics / Rider / Deliveries / Rider Fundamentals,logistics-rider-dashboard,group:rider-experience,False,0,0,0,0,0
+group:rider-fundamentals,Rider Fundamentals,DOMAIN,Logistics / Rider / Deliveries / Rider Fundamentals,logistics-rider-experience-service,group:rider-experience,True,0,0,0,0,20
+group:rider-fundamentals,Rider Fundamentals,DOMAIN,Logistics / Rider / Deliveries / Rider Fundamentals,logistics-start-working-api,group:rider-availability,True,0,0,0,0,31
+group:rider-availability,Rider Availability,SQUAD,Logistics / Rider / Deliveries / Rider Fundamentals / Rider Availability,logistics-start-working-api,group:rider-availability,True,0,0,0,0,31
+group:rider-experience,Rider Experience,SQUAD,Logistics / Rider / Deliveries / Rider Fundamentals / Rider Experience,logistics-comms,group:rider-experience,True,0,0,0,0,10
+group:rider-experience,Rider Experience,SQUAD,Logistics / Rider / Deliveries / Rider Fundamentals / Rider Experience,logistics-rider-config-mgmt-api,group:rider-experience,True,1,1,0,0,1
+group:rider-experience,Rider Experience,SQUAD,Logistics / Rider / Deliveries / Rider Fundamentals / Rider Experience,logistics-rider-config-mgmt-dashboard,group:rider-experience,True,23,23,0,0,33
+group:rider-experience,Rider Experience,SQUAD,Logistics / Rider / Deliveries / Rider Fundamentals / Rider Experience,logistics-rider-dashboard,group:rider-experience,False,0,0,0,0,0
+group:rider-experience,Rider Experience,SQUAD,Logistics / Rider / Deliveries / Rider Fundamentals / Rider Experience,logistics-rider-experience-service,group:rider-experience,True,0,0,0,0,20
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-ab-dashboard,group:routing-experimentation,False,0,0,0,0,0
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-assignment-algorithm,group:log-algo,True,0,0,0,0,24
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-dispatch-service-dashboard,group:routing-experimentation,True,8,8,0,0,8
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-fleet-management-service,group:routing-experimentation,False,0,0,0,0,0
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-fms-notifications,group:routing-experimentation,False,0,0,0,0,0
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-hyperlocal-delay-service,group:routing-experimentation,False,0,0,0,0,0
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-optimization-abtest,group:routing-experimentation,False,0,0,0,0,0
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-optimization-dispatch-service,group:routing-infrastructure,False,0,0,0,0,0
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-optimization-osrm,group:log-algo,True,10,5,5,0,21
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-optimization-routes-service,group:routing-infrastructure,False,0,0,0,0,0
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-optimization-simulator,group:routing-experimentation,False,0,0,0,0,0
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-optimization-stabilizer,group:log-algo,True,1,0,1,0,13
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-optimization-valhalla,group:log-algo,True,0,0,0,0,12
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-routing-infra-event-router,group:routing-infrastructure,False,0,0,0,0,0
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-send-to-vendor-service,group:routing-infrastructure,False,0,0,0,0,0
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-simulator,group:routing-experimentation,False,0,0,0,0,0
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-simulator-acceptance,group:routing-experimentation,False,0,0,0,0,0
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,logistics-simulator-scheduler,group:routing-experimentation,True,14,14,0,0,14
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,simulator-dashboard,group:routing-experimentation,False,0,0,0,0,0
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,simulator-router-service,group:routing-experimentation,True,2,2,0,0,2
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,logistics-ab-dashboard,group:routing-experimentation,False,0,0,0,0,0
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,logistics-assignment-algorithm,group:log-algo,True,0,0,0,0,24
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,logistics-dispatch-service-dashboard,group:routing-experimentation,True,8,8,0,0,8
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,logistics-fleet-management-service,group:routing-experimentation,False,0,0,0,0,0
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,logistics-fms-notifications,group:routing-experimentation,False,0,0,0,0,0
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,logistics-hyperlocal-delay-service,group:routing-experimentation,False,0,0,0,0,0
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,logistics-optimization-abtest,group:routing-experimentation,False,0,0,0,0,0
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,logistics-optimization-osrm,group:log-algo,True,10,5,5,0,21
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,logistics-optimization-simulator,group:routing-experimentation,False,0,0,0,0,0
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,logistics-optimization-stabilizer,group:log-algo,True,1,0,1,0,13
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,logistics-optimization-valhalla,group:log-algo,True,0,0,0,0,12
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,logistics-simulator,group:routing-experimentation,False,0,0,0,0,0
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,logistics-simulator-acceptance,group:routing-experimentation,False,0,0,0,0,0
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,logistics-simulator-scheduler,group:routing-experimentation,True,14,14,0,0,14
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,simulator-dashboard,group:routing-experimentation,False,0,0,0,0,0
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,simulator-router-service,group:routing-experimentation,True,2,2,0,0,2
+group:routing-experimentation,Adaptive Dispatching,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Adaptive Dispatching,logistics-ab-dashboard,group:routing-experimentation,False,0,0,0,0,0
+group:routing-experimentation,Adaptive Dispatching,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Adaptive Dispatching,logistics-dispatch-service-dashboard,group:routing-experimentation,True,8,8,0,0,8
+group:routing-experimentation,Adaptive Dispatching,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Adaptive Dispatching,logistics-fleet-management-service,group:routing-experimentation,False,0,0,0,0,0
+group:routing-experimentation,Adaptive Dispatching,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Adaptive Dispatching,logistics-fms-notifications,group:routing-experimentation,False,0,0,0,0,0
+group:routing-experimentation,Adaptive Dispatching,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Adaptive Dispatching,logistics-hyperlocal-delay-service,group:routing-experimentation,False,0,0,0,0,0
+group:routing-experimentation,Adaptive Dispatching,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Adaptive Dispatching,logistics-optimization-abtest,group:routing-experimentation,False,0,0,0,0,0
+group:routing-experimentation,Adaptive Dispatching,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Adaptive Dispatching,logistics-optimization-simulator,group:routing-experimentation,False,0,0,0,0,0
+group:routing-experimentation,Adaptive Dispatching,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Adaptive Dispatching,logistics-simulator,group:routing-experimentation,False,0,0,0,0,0
+group:routing-experimentation,Adaptive Dispatching,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Adaptive Dispatching,logistics-simulator-acceptance,group:routing-experimentation,False,0,0,0,0,0
+group:routing-experimentation,Adaptive Dispatching,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Adaptive Dispatching,logistics-simulator-scheduler,group:routing-experimentation,True,14,14,0,0,14
+group:routing-experimentation,Adaptive Dispatching,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Adaptive Dispatching,simulator-dashboard,group:routing-experimentation,False,0,0,0,0,0
+group:routing-experimentation,Adaptive Dispatching,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Adaptive Dispatching,simulator-router-service,group:routing-experimentation,True,2,2,0,0,2
+group:log-algo,Algo,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Algo,logistics-assignment-algorithm,group:log-algo,True,0,0,0,0,24
+group:log-algo,Algo,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Algo,logistics-optimization-osrm,group:log-algo,True,10,5,5,0,21
+group:log-algo,Algo,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Algo,logistics-optimization-stabilizer,group:log-algo,True,1,0,1,0,13
+group:log-algo,Algo,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Algo,logistics-optimization-valhalla,group:log-algo,True,0,0,0,0,12
+group:routing,Routing Control,DOMAIN,Logistics / Rider / Optimization / Routing Control,logistics-optimization-dispatch-service,group:routing-infrastructure,False,0,0,0,0,0
+group:routing,Routing Control,DOMAIN,Logistics / Rider / Optimization / Routing Control,logistics-optimization-routes-service,group:routing-infrastructure,False,0,0,0,0,0
+group:routing,Routing Control,DOMAIN,Logistics / Rider / Optimization / Routing Control,logistics-routing-infra-event-router,group:routing-infrastructure,False,0,0,0,0,0
+group:routing,Routing Control,DOMAIN,Logistics / Rider / Optimization / Routing Control,logistics-send-to-vendor-service,group:routing-infrastructure,False,0,0,0,0,0
+group:routing-infrastructure,Routing Core,SQUAD,Logistics / Rider / Optimization / Routing Control / Routing Core,logistics-optimization-dispatch-service,group:routing-infrastructure,False,0,0,0,0,0
+group:routing-infrastructure,Routing Core,SQUAD,Logistics / Rider / Optimization / Routing Control / Routing Core,logistics-optimization-routes-service,group:routing-infrastructure,False,0,0,0,0,0
+group:routing-infrastructure,Routing Core,SQUAD,Logistics / Rider / Optimization / Routing Control / Routing Core,logistics-routing-infra-event-router,group:routing-infrastructure,False,0,0,0,0,0
+group:routing-infrastructure,Routing Core,SQUAD,Logistics / Rider / Optimization / Routing Control / Routing Core,logistics-send-to-vendor-service,group:routing-infrastructure,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,arara-api,group:rider-recruitment,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,arara-dashboard,group:rider-recruitment,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,gcc-starling-aion,group:rider-scheduling,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-arara-api,group:rider-recruitment,True,85,85,0,0,117
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-arara-dashboard,group:rider-recruitment,True,52,52,0,0,52
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-company-management,group:workforce-lifecycle-workforce-management,True,2,2,0,0,19
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-company-management-dashboard,group:workforce-lifecycle-workforce-management,True,56,37,18,1,65
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-dodo-api,group:rider-recruitment,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-dodo-landing-page,group:rider-recruitment,True,0,0,0,0,3
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-forecast,group:rider-scheduling,True,40,40,0,0,40
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-forecast-api,group:rider-scheduling,True,2,2,0,0,12
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-forms-dashboard,group:workforce-lifecycle-workforce-management,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-goldcrest-api,group:rider-recruitment,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-infra-helm,group:rider-payments,True,243,243,0,0,254
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-kiwi,group:rider-scheduling,True,0,0,0,0,4
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-kong-migration,group:rider-recruitment,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-magpie,group:rider-scheduling,True,3,3,0,0,3
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-outbox-worker,group:rider-payments,True,1,1,0,0,1
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-payments-data-orchestrator,group:rider-payments,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-penguin,group:rider-scheduling,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-picapau,group:workforce-lifecycle-workforce-management,True,1,1,0,0,41
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-recruitment-gateway,group:rider-recruitment,True,1,1,0,0,1
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rider-absences-app,group:workforce-lifecycle-workforce-management,True,28,28,0,0,28
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rider-compliance,group:rider-compliance,True,2,2,0,0,53
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rider-compliance-app,group:rider-compliance,True,8,8,0,0,8
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rider-delivery-distance,group:rider-payments,True,0,0,0,0,11
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rider-images,group:rider-scheduling,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rider-loyalty,group:rider-rewards,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rider-loyalty-app,group:rider-rewards,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rider-loyalty-dashboard,group:rider-rewards,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rider-payments,group:rider-payments,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rider-payments-app,group:rider-payments,True,8,8,0,0,32
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rider-payments-boosts,group:rider-rewards,True,0,0,0,0,17
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rider-qualification-api,group:workforce-lifecycle-workforce-management,True,11,11,0,0,11
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rider-stats,group:rider-compliance,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rooster-api,group:workforce-lifecycle-workforce-management,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rooster-app,group:workforce-lifecycle-workforce-management,True,7,7,0,0,24
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rooster-dashboard,group:workforce-lifecycle-workforce-management,True,83,83,0,0,86
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-rooster-scoring,group:rider-compliance,True,2,2,0,0,2
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-scheduler,group:rider-scheduling,True,3,3,0,0,3
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-shifts-evaluation,group:rider-scheduling,True,1,1,0,0,1
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-signing-service,group:rider-recruitment,True,0,0,0,0,11
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-stress-management,group:rider-scheduling,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-tweety,group:rider-rewards,True,38,35,3,0,38
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-tweety-app,group:rider-rewards,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-tweety-audience,group:rider-rewards,True,27,22,5,0,27
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-tweety-channels,group:rider-rewards,True,1,1,0,0,1
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-tweety-content-delivery,group:rider-rewards,True,1,1,0,0,1
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-tweety-dashboard,group:rider-rewards,True,2,2,0,0,2
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-tweety-inbox,group:rider-rewards,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,logistics-tweety-session,group:rider-rewards,True,1,1,0,0,1
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,rider-live-operations,group:rider-scheduling,True,1,1,0,0,1
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,rider-quests,group:rider-compliance,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,rider-recruitment-web-app,group:rider-recruitment,True,3,3,0,0,17
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,rrds-web-icons,group:rider-rewards,False,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,user-token-management,group:rider-recruitment,False,0,0,0,0,0
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,arara-api,group:rider-recruitment,False,0,0,0,0,0
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,arara-dashboard,group:rider-recruitment,False,0,0,0,0,0
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,gcc-starling-aion,group:rider-scheduling,False,0,0,0,0,0
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-arara-api,group:rider-recruitment,True,85,85,0,0,117
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-arara-dashboard,group:rider-recruitment,True,52,52,0,0,52
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-company-management,group:workforce-lifecycle-workforce-management,True,2,2,0,0,19
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-company-management-dashboard,group:workforce-lifecycle-workforce-management,True,56,37,18,1,65
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-dodo-api,group:rider-recruitment,False,0,0,0,0,0
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-dodo-landing-page,group:rider-recruitment,True,0,0,0,0,3
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-forecast,group:rider-scheduling,True,40,40,0,0,40
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-forecast-api,group:rider-scheduling,True,2,2,0,0,12
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-forms-dashboard,group:workforce-lifecycle-workforce-management,False,0,0,0,0,0
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-goldcrest-api,group:rider-recruitment,False,0,0,0,0,0
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-kiwi,group:rider-scheduling,True,0,0,0,0,4
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-kong-migration,group:rider-recruitment,False,0,0,0,0,0
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-magpie,group:rider-scheduling,True,3,3,0,0,3
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-penguin,group:rider-scheduling,False,0,0,0,0,0
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-picapau,group:workforce-lifecycle-workforce-management,True,1,1,0,0,41
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-recruitment-gateway,group:rider-recruitment,True,1,1,0,0,1
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-rider-absences-app,group:workforce-lifecycle-workforce-management,True,28,28,0,0,28
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-rider-images,group:rider-scheduling,False,0,0,0,0,0
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-rider-qualification-api,group:workforce-lifecycle-workforce-management,True,11,11,0,0,11
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-rooster-api,group:workforce-lifecycle-workforce-management,False,0,0,0,0,0
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-rooster-app,group:workforce-lifecycle-workforce-management,True,7,7,0,0,24
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-rooster-dashboard,group:workforce-lifecycle-workforce-management,True,83,83,0,0,86
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-scheduler,group:rider-scheduling,True,3,3,0,0,3
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-shifts-evaluation,group:rider-scheduling,True,1,1,0,0,1
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-signing-service,group:rider-recruitment,True,0,0,0,0,11
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,logistics-stress-management,group:rider-scheduling,False,0,0,0,0,0
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,rider-live-operations,group:rider-scheduling,True,1,1,0,0,1
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,rider-recruitment-web-app,group:rider-recruitment,True,3,3,0,0,17
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,user-token-management,group:rider-recruitment,False,0,0,0,0,0
+group:rider-recruitment,Rider Hiring,SQUAD,Logistics / Rider / Workforce / Lifecycle / Rider Hiring,arara-api,group:rider-recruitment,False,0,0,0,0,0
+group:rider-recruitment,Rider Hiring,SQUAD,Logistics / Rider / Workforce / Lifecycle / Rider Hiring,arara-dashboard,group:rider-recruitment,False,0,0,0,0,0
+group:rider-recruitment,Rider Hiring,SQUAD,Logistics / Rider / Workforce / Lifecycle / Rider Hiring,logistics-arara-api,group:rider-recruitment,True,85,85,0,0,117
+group:rider-recruitment,Rider Hiring,SQUAD,Logistics / Rider / Workforce / Lifecycle / Rider Hiring,logistics-arara-dashboard,group:rider-recruitment,True,52,52,0,0,52
+group:rider-recruitment,Rider Hiring,SQUAD,Logistics / Rider / Workforce / Lifecycle / Rider Hiring,logistics-dodo-api,group:rider-recruitment,False,0,0,0,0,0
+group:rider-recruitment,Rider Hiring,SQUAD,Logistics / Rider / Workforce / Lifecycle / Rider Hiring,logistics-dodo-landing-page,group:rider-recruitment,True,0,0,0,0,3
+group:rider-recruitment,Rider Hiring,SQUAD,Logistics / Rider / Workforce / Lifecycle / Rider Hiring,logistics-goldcrest-api,group:rider-recruitment,False,0,0,0,0,0
+group:rider-recruitment,Rider Hiring,SQUAD,Logistics / Rider / Workforce / Lifecycle / Rider Hiring,logistics-kong-migration,group:rider-recruitment,False,0,0,0,0,0
+group:rider-recruitment,Rider Hiring,SQUAD,Logistics / Rider / Workforce / Lifecycle / Rider Hiring,logistics-recruitment-gateway,group:rider-recruitment,True,1,1,0,0,1
+group:rider-recruitment,Rider Hiring,SQUAD,Logistics / Rider / Workforce / Lifecycle / Rider Hiring,logistics-signing-service,group:rider-recruitment,True,0,0,0,0,11
+group:rider-recruitment,Rider Hiring,SQUAD,Logistics / Rider / Workforce / Lifecycle / Rider Hiring,rider-recruitment-web-app,group:rider-recruitment,True,3,3,0,0,17
+group:rider-recruitment,Rider Hiring,SQUAD,Logistics / Rider / Workforce / Lifecycle / Rider Hiring,user-token-management,group:rider-recruitment,False,0,0,0,0,0
+group:rider-scheduling,Scheduling,SQUAD,Logistics / Rider / Workforce / Lifecycle / Scheduling,gcc-starling-aion,group:rider-scheduling,False,0,0,0,0,0
+group:rider-scheduling,Scheduling,SQUAD,Logistics / Rider / Workforce / Lifecycle / Scheduling,logistics-forecast,group:rider-scheduling,True,40,40,0,0,40
+group:rider-scheduling,Scheduling,SQUAD,Logistics / Rider / Workforce / Lifecycle / Scheduling,logistics-forecast-api,group:rider-scheduling,True,2,2,0,0,12
+group:rider-scheduling,Scheduling,SQUAD,Logistics / Rider / Workforce / Lifecycle / Scheduling,logistics-kiwi,group:rider-scheduling,True,0,0,0,0,4
+group:rider-scheduling,Scheduling,SQUAD,Logistics / Rider / Workforce / Lifecycle / Scheduling,logistics-magpie,group:rider-scheduling,True,3,3,0,0,3
+group:rider-scheduling,Scheduling,SQUAD,Logistics / Rider / Workforce / Lifecycle / Scheduling,logistics-penguin,group:rider-scheduling,False,0,0,0,0,0
+group:rider-scheduling,Scheduling,SQUAD,Logistics / Rider / Workforce / Lifecycle / Scheduling,logistics-rider-images,group:rider-scheduling,False,0,0,0,0,0
+group:rider-scheduling,Scheduling,SQUAD,Logistics / Rider / Workforce / Lifecycle / Scheduling,logistics-scheduler,group:rider-scheduling,True,3,3,0,0,3
+group:rider-scheduling,Scheduling,SQUAD,Logistics / Rider / Workforce / Lifecycle / Scheduling,logistics-shifts-evaluation,group:rider-scheduling,True,1,1,0,0,1
+group:rider-scheduling,Scheduling,SQUAD,Logistics / Rider / Workforce / Lifecycle / Scheduling,logistics-stress-management,group:rider-scheduling,False,0,0,0,0,0
+group:rider-scheduling,Scheduling,SQUAD,Logistics / Rider / Workforce / Lifecycle / Scheduling,rider-live-operations,group:rider-scheduling,True,1,1,0,0,1
+group:workforce-lifecycle-workforce-management,Workforce Management,SQUAD,Logistics / Rider / Workforce / Lifecycle / Workforce Management,logistics-company-management,group:workforce-lifecycle-workforce-management,True,2,2,0,0,19
+group:workforce-lifecycle-workforce-management,Workforce Management,SQUAD,Logistics / Rider / Workforce / Lifecycle / Workforce Management,logistics-company-management-dashboard,group:workforce-lifecycle-workforce-management,True,56,37,18,1,65
+group:workforce-lifecycle-workforce-management,Workforce Management,SQUAD,Logistics / Rider / Workforce / Lifecycle / Workforce Management,logistics-forms-dashboard,group:workforce-lifecycle-workforce-management,False,0,0,0,0,0
+group:workforce-lifecycle-workforce-management,Workforce Management,SQUAD,Logistics / Rider / Workforce / Lifecycle / Workforce Management,logistics-picapau,group:workforce-lifecycle-workforce-management,True,1,1,0,0,41
+group:workforce-lifecycle-workforce-management,Workforce Management,SQUAD,Logistics / Rider / Workforce / Lifecycle / Workforce Management,logistics-rider-absences-app,group:workforce-lifecycle-workforce-management,True,28,28,0,0,28
+group:workforce-lifecycle-workforce-management,Workforce Management,SQUAD,Logistics / Rider / Workforce / Lifecycle / Workforce Management,logistics-rider-qualification-api,group:workforce-lifecycle-workforce-management,True,11,11,0,0,11
+group:workforce-lifecycle-workforce-management,Workforce Management,SQUAD,Logistics / Rider / Workforce / Lifecycle / Workforce Management,logistics-rooster-api,group:workforce-lifecycle-workforce-management,False,0,0,0,0,0
+group:workforce-lifecycle-workforce-management,Workforce Management,SQUAD,Logistics / Rider / Workforce / Lifecycle / Workforce Management,logistics-rooster-app,group:workforce-lifecycle-workforce-management,True,7,7,0,0,24
+group:workforce-lifecycle-workforce-management,Workforce Management,SQUAD,Logistics / Rider / Workforce / Lifecycle / Workforce Management,logistics-rooster-dashboard,group:workforce-lifecycle-workforce-management,True,83,83,0,0,86
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-infra-helm,group:rider-payments,True,243,243,0,0,254
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-outbox-worker,group:rider-payments,True,1,1,0,0,1
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-payments-data-orchestrator,group:rider-payments,False,0,0,0,0,0
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-rider-compliance,group:rider-compliance,True,2,2,0,0,53
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-rider-compliance-app,group:rider-compliance,True,8,8,0,0,8
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-rider-delivery-distance,group:rider-payments,True,0,0,0,0,11
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-rider-loyalty,group:rider-rewards,False,0,0,0,0,0
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-rider-loyalty-app,group:rider-rewards,False,0,0,0,0,0
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-rider-loyalty-dashboard,group:rider-rewards,False,0,0,0,0,0
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-rider-payments,group:rider-payments,False,0,0,0,0,0
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-rider-payments-app,group:rider-payments,True,8,8,0,0,32
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-rider-payments-boosts,group:rider-rewards,True,0,0,0,0,17
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-rider-stats,group:rider-compliance,False,0,0,0,0,0
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-rooster-scoring,group:rider-compliance,True,2,2,0,0,2
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-tweety,group:rider-rewards,True,38,35,3,0,38
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-tweety-app,group:rider-rewards,False,0,0,0,0,0
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-tweety-audience,group:rider-rewards,True,27,22,5,0,27
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-tweety-channels,group:rider-rewards,True,1,1,0,0,1
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-tweety-content-delivery,group:rider-rewards,True,1,1,0,0,1
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-tweety-dashboard,group:rider-rewards,True,2,2,0,0,2
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-tweety-inbox,group:rider-rewards,False,0,0,0,0,0
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,logistics-tweety-session,group:rider-rewards,True,1,1,0,0,1
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,rider-quests,group:rider-compliance,False,0,0,0,0,0
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,rrds-web-icons,group:rider-rewards,False,0,0,0,0,0
+group:rider-compliance,Compliance,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Compliance,logistics-rider-compliance,group:rider-compliance,True,2,2,0,0,53
+group:rider-compliance,Compliance,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Compliance,logistics-rider-compliance-app,group:rider-compliance,True,8,8,0,0,8
+group:rider-compliance,Compliance,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Compliance,logistics-rider-stats,group:rider-compliance,False,0,0,0,0,0
+group:rider-compliance,Compliance,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Compliance,logistics-rooster-scoring,group:rider-compliance,True,2,2,0,0,2
+group:rider-compliance,Compliance,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Compliance,rider-quests,group:rider-compliance,False,0,0,0,0,0
+group:rider-payments,Payments,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Payments,logistics-infra-helm,group:rider-payments,True,243,243,0,0,254
+group:rider-payments,Payments,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Payments,logistics-outbox-worker,group:rider-payments,True,1,1,0,0,1
+group:rider-payments,Payments,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Payments,logistics-payments-data-orchestrator,group:rider-payments,False,0,0,0,0,0
+group:rider-payments,Payments,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Payments,logistics-rider-delivery-distance,group:rider-payments,True,0,0,0,0,11
+group:rider-payments,Payments,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Payments,logistics-rider-payments,group:rider-payments,False,0,0,0,0,0
+group:rider-payments,Payments,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Payments,logistics-rider-payments-app,group:rider-payments,True,8,8,0,0,32
+group:rider-rewards,Rewards,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Rewards,logistics-rider-loyalty,group:rider-rewards,False,0,0,0,0,0
+group:rider-rewards,Rewards,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Rewards,logistics-rider-loyalty-app,group:rider-rewards,False,0,0,0,0,0
+group:rider-rewards,Rewards,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Rewards,logistics-rider-loyalty-dashboard,group:rider-rewards,False,0,0,0,0,0
+group:rider-rewards,Rewards,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Rewards,logistics-rider-payments-boosts,group:rider-rewards,True,0,0,0,0,17
+group:rider-rewards,Rewards,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Rewards,logistics-tweety,group:rider-rewards,True,38,35,3,0,38
+group:rider-rewards,Rewards,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Rewards,logistics-tweety-app,group:rider-rewards,False,0,0,0,0,0
+group:rider-rewards,Rewards,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Rewards,logistics-tweety-audience,group:rider-rewards,True,27,22,5,0,27
+group:rider-rewards,Rewards,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Rewards,logistics-tweety-channels,group:rider-rewards,True,1,1,0,0,1
+group:rider-rewards,Rewards,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Rewards,logistics-tweety-content-delivery,group:rider-rewards,True,1,1,0,0,1
+group:rider-rewards,Rewards,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Rewards,logistics-tweety-dashboard,group:rider-rewards,True,2,2,0,0,2
+group:rider-rewards,Rewards,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Rewards,logistics-tweety-inbox,group:rider-rewards,False,0,0,0,0,0
+group:rider-rewards,Rewards,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Rewards,logistics-tweety-session,group:rider-rewards,True,1,1,0,0,1
+group:rider-rewards,Rewards,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Rewards,rrds-web-icons,group:rider-rewards,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,dh-cc-automations,group:compensation,True,5,5,0,0,5
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,dh-cc-exploit-service,group:compensation,True,0,0,0,0,50
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,dh-gst-events,group:log-experience,True,1,1,0,0,1
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,dh-helpcenter-automations,group:log-automation-optimisation,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,dh-helpcenter-backoffice,group:log-automation-optimisation,True,0,0,0,0,2
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,dh-helpcenter-bo-flows,group:log-automation-optimisation,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,dh-helpcenter-chat,group:communications-core,True,0,0,0,0,41
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,dh-helpcenter-conditions,group:log-experience,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,dh-helpcenter-fakes,group:log-automation-optimisation,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,dh-helpcenter-files,group:log-experience,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,dh-self-service-frontend,group:log-experience,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,ds-conversation-service-poc,group:log-ai-agents,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,gcc-chat-server,group:communications-core,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,gcc-ov-autopilot,group:log-ai-agents,True,0,0,0,0,20
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,gcc-ov-copilot,group:log-1vu-agent-intelligence,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,gcc-ov-mercury,group:log-1vu-agent-resolution,True,0,0,0,0,50
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,gcc-ov-services,group:log-1vu-agent-resolution,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,gcc-ov-ticket-api,group:log-agent-workflows,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,gst-api-signatures,group:log-1vu-agent-resolution,True,10,8,1,1,10
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,gst-chat-web-workspace,group:communications-core,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,herocare-communications,group:log-agent-quality,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,herocare-quality-assurance,group:log-agent-quality,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,log-herocare-ap-backend,group:log-agent-quality,True,168,168,0,0,168
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,log-herocare-ap-portal-backend,group:log-agent-quality,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,log-herocare-ap-supervisor-tools-backend,group:log-agent-workflows,True,4,2,1,1,4
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,logistics-service-ds-copilot,group:log-1vu-agent-intelligence,True,18,18,0,0,18
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,oneview-fe-release-server,group:log-1vu-agent-resolution,True,19,19,0,0,19
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,pd-casemanagement-agent,group:log-agent-workflows,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,pd-casemanagement-trigger,group:log-agent-workflows,True,2,2,0,0,2
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,pd-casemanagement-workflow,group:log-agent-workflows,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,pd-chatsystem,group:log-agent-quality,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,pd-cs-oneview-cs-be-translations,group:log-agent-workflows,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,pd-cs-pandacare-fwf-proxy,group:log-agent-quality,True,1,1,0,0,1
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,pd-herocare-chat-case-scheduler,group:log-agent-workflows,True,2,2,0,0,2
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,pd-oneview-frontend,group:log-agent-workflows,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,pd-oneview-mock-server,group:log-agent-workflows,True,22,22,0,0,22
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,pd-pandacare-case-gateway,group:log-agent-quality,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,pd-pandacare-metabase,group:log-agent-workflows,False,0,0,0,0,0
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,pd-pandacare-non-live-message,group:log-agent-quality,True,2,2,0,0,2
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,self-service-frontend,group:log-experience,True,0,0,0,0,1
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,service-oneview-ai-calls,group:log-1vu-agent-resolution,True,17,17,0,0,19
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,dh-cc-automations,group:compensation,True,5,5,0,0,5
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,dh-cc-exploit-service,group:compensation,True,0,0,0,0,50
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,dh-helpcenter-automations,group:log-automation-optimisation,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,dh-helpcenter-backoffice,group:log-automation-optimisation,True,0,0,0,0,2
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,dh-helpcenter-bo-flows,group:log-automation-optimisation,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,dh-helpcenter-fakes,group:log-automation-optimisation,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,ds-conversation-service-poc,group:log-ai-agents,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,gcc-ov-autopilot,group:log-ai-agents,True,0,0,0,0,20
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,gcc-ov-copilot,group:log-1vu-agent-intelligence,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,gcc-ov-mercury,group:log-1vu-agent-resolution,True,0,0,0,0,50
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,gcc-ov-services,group:log-1vu-agent-resolution,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,gcc-ov-ticket-api,group:log-agent-workflows,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,gst-api-signatures,group:log-1vu-agent-resolution,True,10,8,1,1,10
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,herocare-communications,group:log-agent-quality,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,herocare-quality-assurance,group:log-agent-quality,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,log-herocare-ap-backend,group:log-agent-quality,True,168,168,0,0,168
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,log-herocare-ap-portal-backend,group:log-agent-quality,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,log-herocare-ap-supervisor-tools-backend,group:log-agent-workflows,True,4,2,1,1,4
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,logistics-service-ds-copilot,group:log-1vu-agent-intelligence,True,18,18,0,0,18
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,oneview-fe-release-server,group:log-1vu-agent-resolution,True,19,19,0,0,19
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,pd-casemanagement-agent,group:log-agent-workflows,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,pd-casemanagement-trigger,group:log-agent-workflows,True,2,2,0,0,2
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,pd-casemanagement-workflow,group:log-agent-workflows,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,pd-chatsystem,group:log-agent-quality,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,pd-cs-oneview-cs-be-translations,group:log-agent-workflows,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,pd-cs-pandacare-fwf-proxy,group:log-agent-quality,True,1,1,0,0,1
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,pd-herocare-chat-case-scheduler,group:log-agent-workflows,True,2,2,0,0,2
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,pd-oneview-frontend,group:log-agent-workflows,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,pd-oneview-mock-server,group:log-agent-workflows,True,22,22,0,0,22
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,pd-pandacare-case-gateway,group:log-agent-quality,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,pd-pandacare-metabase,group:log-agent-workflows,False,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,pd-pandacare-non-live-message,group:log-agent-quality,True,2,2,0,0,2
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,service-oneview-ai-calls,group:log-1vu-agent-resolution,True,17,17,0,0,19
+group:log-ai,AI,DOMAIN,Logistics / Service / Efficient Service / AI,ds-conversation-service-poc,group:log-ai-agents,False,0,0,0,0,0
+group:log-ai,AI,DOMAIN,Logistics / Service / Efficient Service / AI,gcc-ov-autopilot,group:log-ai-agents,True,0,0,0,0,20
+group:log-ai,AI,DOMAIN,Logistics / Service / Efficient Service / AI,gcc-ov-copilot,group:log-1vu-agent-intelligence,False,0,0,0,0,0
+group:log-ai,AI,DOMAIN,Logistics / Service / Efficient Service / AI,logistics-service-ds-copilot,group:log-1vu-agent-intelligence,True,18,18,0,0,18
+group:log-ai-agents,AI Agents,SQUAD,Logistics / Service / Efficient Service / AI / AI Agents,ds-conversation-service-poc,group:log-ai-agents,False,0,0,0,0,0
+group:log-ai-agents,AI Agents,SQUAD,Logistics / Service / Efficient Service / AI / AI Agents,gcc-ov-autopilot,group:log-ai-agents,True,0,0,0,0,20
+group:log-ai-agents,AI Agents,SQUAD,Logistics / Service / Efficient Service / AI / AI Agents,gcc-ov-copilot,group:log-ai-agents,False,0,0,0,0,0
+group:log-1vu-agent-intelligence,Service Flows,SQUAD,Logistics / Service / Efficient Service / AI / Service Flows,gcc-ov-copilot,group:log-1vu-agent-intelligence,False,0,0,0,0,0
+group:log-1vu-agent-intelligence,Service Flows,SQUAD,Logistics / Service / Efficient Service / AI / Service Flows,logistics-service-ds-copilot,group:log-1vu-agent-intelligence,True,18,18,0,0,18
+group:log-actions,Actions,DOMAIN,Logistics / Service / Efficient Service / Actions,dh-cc-automations,group:compensation,True,5,5,0,0,5
+group:log-actions,Actions,DOMAIN,Logistics / Service / Efficient Service / Actions,dh-cc-exploit-service,group:compensation,True,0,0,0,0,50
+group:log-actions,Actions,DOMAIN,Logistics / Service / Efficient Service / Actions,dh-helpcenter-automations,group:log-automation-optimisation,False,0,0,0,0,0
+group:log-actions,Actions,DOMAIN,Logistics / Service / Efficient Service / Actions,dh-helpcenter-backoffice,group:log-automation-optimisation,True,0,0,0,0,2
+group:log-actions,Actions,DOMAIN,Logistics / Service / Efficient Service / Actions,dh-helpcenter-bo-flows,group:log-automation-optimisation,False,0,0,0,0,0
+group:log-actions,Actions,DOMAIN,Logistics / Service / Efficient Service / Actions,dh-helpcenter-fakes,group:log-automation-optimisation,False,0,0,0,0,0
+group:log-actions,Actions,DOMAIN,Logistics / Service / Efficient Service / Actions,gcc-ov-mercury,group:log-1vu-agent-resolution,True,0,0,0,0,50
+group:log-actions,Actions,DOMAIN,Logistics / Service / Efficient Service / Actions,gcc-ov-services,group:log-1vu-agent-resolution,False,0,0,0,0,0
+group:log-actions,Actions,DOMAIN,Logistics / Service / Efficient Service / Actions,gst-api-signatures,group:log-1vu-agent-resolution,True,10,8,1,1,10
+group:log-actions,Actions,DOMAIN,Logistics / Service / Efficient Service / Actions,oneview-fe-release-server,group:log-1vu-agent-resolution,True,19,19,0,0,19
+group:log-actions,Actions,DOMAIN,Logistics / Service / Efficient Service / Actions,service-oneview-ai-calls,group:log-1vu-agent-resolution,True,17,17,0,0,19
+group:log-automation-optimisation,Automations,SQUAD,Logistics / Service / Efficient Service / Actions / Automations,dh-helpcenter-automations,group:log-automation-optimisation,False,0,0,0,0,0
+group:log-automation-optimisation,Automations,SQUAD,Logistics / Service / Efficient Service / Actions / Automations,dh-helpcenter-backoffice,group:log-automation-optimisation,True,0,0,0,0,2
+group:log-automation-optimisation,Automations,SQUAD,Logistics / Service / Efficient Service / Actions / Automations,dh-helpcenter-bo-flows,group:log-automation-optimisation,False,0,0,0,0,0
+group:log-automation-optimisation,Automations,SQUAD,Logistics / Service / Efficient Service / Actions / Automations,dh-helpcenter-fakes,group:log-automation-optimisation,False,0,0,0,0,0
+group:compensation,Compensation,SQUAD,Logistics / Service / Efficient Service / Actions / Compensation,dh-cc-automations,group:compensation,True,5,5,0,0,5
+group:compensation,Compensation,SQUAD,Logistics / Service / Efficient Service / Actions / Compensation,dh-cc-exploit-service,group:compensation,True,0,0,0,0,50
+group:log-1vu-agent-resolution,OneView,SQUAD,Logistics / Service / Efficient Service / Actions / OneView,gcc-ov-mercury,group:log-1vu-agent-resolution,True,0,0,0,0,50
+group:log-1vu-agent-resolution,OneView,SQUAD,Logistics / Service / Efficient Service / Actions / OneView,gcc-ov-services,group:log-1vu-agent-resolution,False,0,0,0,0,0
+group:log-1vu-agent-resolution,OneView,SQUAD,Logistics / Service / Efficient Service / Actions / OneView,gst-api-signatures,group:log-1vu-agent-resolution,True,10,8,1,1,10
+group:log-1vu-agent-resolution,OneView,SQUAD,Logistics / Service / Efficient Service / Actions / OneView,oneview-fe-release-server,group:log-1vu-agent-resolution,True,19,19,0,0,19
+group:log-1vu-agent-resolution,OneView,SQUAD,Logistics / Service / Efficient Service / Actions / OneView,service-oneview-ai-calls,group:log-1vu-agent-resolution,True,17,17,0,0,19
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,gcc-ov-ticket-api,group:log-agent-workflows,False,0,0,0,0,0
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,herocare-communications,group:log-agent-quality,False,0,0,0,0,0
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,herocare-quality-assurance,group:log-agent-quality,False,0,0,0,0,0
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,log-herocare-ap-backend,group:log-agent-quality,True,168,168,0,0,168
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,log-herocare-ap-portal-backend,group:log-agent-quality,False,0,0,0,0,0
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,log-herocare-ap-supervisor-tools-backend,group:log-agent-workflows,True,4,2,1,1,4
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,pd-casemanagement-agent,group:log-agent-workflows,False,0,0,0,0,0
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,pd-casemanagement-trigger,group:log-agent-workflows,True,2,2,0,0,2
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,pd-casemanagement-workflow,group:log-agent-workflows,False,0,0,0,0,0
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,pd-chatsystem,group:log-agent-quality,False,0,0,0,0,0
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,pd-cs-oneview-cs-be-translations,group:log-agent-workflows,False,0,0,0,0,0
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,pd-cs-pandacare-fwf-proxy,group:log-agent-quality,True,1,1,0,0,1
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,pd-herocare-chat-case-scheduler,group:log-agent-workflows,True,2,2,0,0,2
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,pd-oneview-frontend,group:log-agent-workflows,False,0,0,0,0,0
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,pd-oneview-mock-server,group:log-agent-workflows,True,22,22,0,0,22
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,pd-pandacare-case-gateway,group:log-agent-quality,False,0,0,0,0,0
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,pd-pandacare-metabase,group:log-agent-workflows,False,0,0,0,0,0
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,pd-pandacare-non-live-message,group:log-agent-quality,True,2,2,0,0,2
+group:log-agent-quality,Agent Quality,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent Quality,herocare-communications,group:log-agent-quality,False,0,0,0,0,0
+group:log-agent-quality,Agent Quality,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent Quality,herocare-quality-assurance,group:log-agent-quality,False,0,0,0,0,0
+group:log-agent-quality,Agent Quality,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent Quality,log-herocare-ap-backend,group:log-agent-quality,True,168,168,0,0,168
+group:log-agent-quality,Agent Quality,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent Quality,log-herocare-ap-portal-backend,group:log-agent-quality,False,0,0,0,0,0
+group:log-agent-quality,Agent Quality,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent Quality,pd-chatsystem,group:log-agent-quality,False,0,0,0,0,0
+group:log-agent-quality,Agent Quality,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent Quality,pd-cs-pandacare-fwf-proxy,group:log-agent-quality,True,1,1,0,0,1
+group:log-agent-quality,Agent Quality,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent Quality,pd-pandacare-case-gateway,group:log-agent-quality,False,0,0,0,0,0
+group:log-agent-quality,Agent Quality,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent Quality,pd-pandacare-non-live-message,group:log-agent-quality,True,2,2,0,0,2
+group:log-agent-workflows,Agent workflows,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent workflows,gcc-ov-ticket-api,group:log-agent-workflows,False,0,0,0,0,0
+group:log-agent-workflows,Agent workflows,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent workflows,log-herocare-ap-supervisor-tools-backend,group:log-agent-workflows,True,4,2,1,1,4
+group:log-agent-workflows,Agent workflows,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent workflows,pd-casemanagement-agent,group:log-agent-workflows,False,0,0,0,0,0
+group:log-agent-workflows,Agent workflows,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent workflows,pd-casemanagement-trigger,group:log-agent-workflows,True,2,2,0,0,2
+group:log-agent-workflows,Agent workflows,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent workflows,pd-casemanagement-workflow,group:log-agent-workflows,False,0,0,0,0,0
+group:log-agent-workflows,Agent workflows,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent workflows,pd-cs-oneview-cs-be-translations,group:log-agent-workflows,False,0,0,0,0,0
+group:log-agent-workflows,Agent workflows,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent workflows,pd-herocare-chat-case-scheduler,group:log-agent-workflows,True,2,2,0,0,2
+group:log-agent-workflows,Agent workflows,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent workflows,pd-oneview-frontend,group:log-agent-workflows,False,0,0,0,0,0
+group:log-agent-workflows,Agent workflows,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent workflows,pd-oneview-mock-server,group:log-agent-workflows,True,22,22,0,0,22
+group:log-agent-workflows,Agent workflows,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent workflows,pd-pandacare-metabase,group:log-agent-workflows,False,0,0,0,0,0
+group:log-service-experience,Experience,TRIBE,Logistics / Service / Experience,dh-gst-events,group:log-experience,True,1,1,0,0,1
+group:log-service-experience,Experience,TRIBE,Logistics / Service / Experience,dh-helpcenter-chat,group:communications-core,True,0,0,0,0,41
+group:log-service-experience,Experience,TRIBE,Logistics / Service / Experience,dh-helpcenter-conditions,group:log-experience,False,0,0,0,0,0
+group:log-service-experience,Experience,TRIBE,Logistics / Service / Experience,dh-helpcenter-files,group:log-experience,False,0,0,0,0,0
+group:log-service-experience,Experience,TRIBE,Logistics / Service / Experience,dh-self-service-frontend,group:log-experience,False,0,0,0,0,0
+group:log-service-experience,Experience,TRIBE,Logistics / Service / Experience,gcc-chat-server,group:communications-core,False,0,0,0,0,0
+group:log-service-experience,Experience,TRIBE,Logistics / Service / Experience,gst-chat-web-workspace,group:communications-core,False,0,0,0,0,0
+group:log-service-experience,Experience,TRIBE,Logistics / Service / Experience,self-service-frontend,group:log-experience,True,0,0,0,0,1
+group:log-service-experience-experience,Experience,DOMAIN,Logistics / Service / Experience / Experience,dh-gst-events,group:log-experience,True,1,1,0,0,1
+group:log-service-experience-experience,Experience,DOMAIN,Logistics / Service / Experience / Experience,dh-helpcenter-chat,group:communications-core,True,0,0,0,0,41
+group:log-service-experience-experience,Experience,DOMAIN,Logistics / Service / Experience / Experience,dh-helpcenter-conditions,group:log-experience,False,0,0,0,0,0
+group:log-service-experience-experience,Experience,DOMAIN,Logistics / Service / Experience / Experience,dh-helpcenter-files,group:log-experience,False,0,0,0,0,0
+group:log-service-experience-experience,Experience,DOMAIN,Logistics / Service / Experience / Experience,dh-self-service-frontend,group:log-experience,False,0,0,0,0,0
+group:log-service-experience-experience,Experience,DOMAIN,Logistics / Service / Experience / Experience,gcc-chat-server,group:communications-core,False,0,0,0,0,0
+group:log-service-experience-experience,Experience,DOMAIN,Logistics / Service / Experience / Experience,gst-chat-web-workspace,group:communications-core,False,0,0,0,0,0
+group:log-service-experience-experience,Experience,DOMAIN,Logistics / Service / Experience / Experience,self-service-frontend,group:log-experience,True,0,0,0,0,1
+group:communications-core,Communications,SQUAD,Logistics / Service / Experience / Experience / Communications,dh-helpcenter-chat,group:communications-core,True,0,0,0,0,41
+group:communications-core,Communications,SQUAD,Logistics / Service / Experience / Experience / Communications,gcc-chat-server,group:communications-core,False,0,0,0,0,0
+group:communications-core,Communications,SQUAD,Logistics / Service / Experience / Experience / Communications,gst-chat-web-workspace,group:communications-core,False,0,0,0,0,0
+group:log-experience,HelpCenter,SQUAD,Logistics / Service / Experience / Experience / HelpCenter,dh-gst-events,group:log-experience,True,1,1,0,0,1
+group:log-experience,HelpCenter,SQUAD,Logistics / Service / Experience / Experience / HelpCenter,dh-helpcenter-conditions,group:log-experience,False,0,0,0,0,0
+group:log-experience,HelpCenter,SQUAD,Logistics / Service / Experience / Experience / HelpCenter,dh-helpcenter-files,group:log-experience,False,0,0,0,0,0
+group:log-experience,HelpCenter,SQUAD,Logistics / Service / Experience / Experience / HelpCenter,dh-self-service-frontend,group:log-experience,False,0,0,0,0,0
+group:log-experience,HelpCenter,SQUAD,Logistics / Service / Experience / Experience / HelpCenter,self-service-frontend,group:log-experience,True,0,0,0,0,1

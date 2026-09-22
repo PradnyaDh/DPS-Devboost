@@ -1,0 +1,66 @@
+group_id,team,level,path,n_repos,n_in_codacy,sec_issues,sec_critical,sec_medium,sec_minor,all_issues
+group:logistics,Logistics,PLATFORM,Logistics,181,107,1510,1451,55,4,2832
+group:customer-product-line,Customer Product Line,PRODUCT-LINE,Logistics / Customer Product Line,35,25,357,341,16,0,810
+group:log-customer,Customer,TRIBE,Logistics / Customer Product Line / Customer,34,25,357,341,16,0,810
+group:log-choice-customer-logistics,Choice - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Choice - Customer Logistics,11,7,70,57,13,0,147
+group:log-demand-management,Demand Management,SQUAD,Logistics / Customer Product Line / Customer / Choice - Customer Logistics / Demand Management,5,2,3,3,0,0,23
+group:log-optimal-choice,Optimal Choice,SQUAD,Logistics / Customer Product Line / Customer / Choice - Customer Logistics / Optimal Choice,6,5,67,54,13,0,124
+group:pricing,Pricing - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics,10,8,182,180,2,0,236
+group:log-pricing-orchestration,Pricing Algo & Experimentation,SQUAD,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics / Pricing Algo & Experimentation,5,4,123,122,1,0,154
+group:log-pricing-benefits,Pricing Benefits,SQUAD,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics / Pricing Benefits,2,2,55,55,0,0,65
+group:log-pricing-foundations,Pricing Mechanisms,SQUAD,Logistics / Customer Product Line / Customer / Pricing - Customer Logistics / Pricing Mechanisms,3,2,4,3,1,0,17
+group:log-seamless-customer-logistics,Seamless - Customer Logistics,DOMAIN,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics,13,10,105,104,1,0,427
+group:log-order-tracking-experience,Order Tracking,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Order Tracking,6,5,26,25,1,0,222
+group:log-time-predictions,Time Estimations,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Time Estimations,6,4,79,79,0,0,172
+group:log-tracking-sdk,Tracking UI,SQUAD,Logistics / Customer Product Line / Customer / Seamless - Customer Logistics / Tracking UI,1,1,0,0,0,0,33
+group:log-customer-data-ml,Data & ML,TRIBE,Logistics / Customer Product Line / Data & ML,1,0,0,0,0,0,0
+group:log-data-ml,Data & ML,DOMAIN,Logistics / Customer Product Line / Data & ML / Data & ML,1,0,0,0,0,0,0
+group:log-ml-platform,Machine Learning Platform,SQUAD,Logistics / Customer Product Line / Data & ML / Data & ML / Machine Learning Platform,1,0,0,0,0,0,0
+group:rider-product-line,Rider,PRODUCT-LINE,Logistics / Rider,105,63,882,843,37,2,1585
+group:log-deliveries,Deliveries,TRIBE,Logistics / Rider / Deliveries,29,22,134,128,5,1,504
+group:delivery-flow,Delivery Flow,DOMAIN,Logistics / Rider / Deliveries / Delivery Flow,9,6,37,37,0,0,131
+group:log-delivery-acceptance,Delivery Acceptance,SQUAD,Logistics / Rider / Deliveries / Delivery Flow / Delivery Acceptance,1,0,0,0,0,0,0
+group:pick-dash-up-and-drop-dash-off,Pick-up and Drop-off,SQUAD,Logistics / Rider / Deliveries / Delivery Flow / Pick-up and Drop-off,4,4,2,2,0,0,45
+group:on-the-way,Rider On The Way,SQUAD,Logistics / Rider / Deliveries / Delivery Flow / Rider On The Way,4,2,35,35,0,0,86
+group:order-management,Order Management,DOMAIN,Logistics / Rider / Deliveries / Order Management,14,11,73,67,5,1,278
+group:mobile-infrastructure,Mobile Infra,SQUAD,Logistics / Rider / Deliveries / Order Management / Mobile Infra,2,2,22,20,2,0,52
+group:order-dispatching,Order Dispatching,SQUAD,Logistics / Rider / Deliveries / Order Management / Order Dispatching,6,5,34,34,0,0,145
+group:order-processing-lpar-optimization-rpar,Order Processing,SQUAD,Logistics / Rider / Deliveries / Order Management / Order Processing,5,3,17,13,3,1,69
+group:rider-access,Rider Access,SQUAD,Logistics / Rider / Deliveries / Order Management / Rider Access,1,1,0,0,0,0,12
+group:rider-fundamentals,Rider Fundamentals,DOMAIN,Logistics / Rider / Deliveries / Rider Fundamentals,6,5,24,24,0,0,95
+group:rider-availability,Rider Availability,SQUAD,Logistics / Rider / Deliveries / Rider Fundamentals / Rider Availability,1,1,0,0,0,0,31
+group:rider-experience,Rider Experience,SQUAD,Logistics / Rider / Deliveries / Rider Fundamentals / Rider Experience,5,4,24,24,0,0,64
+group:optimization,Optimization,TRIBE,Logistics / Rider / Optimization,20,7,35,29,6,0,94
+group:log-dispatching-intelligence,Dispatching Intelligence,DOMAIN,Logistics / Rider / Optimization / Dispatching Intelligence,16,7,35,29,6,0,94
+group:routing-experimentation,Adaptive Dispatching,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Adaptive Dispatching,12,3,24,24,0,0,24
+group:log-algo,Algo,SQUAD,Logistics / Rider / Optimization / Dispatching Intelligence / Algo,4,4,11,5,6,0,70
+group:routing,Routing Control,DOMAIN,Logistics / Rider / Optimization / Routing Control,4,0,0,0,0,0,0
+group:routing-infrastructure,Routing Core,SQUAD,Logistics / Rider / Optimization / Routing Control / Routing Core,4,0,0,0,0,0,0
+group:workforce,Workforce,TRIBE,Logistics / Rider / Workforce,56,34,713,686,26,1,987
+group:workforce-lifecycle,Lifecycle,DOMAIN,Logistics / Rider / Workforce / Lifecycle,32,20,379,360,18,1,539
+group:rider-recruitment,Rider Hiring,SQUAD,Logistics / Rider / Workforce / Lifecycle / Rider Hiring,12,6,141,141,0,0,201
+group:rider-scheduling,Scheduling,SQUAD,Logistics / Rider / Workforce / Lifecycle / Scheduling,11,7,50,50,0,0,64
+group:workforce-lifecycle-workforce-management,Workforce Management,SQUAD,Logistics / Rider / Workforce / Lifecycle / Workforce Management,9,7,188,169,18,1,274
+group:payment-and-incentive,Payments & Incentives,DOMAIN,Logistics / Rider / Workforce / Payments & Incentives,24,14,334,326,8,0,448
+group:rider-compliance,Compliance,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Compliance,5,3,12,12,0,0,63
+group:rider-payments,Payments,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Payments,6,4,252,252,0,0,298
+group:rider-rewards,Rewards,SQUAD,Logistics / Rider / Workforce / Payments & Incentives / Rewards,13,7,70,62,8,0,87
+group:service-product-line,Service,PRODUCT-LINE,Logistics / Service,41,19,271,267,2,2,437
+group:log-service-product-line-data-science,Data Science,TRIBE,Logistics / Service / Data Science,0,0,0,0,0,0,0
+group:log-efficient-service,Efficient Service,TRIBE,Logistics / Service / Efficient Service,33,16,270,266,2,2,394
+group:log-ai,AI,DOMAIN,Logistics / Service / Efficient Service / AI,4,2,18,18,0,0,38
+group:log-ai-agents,AI Agents,SQUAD,Logistics / Service / Efficient Service / AI / AI Agents,3,1,0,0,0,0,20
+group:log-1vu-agent-intelligence,Service Flows,SQUAD,Logistics / Service / Efficient Service / AI / Service Flows,2,1,18,18,0,0,18
+group:log-actions,Actions,DOMAIN,Logistics / Service / Efficient Service / Actions,11,7,51,49,1,1,155
+group:log-automation-optimisation,Automations,SQUAD,Logistics / Service / Efficient Service / Actions / Automations,4,1,0,0,0,0,2
+group:compensation,Compensation,SQUAD,Logistics / Service / Efficient Service / Actions / Compensation,2,2,5,5,0,0,55
+group:log-1vu-agent-resolution,OneView,SQUAD,Logistics / Service / Efficient Service / Actions / OneView,5,4,46,44,1,1,98
+group:hero-care-platform,HeroCare Platform,DOMAIN,Logistics / Service / Efficient Service / HeroCare Platform,18,7,201,199,1,1,201
+group:log-agent-quality,Agent Quality,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent Quality,8,3,171,171,0,0,171
+group:log-agent-workflows,Agent workflows,SQUAD,Logistics / Service / Efficient Service / HeroCare Platform / Agent workflows,10,4,30,28,1,1,30
+group:log-service-experience,Experience,TRIBE,Logistics / Service / Experience,8,3,1,1,0,0,43
+group:log-service-experience-experience,Experience,DOMAIN,Logistics / Service / Experience / Experience,8,3,1,1,0,0,43
+group:communications-core,Communications,SQUAD,Logistics / Service / Experience / Experience / Communications,3,1,0,0,0,0,41
+group:log-experience,HelpCenter,SQUAD,Logistics / Service / Experience / Experience / HelpCenter,5,2,1,1,0,0,2
+group:log-cfx,HelpCenter CFX,SQUAD,Logistics / Service / Experience / Experience / HelpCenter CFX,0,0,0,0,0,0,0
+group:log-self-service,Self Service,TRIBE,Logistics / Service / Self Service,0,0,0,0,0,0,0

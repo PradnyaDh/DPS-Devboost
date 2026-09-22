@@ -111,6 +111,38 @@
   .prov-tbl td.mrange { font-variant-numeric:tabular-nums; white-space:nowrap; }
   .prov-tbl tr.on td { background:color-mix(in srgb, var(--accent) 9%, transparent); }
   .prov-foot { margin-top:0.7rem; font-size:0.72rem; color:var(--muted); }
+  /* Security issue list. Severity is a coloured word rather than a badge: at fifty
+     rows a column of filled chips reads as an alarm, which is not this list's job. */
+  /* .prov carries a negative top margin for its position under the breadcrumbs;
+     at the foot of the page that pulls it into the notes above. */
+  .prov.sec { margin-top:1.1rem; }
+  .sec-ctl { display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center; margin-bottom:0.7rem; }
+  .sec-ctl button { font:inherit; font-size:0.72rem; padding:0.2rem 0.55rem; cursor:pointer;
+                    background:var(--surface2); color:var(--muted);
+                    border:1px solid var(--border); border-radius:999px; }
+  .sec-ctl button.on { border-color:var(--accent); color:var(--text); }
+  .sec-ctl .spacer { flex:1; }
+  .sec-count { font-size:0.72rem; color:var(--muted); }
+  .sec-tbl { width:100%; border-collapse:collapse; font-size:0.74rem; }
+  .sec-tbl td { padding:0.32rem 0.5rem 0.32rem 0; border-bottom:1px solid var(--border);
+                vertical-align:top; color:var(--muted); }
+  .sec-tbl tr:last-child td { border-bottom:none; }
+  .sec-repo { color:var(--text); font-weight:600; white-space:nowrap; }
+  .sec-sev { font-weight:700; text-transform:uppercase; font-size:0.64rem;
+             letter-spacing:0.04em; white-space:nowrap; }
+  .sev-critical { color:var(--red); }
+  .sev-high     { color:var(--amber); }
+  .sev-medium   { color:var(--muted); }
+  .sev-minor    { color:var(--muted); opacity:0.75; }
+  .sec-msg { color:var(--text); }
+  .sec-where { font-size:0.7rem; }
+  .sec-where a { color:var(--accent); text-decoration:none; }
+  .sec-where a:hover { text-decoration:underline; }
+  .sec-more { margin-top:0.6rem; }
+  .sec-more button { font:inherit; font-size:0.74rem; padding:0.3rem 0.7rem; cursor:pointer;
+                     background:var(--surface2); color:var(--text);
+                     border:1px solid var(--border); border-radius:7px; }
+  .sec-more button:hover { border-color:var(--accent); }
   .hero { display:grid; grid-template-columns:260px 1fr; gap:1rem; margin-bottom:1.25rem; }
   @media (max-width:860px){ .hero{ grid-template-columns:1fr; } }
   .card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.25rem; }
@@ -392,6 +424,14 @@
 
   <div id="notes"></div>
 
+  <!-- Individual Codacy findings. Last thing on the page and collapsed, because it
+       answers "which issues, exactly" — a question asked occasionally, by someone
+       who has already read the score. Only rendered when code security is focused. -->
+  <details class="prov sec" id="secPanel" hidden>
+    <summary id="secSummary">Open security issues</summary>
+    <div class="prov-body" id="secBody"></div>
+  </details>
+
   <footer>
     <div>Source: <code>fulfillment-dwh-production.curated_data_shared_psf.devboost_overall_monthly_score</code></div>
     <button id="adamDoor" title="There is no way back from here.">Enter Adam mode</button>
@@ -435,6 +475,10 @@ const ABOUT = {
                     note:'minor×0.3 + medium×0.5 + critical×1, per engineer.'},
 };
 const DEVHUB = 'https://dev.deliveryhero.net/catalog/default/group/';
+const CODACY_APP = 'https://app.codacy.com/gh/deliveryhero/';
+// Codacy messages and file paths are upstream strings that reach innerHTML.
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 // Engineer count for the hero line. Recovered, not reported — see drawProv() — so
 // it is always marked "est." and a shaky estimate shows the range it sits in
@@ -518,6 +562,14 @@ Promise.all([
     focus = e.target.value; sortKey = focus; sortDir = -1;
     if (!writeHash()) render();
   };
+  // The issue file is only fetched when someone actually opens the panel, so the
+  // default page weight is unchanged for everyone who never looks at this metric.
+  el('secPanel').addEventListener('toggle', async () => {
+    if (!el('secPanel').open || SEC) return;
+    el('secBody').innerHTML = '<div class="prov-foot">Loading…</div>';
+    await loadSecurity();
+    render();
+  });
   winFrom = defaultWindow();
   drawWindowOptions();
   el('month').onchange = e => setMonth(e.target.value);
@@ -824,6 +876,7 @@ function render(){
   drawMetrics(s, bs);
   drawChildren(node);
   drawNotes(node, s);
+  drawSecurity(node, s);
 }
 
 // Links out to the authoritative sources, plus what each metric means. Collapsed
@@ -1207,6 +1260,133 @@ function drawChildren(node){
     if (!writeHash()) render();
   });
   tbl.querySelectorAll('tr.drill').forEach(tr=>tr.onclick=()=>go(tr.dataset.g));
+}
+
+// ---- Open security issues -------------------------------------------------
+//
+// Fetched the first time someone expands the panel, never on page load: the file
+// is ~790KB over the wire, and most readers never focus this metric. Everything
+// below no-ops until then.
+//
+// Issues are keyed to the month's last weekly Codacy load, so the list tracks the
+// selected month like the rest of the page. They are a point-in-time snapshot,
+// not a monthly delta: an issue open for six months appears in all six.
+const SEC_PAGE = 50;
+let SEC = null, secLoading = false, secShown = SEC_PAGE, secSev = 'all';
+
+async function loadSecurity(){
+  if (SEC || secLoading) return SEC;
+  secLoading = true;
+  try {
+    const r = await fetch('data/security-issues.json');
+    if (!r.ok) throw new Error(r.status);
+    SEC = await r.json();
+  } catch (e) {
+    SEC = 'error';
+  } finally {
+    secLoading = false;
+  }
+  return SEC;
+}
+
+// Every issue for the selected team and month: the union over its squads, since
+// repos attach at squad level and a parent's issues are its children's.
+function secIssues(node){
+  if (!SEC || SEC === 'error') return [];
+  const month = SEC.months[monthKey()] || {};
+  const out = [];
+  const walk = g => {
+    (month[g] || []).forEach(i => out.push(i));
+    (D.nodes[g] ? D.nodes[g].children : []).forEach(walk);
+  };
+  walk(node.id);
+  // critical first, then by repo, so the top of the list is the part worth reading
+  return out.sort((a,b) => a[1]-b[1] || SEC.repos[a[0]].localeCompare(SEC.repos[b[0]]));
+}
+
+// The issue list is only as current as the last Codacy load in that month, which
+// is not the month end — say which date it is rather than implying "now".
+function monthKey(){
+  if (!SEC || SEC === 'error') return month;
+  // fall back to the most recent month we have issues for, so an early selected
+  // month does not silently render an empty list
+  return SEC.months[month] ? month : Object.keys(SEC.months).sort().pop();
+}
+
+function drawSecurity(node, s){
+  const panel = el('secPanel');
+  // Gated exactly like the hero's source link: this metric, and a real value.
+  const show = focus === 'code_security' && s && s[focus] != null;
+  panel.hidden = !show;
+  if (!show) return;
+
+  const body = el('secBody');
+  if (!SEC) {
+    el('secSummary').textContent = 'Open security issues';
+    body.innerHTML = `<div class="prov-foot">Expand to load the issue list (~790&nbsp;KB).</div>`;
+    return;
+  }
+  if (SEC === 'error') {
+    body.innerHTML = `<div class="prov-foot">Could not load <code>data/security-issues.json</code>.</div>`;
+    return;
+  }
+
+  const all = secIssues(node);
+  const counts = {critical:0, high:0, medium:0, minor:0};
+  all.forEach(i => counts[SEC.severities[i[1]]]++);
+  const shown = secSev === 'all' ? all : all.filter(i => SEC.severities[i[1]] === secSev);
+  const page = shown.slice(0, secShown);
+
+  el('secSummary').textContent = `Open security issues · ${all.length}`;
+
+  const chip = (k,label,n) =>
+    `<button class="${secSev===k?'on':''}" data-sev="${k}"${n===0&&k!=='all'?' disabled':''}>`
+    + `${label}${n!=null?` ${n}`:''}</button>`;
+
+  const mk = monthKey();
+  const rows = page.map(i => {
+    const repo = SEC.repos[i[0]], sev = SEC.severities[i[1]];
+    const file = SEC.files[i[4]], line = i[5], id = i[6];
+    // Codacy's own issue page. Verified against its UI: the id lands on the issue.
+    const url = id ? `${CODACY_APP}${repo}/issues?issueId=${encodeURIComponent(id)}` : null;
+    const where = `${file}${line?`:${line}`:''}`;
+    return `<tr>
+      <td class="sec-repo">${repo}</td>
+      <td class="sec-sev sev-${sev}">${sev}</td>
+      <td class="sec-msg">${esc(SEC.messages[i[3]])}
+        <div class="sec-where">${url?`<a href="${url}" target="_blank" rel="noopener">${esc(where)} ↗</a>`:esc(where)}</div></td>
+    </tr>`;
+  }).join('');
+
+  body.innerHTML = `
+    <div class="sec-ctl">
+      ${chip('all','All',all.length)}
+      ${chip('critical','Critical',counts.critical)}
+      ${chip('high','High',counts.high)}
+      ${chip('medium','Medium',counts.medium)}
+      ${counts.minor?chip('minor','Minor',counts.minor):''}
+      <span class="spacer"></span>
+      <span class="sec-count">${shown.length?`showing ${Math.min(secShown,shown.length)} of ${shown.length}`:'none'}</span>
+    </div>
+    ${page.length?`<table class="sec-tbl"><tbody>${rows}</tbody></table>`:''}
+    ${shown.length>secShown?`<div class="sec-more"><button id="secMore">Show ${Math.min(SEC_PAGE, shown.length-secShown)} more</button></div>`:''}
+    <div class="prov-foot">
+      Open Codacy findings for ${node.name} and everything below it, as of the last
+      Codacy scan in ${mk} (${SEC.loaded[mk]||'unknown date'}). Each links to the issue
+      in Codacy. This is a point-in-time list, not a monthly delta — an issue open for
+      six months appears in all six.
+      <br><br>
+      Repos are matched to teams through the DevHub catalog, which is not the mapping
+      the official DevBoost report uses, so totals can differ from it for large teams.
+      Severity is Codacy's own: the report renders High and Critical alike.
+      ${mk!==month?`<br><br>No Codacy load for ${month}; showing ${mk}.`:''}
+    </div>`;
+
+  body.querySelectorAll('.sec-ctl button[data-sev]').forEach(b => b.onclick = () => {
+    secSev = b.dataset.sev; secShown = SEC_PAGE; drawSecurity(node, s);
+  });
+  const more = el('secMore');
+  if (more) more.onclick = () => { secShown += SEC_PAGE; drawSecurity(node, s); };
 }
 
 function drawNotes(node, s){
