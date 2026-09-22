@@ -1486,14 +1486,14 @@ function renderSreAudit(squadId) {
     items = [
       { t: "Domain PR Lifetime Limit", v: "SLA: &lt;48 Hours", desc: "Our current domain-level median is 170 hours (7.1 days). Prioritize closing stale branch merges." },
       { t: "Domain Deployment Cadence", v: "SLA: &gt;1.0/Day", desc: "Average is 1.41. Mechanisms monolith deploys are lagging. Push for smaller, unbundled releases." },
-      { t: "Jira Backlog Spring Clean", v: "Goal: Close Stale Bugs", desc: "85.3% of your domain's open bugs (58 out of 68 tickets) are legacy 'zombie' bugs older than 180 days. Run a domain cleanup to immediately unlock our Quality Score!", url: "https://deliveryhero.atlassian.net/issues/?jql=project%20IN%20(LOGDPA%2C%20LOGDPW)%20AND%20issuetype%20%3D%20Bug%20AND%20resolution%20%3D%20Unresolved%20AND%20created%20%3C%20-180d", tooltip: "Domain Math: 58 legacy bugs / 14.0 FTEs = 4.14 bugs/engineer. Closing these drops defect density instantly." },
+      { t: "Jira Backlog Spring Clean", v: "Goal: Close Stale Bugs", desc: "85.3% of your domain's open bugs (58 out of 68 tickets) are legacy 'zombie' bugs older than 180 days. Run a domain cleanup to immediately unlock our Quality Score!", url: "https://deliveryhero.atlassian.net/issues/?jql=project%20%3D%20LOGDPA%20AND%20issuetype%20%3D%20Bug%20AND%20resolution%20%3D%20Unresolved%20AND%20created%20%3C%20-180d", tooltip: "Domain Math: 58 legacy bugs / 14.0 FTEs = 4.14 bugs/engineer. Closing these drops defect density instantly." },
       { t: "Flaky Test Impact", v: "Monitor: DroneCI", desc: "Flaky integration tests (S3LogIT) block automated merges. Commit 15% sprint capacity to pipeline stability." }
     ];
   } else if (squadId === 'group:log-pricing-benefits') {
     items = [
       { t: "Micro-PR Size Guard", v: "Limit: &lt;200 Lines", desc: "Ensure UI and API branches are small and atomic. Large PRs suffer from approval paralysis." },
       { t: "Un-Bundled Deployments", v: "SLA: Deploy-on-Merge", desc: "Maintain your high 3.70 deploy rate by releasing PRs immediately upon merge rather than weekly bundling." },
-      { t: "Jira Backlog Spring Clean", v: "Goal: Close 34 Stale Bugs", desc: "89.5% of your squad's open bugs (34 out of 38 tickets) are legacy 'zombie' bugs older than 180 days. Close these to drop defect density from 7.4 to 1.2!", url: "https://deliveryhero.atlassian.net/issues/?jql=project%20%3D%20LOGDPW%20AND%20issuetype%20%3D%20Bug%20AND%20resolution%20%3D%20Unresolved%20AND%20created%20%3C%20-180d", tooltip: "Benefits Math: 74 total open bugs / 10.0 FTEs = 7.40 bugs/engineer. 34 of these are legacy zombie bugs (>180d)." },
+      { t: "Jira Backlog Spring Clean", v: "Goal: Close 34 Stale Bugs", desc: "89.5% of your squad's open bugs (34 out of 38 tickets) are legacy 'zombie' bugs older than 180 days. Close these to drop defect density from 7.4 to 1.2!", url: "https://deliveryhero.atlassian.net/issues/?jql=project%20%3D%20LOGDPA%20AND%20issuetype%20%3D%20Bug%20AND%20resolution%20%3D%20Unresolved%20AND%20created%20%3C%20-180d", tooltip: "Benefits Math: 74 total open bugs / 10.0 FTEs = 7.40 bugs/engineer. 34 of these are legacy zombie bugs (>180d)." },
       { t: "Test Suite Stability", v: "Monitor: Jest/React18", desc: "Fix unawaited userEvent click actions in pricing-dashboard to stop flaky pipeline build stalls." }
     ];
   } else if (squadId === 'group:log-pricing-foundations') {
@@ -1652,12 +1652,12 @@ function drawJiraBugs(node, s) {
   let formulaText = "";
   
   if (squadId === 'group:pricing') {
-    jqlUrl = "https://deliveryhero.atlassian.net/issues/?jql=project%20IN%20(LOGDPA%2C%20LOGDPW)%20AND%20issuetype%20%3D%20Bug%20AND%20resolution%20%3D%20Unresolved%20AND%20created%20%3C%20-180d";
+    jqlUrl = "https://deliveryhero.atlassian.net/issues/?jql=project%20%3D%20LOGDPA%20AND%20issuetype%20%3D%20Bug%20AND%20resolution%20%3D%20Unresolved%20AND%20created%20%3C%20-180d";
     goalText = "Close 58 Stale Bugs";
     adviceText = "85.3% of your domain's open bugs (58 out of 68 tickets) are legacy 'zombie' bugs older than 180 days. Run a domain cleanup to immediately unlock our Quality Score!";
     formulaText = "Domain Math: 58 legacy bugs / 14.0 FTEs = 4.14 bugs/engineer. Closing these drops defect density instantly.";
   } else if (squadId === 'group:log-pricing-benefits') {
-    jqlUrl = "https://deliveryhero.atlassian.net/issues/?jql=project%20%3D%20LOGDPW%20AND%20issuetype%20%3D%20Bug%20AND%20resolution%20%3D%20Unresolved%20AND%20created%20%3C%20-180d";
+    jqlUrl = "https://deliveryhero.atlassian.net/issues/?jql=project%20%3D%20LOGDPA%20AND%20issuetype%20%3D%20Bug%20AND%20resolution%20%3D%20Unresolved%20AND%20created%20%3C%20-180d";
     goalText = "Close 34 Stale Bugs";
     adviceText = "89.5% of your squad's open bugs (34 out of 38 tickets) are legacy 'zombie' bugs older than 180 days. Close these to drop defect density from 7.4 to 1.2!";
     formulaText = "Benefits Math: 74 total open bugs / 10.0 FTEs = 7.40 bugs/engineer. 34 of these are legacy zombie bugs (>180d).";
