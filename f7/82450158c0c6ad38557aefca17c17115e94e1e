@@ -1,0 +1,19 @@
+index.html
+  s_15a305cf212d4b::t_84390860a5329c 852
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "f782450158c0c6ad38557aefca17c17115e94e1e",
+  "prompts": {},
+  "sessions": {
+    "s_15a305cf212d4b": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "3a87a1bd-8fc7-4ebf-9107-1096d3055bbf",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Pradnya Tukaram Shelar <pradnya.shelar@deliveryhero.com>"
+    }
+  }
+}
