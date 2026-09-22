@@ -1481,9 +1481,25 @@ function renderSreAudit(squadId) {
     `;
   }
 
-  // Format Sprint Remediation & Diagnostics table
-  let sprintHtml = '';
-  let items = [];
+  // Direct 1-Click Open Jira Bugs Title Link
+  let jiraUrl = "https://deliveryhero.atlassian.net/issues/?jql=project%20IN%20%28LOGDPA%2C%20LOGDPW%29%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done%20AND%20created%20%3C%20-180d";
+  let bugsNum = 84;
+  if (squadId === 'group:log-pricing-benefits') {
+    bugsNum = 74;
+  } else if (squadId === 'group:log-pricing-foundations') {
+    bugsNum = 28;
+  } else if (squadId === 'group:pricing') {
+    bugsNum = 87;
+  }
+
+  let sprintHtml = `
+    <div style="margin-top:1rem;border-top:1px dashed var(--border);padding-top:1rem;">
+      <a href="${jiraUrl}" target="_blank" rel="noopener" style="text-decoration:none;color:var(--amber);font-weight:bold;font-size:0.9rem;display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0.8rem;background:var(--card);border:1px solid var(--border);border-radius:4px;">
+        <span>🔍 Open Jira Bugs - ${bugsNum}</span>
+        <span style="font-size:0.8rem;color:var(--accent);">Open in Jira ↗</span>
+      </a>
+    </div>
+  `;
   if (squadId === 'group:pricing') {
     items = [
       { t: "Domain PR Lifetime Limit", v: "SLA: &lt;48 Hours", desc: "Our current domain-level median is 170 hours (7.1 days). Prioritize closing stale branch merges." },
@@ -1567,7 +1583,7 @@ function renderSreAudit(squadId) {
         </div>
         ${prHtml}
         ${reviewHtml}
-        
+        ${sprintHtml}
       </div>
     `;
   } else if (squadId === 'group:log-pricing-benefits') {
@@ -1589,7 +1605,7 @@ function renderSreAudit(squadId) {
         </div>
         ${prHtml}
         ${reviewHtml}
-        
+        ${sprintHtml}
       </div>
     `;
   } else if (squadId === 'group:log-pricing-foundations') {
@@ -1609,7 +1625,7 @@ function renderSreAudit(squadId) {
         </div>
         ${prHtml}
         ${reviewHtml}
-        
+        ${sprintHtml}
       </div>
     `;
   } else if (squadId === 'group:log-pricing-orchestration') {
@@ -1630,7 +1646,7 @@ function renderSreAudit(squadId) {
         </div>
         ${prHtml}
         ${reviewHtml}
-        
+        ${sprintHtml}
       </div>
     `;
   }
