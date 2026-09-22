@@ -849,9 +849,7 @@ function render(){
 
     let meta = `${node.level.toLowerCase()} · ${month}`;
     if (s.headcount) meta += ` · ${hcLabel(s)}`;
-    if (focus === 'bugs_per_eng' && s.headcount) {
-      meta += ` · Open bugs · ${Math.round(v * s.headcount)}`;
-    } else if (focus === 'code_security' && s.headcount) {
+    if (focus === 'code_security' && s.headcount) {
       meta += ` · Open security issues · ${Math.round(v * s.headcount)}`;
     }
     if (isPartial(month)) meta += ` <span class="wip">in progress</span>`;
