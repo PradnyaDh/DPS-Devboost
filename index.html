@@ -1481,16 +1481,20 @@ function renderSreAudit(squadId) {
     `;
   }
 
-  // Direct 1-Click Open Jira Bugs Title Link
-  let jiraUrl = "https://deliveryhero.atlassian.net/issues/?jql=project%20IN%20%28LOGDPA%2C%20LOGDPW%29%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done%20AND%20created%20%3C%20-180d";
-  let bugsNum = 84;
+  // Direct 1-Click Open Jira Bugs Title Link (resolves all open bugs without date filter)
+  let projectFilter = "project%20IN%20%28LOGDPA%2C%20LOGDPW%29";
+  let bugsNum = 68;
   if (squadId === 'group:log-pricing-benefits') {
-    bugsNum = 74;
+    projectFilter = "project%20%3D%20LOGDPW";
+    bugsNum = 38; // Exact total open bugs for LOGDPW
   } else if (squadId === 'group:log-pricing-foundations') {
-    bugsNum = 28;
-  } else if (squadId === 'group:pricing') {
-    bugsNum = 87;
+    projectFilter = "project%20%3D%20LOGDPA";
+    bugsNum = 30; // Exact total open bugs for LOGDPA
+  } else if (squadId === 'group:log-pricing-orchestration') {
+    projectFilter = "project%20%3D%20LOGDPA";
+    bugsNum = 30;
   }
+  let jiraUrl = `https://deliveryhero.atlassian.net/issues/?jql=${projectFilter}%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done`;
 
   let sprintHtml = `
     <div style="margin-top:1rem;border-top:1px dashed var(--border);padding-top:1rem;">
@@ -1656,7 +1660,7 @@ function renderSreAudit(squadId) {
 const SQUAD_JIRA_MAP = {
   // Pricing Domain & Squads
   'group:pricing': ['LOGDPA', 'LOGDPW'],
-  'group:log-pricing-benefits': ['LOGDPA', 'LOGDPW'],
+  'group:log-pricing-benefits': ['LOGDPW'],
   'group:log-pricing-foundations': ['LOGDPA'],
   'group:log-pricing-orchestration': ['LOGDPA'],
 
@@ -1733,7 +1737,7 @@ function drawJiraBugs(node, s) {
   
   // Use native encodeURIComponent to guarantee 100% compliant URL encoding for parentheses (%28, %29), commas, and spaces
   const encodedProjectClause = encodeURIComponent(projectClause);
-  const jqlUrl = `https://deliveryhero.atlassian.net/issues/?jql=${encodedProjectClause}%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done%20AND%20created%20%3C%20-180d`;
+  const jqlUrl = `https://deliveryhero.atlassian.net/issues/?jql=${encodedProjectClause}%20AND%20issuetype%20%3D%20Bug%20AND%20statusCategory%20%21%3D%20Done`;
 
   el('jiraTitle').textContent = `Open Jira Bugs - ${bugsCount}`;
   el('jiraLink').href = jqlUrl;
