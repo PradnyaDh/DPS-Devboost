@@ -1,0 +1,19 @@
+data/jira-map.json
+  s_15a305cf212d4b::t_f9b35228609639 1-44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "c590a3c1d3843fae08db5abd16a1a7150494d184",
+  "prompts": {},
+  "sessions": {
+    "s_15a305cf212d4b": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "3a87a1bd-8fc7-4ebf-9107-1096d3055bbf",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Pradnya Tukaram Shelar <pradnya.shelar@deliveryhero.com>"
+    }
+  }
+}
