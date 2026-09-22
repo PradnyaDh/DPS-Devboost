@@ -1,0 +1,21 @@
+scripts/refresh.sh
+  s_15a305cf212d4b::t_ea00a271b8526f 8
+scripts/generate_pr_bottlenecks.py
+  s_15a305cf212d4b::t_07559cca7b802c 130-131,133,135,147,154
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "1024e030d73aa06c9b3fd9eb55af344c2f14ce17",
+  "prompts": {},
+  "sessions": {
+    "s_15a305cf212d4b": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "3a87a1bd-8fc7-4ebf-9107-1096d3055bbf",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "Pradnya Tukaram Shelar <pradnya.shelar@deliveryhero.com>"
+    }
+  }
+}
