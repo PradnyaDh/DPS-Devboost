@@ -432,10 +432,9 @@
     <div class="prov-body" id="secBody"></div>
   </details>
 
-  <div id="jiraPanel" hidden class="prov" style="margin-top:1rem;padding:0.4rem 0.7rem;">
-    <a id="jiraLink" href="#" target="_blank" rel="noopener" style="text-decoration:none;color:var(--amber);font-weight:600;font-size:0.75rem;display:flex;align-items:center;justify-content:space-between;">
-      <span id="jiraTitle">Open Jira Bugs</span>
-      <span style="font-size:0.72rem;color:var(--accent);">Open in Jira ↗</span>
+  <div id="jiraPanel" hidden class="prov" style="margin-top:1rem;padding:0.45rem 0.8rem;">
+    <a id="jiraLink" href="#" target="_blank" rel="noopener" style="text-decoration:none;color:var(--amber);font-weight:600;font-size:0.75rem;display:inline-flex;align-items:center;gap:0.35rem;">
+      🔍 <span id="jiraTitle">Open Jira Bugs</span> ↗
     </a>
   </div>
 
@@ -1479,29 +1478,7 @@ function renderSreAudit(squadId) {
     `;
   }
 
-  // Direct 1-Click Open Jira Bugs Title Link (resolves all open bugs without date filter)
-  let projectFilter = "project%20IN%20%28LOGDPA%2C%20LOGDPW%29";
-  let bugsNum = 68;
-  if (squadId === 'group:log-pricing-benefits') {
-    projectFilter = "project%20%3D%20LOGDPW";
-    bugsNum = 38; // Exact total open bugs for LOGDPW
-  } else if (squadId === 'group:log-pricing-foundations') {
-    projectFilter = "project%20%3D%20LOGDPA";
-    bugsNum = 30; // Exact total open bugs for LOGDPA
-  } else if (squadId === 'group:log-pricing-orchestration') {
-    projectFilter = "project%20%3D%20LOGDPA";
-    bugsNum = 30;
-  }
-  let jiraUrl = `https://deliveryhero.atlassian.net/issues/?jql=${projectFilter}%20AND%20issuetype%20IN%20%28Bug%2C%20Defect%2C%20%22Sub-bug%22%2C%20Incident%2C%20Problem%29%20AND%20statusCategory%20%21%3D%20Done`;
 
-  let sprintHtml = `
-    <div style="margin-top:1rem;border-top:1px dashed var(--border);padding-top:1rem;">
-      <a href="${jiraUrl}" target="_blank" rel="noopener" style="text-decoration:none;color:var(--amber);font-weight:600;font-size:0.75rem;display:flex;align-items:center;justify-content:space-between;padding:0.4rem 0.65rem;background:var(--card);border:1px solid var(--border);border-radius:4px;">
-        <span>🔍 Open Jira Bugs - ${bugsNum}</span>
-        <span style="font-size:0.72rem;color:var(--accent);">Open in Jira ↗</span>
-      </a>
-    </div>
-  `;
 
 
   if (squadId === 'group:pricing') {
@@ -1525,7 +1502,6 @@ function renderSreAudit(squadId) {
         </div>
         ${prHtml}
         ${reviewHtml}
-        ${sprintHtml}
       </div>
     `;
   } else if (squadId === 'group:log-pricing-benefits') {
@@ -1547,7 +1523,6 @@ function renderSreAudit(squadId) {
         </div>
         ${prHtml}
         ${reviewHtml}
-        ${sprintHtml}
       </div>
     `;
   } else if (squadId === 'group:log-pricing-foundations') {
@@ -1567,7 +1542,6 @@ function renderSreAudit(squadId) {
         </div>
         ${prHtml}
         ${reviewHtml}
-        ${sprintHtml}
       </div>
     `;
   } else if (squadId === 'group:log-pricing-orchestration') {
@@ -1588,7 +1562,6 @@ function renderSreAudit(squadId) {
         </div>
         ${prHtml}
         ${reviewHtml}
-        ${sprintHtml}
       </div>
     `;
   }
@@ -1668,17 +1641,6 @@ function getKeysForNode(nodeId) {
   return allKeys.size > 0 ? Array.from(allKeys) : (SQUAD_JIRA_MAP[nodeId] || ['LOGDPA']);
 }
 
-// Exact true engineering bug counts from Jira to ensure 100% match with JQL results
-const SQUAD_EXACT_BUGS = {
-  'group:log-optimal-choice': 25,          // Clean LOGL engineering bugs
-  'group:log-demand-management': 17,       // Clean LAAS engineering bugs
-  'group:log-pricing-benefits': 39,        // Clean LOGDPW engineering bugs
-  'group:log-pricing-foundations': 9,       // Clean LOGDPA engineering bugs
-  'group:log-pricing-orchestration': 9,    // Clean LOGDPA engineering bugs
-  'group:pricing': 48,                     // Total clean pricing bugs (LOGDPA + LOGDPW)
-  'group:log-choice-customer-logistics': 42 // Total clean choice bugs (LOGL + LAAS)
-};
-
 function drawJiraBugs(node, s) {
   const panel = el('jiraPanel');
   const show = focus === 'bugs_per_eng' && s && s[focus] != null;
@@ -1686,8 +1648,6 @@ function drawJiraBugs(node, s) {
   if (!show) return;
 
   const squadId = node.id;
-  // Use exact project backlog count if registered, or fall back to scorecard density calculation
-  let bugsCount = SQUAD_EXACT_BUGS[squadId] ?? (Math.round(s.bugs_per_eng * s.headcount) || 0);
   
   // Resolve 100% of all sub-project keys for this node (whether squad, domain, or product line!)
   const keys = getKeysForNode(squadId);
@@ -1699,12 +1659,12 @@ function drawJiraBugs(node, s) {
     projectClause = `project IN (${keys.join(', ')})`;
   }
   
-  // Explicitly encode parentheses as %28 and %29 since native encodeURIComponent leaves them unescaped
-  const jiraEncode = s => encodeURIComponent(s).replace(/\(/g, '%28').replace(/\)/g, '%29');
+  // Strict URL encoding for Jira Cloud parameters
+  const jiraEncode = str => encodeURIComponent(str).replace(/\(/g, '%28').replace(/\)/g, '%29');
   const encodedProjectClause = jiraEncode(projectClause);
   const jqlUrl = `https://deliveryhero.atlassian.net/issues/?jql=${encodedProjectClause}%20AND%20issuetype%20IN%20%28Bug%2C%20Defect%2C%20%22Sub-bug%22%2C%20Incident%2C%20Problem%29%20AND%20statusCategory%20%21%3D%20Done`;
 
-  el('jiraTitle').textContent = `Open Jira Bugs - ${bugsCount}`;
+  el('jiraTitle').textContent = 'Open Jira Bugs';
   el('jiraLink').href = jqlUrl;
 }
 
