@@ -127,12 +127,12 @@ for pr in prs:
         bottlenecks["group:log-pricing-foundations"].append(item)
     elif repo_name in ["central-dynamic-pricing-model", "pp-dbdf-calibration-tool", "logistics-multi-armed-bandit"]:
         bottlenecks["group:log-pricing-orchestration"].append(item)
-
-out_pr_path = "/Users/pradnya.shelar/prad-devboost-explorer/web/data/pr_bottlenecks.json"
+# Write to data/pr_bottlenecks.json
+out_path = "/Users/pradnya.shelar/prad-devboost-explorer/data/pr_bottlenecks.json"
 try:
-    with open(out_pr_path, "w") as f:
+    with open(out_path, "w") as f:
         json.dump(bottlenecks, f, indent=2)
-    print(f"   Wrote: {out_pr_path}")
+    print(f"   Wrote: {out_path}")
 except Exception as e:
     print(f"Error writing PR JSON: {e}")
     sys.exit(1)
@@ -144,14 +144,14 @@ for idx, r in enumerate(revs):
     count = int(r["total_reviews_done"])
     hours = float(r["avg_turnaround_hours"])
     label = f"Reviewer {chr(65 + idx)}" if idx < 26 else f"Reviewer Z{idx-25}"
-    
+
     anonymized_reviews.append({
         "label": label,
         "count": count,
         "hours": hours
     })
 
-out_rev_path = "/Users/pradnya.shelar/prad-devboost-explorer/web/data/code_review_health.json"
+out_rev_path = "/Users/pradnya.shelar/prad-devboost-explorer/data/code_review_health.json"
 try:
     with open(out_rev_path, "w") as f:
         json.dump(anonymized_reviews, f, indent=2)

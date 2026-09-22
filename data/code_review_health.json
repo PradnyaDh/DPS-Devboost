@@ -6,18 +6,18 @@
   },
   {
     "label": "Reviewer B",
-    "count": 29,
-    "hours": 173.2
+    "count": 32,
+    "hours": 163.3
   },
   {
     "label": "Reviewer C",
-    "count": 23,
-    "hours": 155.0
+    "count": 20,
+    "hours": 173.7
   },
   {
     "label": "Reviewer D",
-    "count": 19,
-    "hours": 24.5
+    "count": 20,
+    "hours": 23.5
   },
   {
     "label": "Reviewer E",
@@ -27,12 +27,12 @@
   {
     "label": "Reviewer F",
     "count": 14,
-    "hours": 167.3
+    "hours": 104.6
   },
   {
     "label": "Reviewer G",
     "count": 14,
-    "hours": 104.6
+    "hours": 167.3
   },
   {
     "label": "Reviewer H",
@@ -52,37 +52,37 @@
   {
     "label": "Reviewer K",
     "count": 10,
-    "hours": 143.8
+    "hours": 222.2
   },
   {
     "label": "Reviewer L",
     "count": 10,
-    "hours": 122.2
+    "hours": 141.3
   },
   {
     "label": "Reviewer M",
     "count": 10,
-    "hours": 222.2
+    "hours": 143.8
   },
   {
     "label": "Reviewer N",
-    "count": 9,
-    "hours": 59.0
+    "count": 10,
+    "hours": 122.2
   },
   {
     "label": "Reviewer O",
     "count": 9,
-    "hours": 155.3
+    "hours": 261.9
   },
   {
     "label": "Reviewer P",
     "count": 9,
-    "hours": 261.9
+    "hours": 195.9
   },
   {
     "label": "Reviewer Q",
-    "count": 8,
-    "hours": 220.1
+    "count": 9,
+    "hours": 59.0
   },
   {
     "label": "Reviewer R",
@@ -91,18 +91,18 @@
   },
   {
     "label": "Reviewer S",
-    "count": 6,
-    "hours": 78.7
-  },
-  {
-    "label": "Reviewer T",
     "count": 5,
     "hours": 160.8
   },
   {
-    "label": "Reviewer U",
+    "label": "Reviewer T",
     "count": 5,
     "hours": 35.6
+  },
+  {
+    "label": "Reviewer U",
+    "count": 3,
+    "hours": 352.7
   },
   {
     "label": "Reviewer V",
@@ -112,16 +112,16 @@
   {
     "label": "Reviewer W",
     "count": 3,
-    "hours": 352.7
+    "hours": 110.7
   },
   {
     "label": "Reviewer X",
     "count": 1,
-    "hours": 301.0
+    "hours": 213.0
   },
   {
     "label": "Reviewer Y",
     "count": 1,
-    "hours": 213.0
+    "hours": 301.0
   }
 ]

@@ -43,10 +43,10 @@
       "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1368"
     },
     {
-      "repo": "central-dynamic-pricing-model",
+      "repo": "logistics-dynamic-pricing",
       "hours": 480,
-      "title": "add claude in gitignore",
-      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/169"
+      "title": "LOGDPA-2039:Connecting Assignments and presets",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3238"
     },
     {
       "repo": "logistics-dynamic-pricing",
@@ -55,10 +55,10 @@
       "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3237"
     },
     {
-      "repo": "logistics-dynamic-pricing",
+      "repo": "central-dynamic-pricing-model",
       "hours": 480,
-      "title": "LOGDPA-2039:Connecting Assignments and presets",
-      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3238"
+      "title": "add claude in gitignore",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/169"
     },
     {
       "repo": "logistics-dynamic-pricing-dashboard",
@@ -139,12 +139,6 @@
       "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3221"
     },
     {
-      "repo": "logistics-dynamic-pricing",
-      "hours": 290,
-      "title": "LOGDPO-1624 Make hypothesis optional on Draft experiment",
-      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3249"
-    },
-    {
       "repo": "pp-dbdf-calibration-tool",
       "hours": 290,
       "title": "Fix/removing unwanted constraints with new optimizer",
@@ -157,10 +151,22 @@
       "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1383"
     },
     {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 290,
+      "title": "LOGDPO-1624 Make hypothesis optional on Draft experiment",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3249"
+    },
+    {
       "repo": "pp-dbdf-calibration-tool",
       "hours": 280,
       "title": "feat: add fix fee price points optimization mode",
       "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/339"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 275,
+      "title": "LOGDPW-2759: Add configurable retry to Valkey benefit-usage lookup",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/401"
     },
     {
       "repo": "logistics-dynamic-pricing",
@@ -193,16 +199,16 @@
       "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/386"
     },
     {
-      "repo": "logistics-dynamic-pricing-dashboard",
-      "hours": 215,
-      "title": "feat(LOGDPO-1663): add target group import append option",
-      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1375"
-    },
-    {
       "repo": "logistics-dynamic-pricing",
       "hours": 215,
       "title": "LOGDPA-2053 fix regression: infinite loop when snapshoting ASA for DH\u2026",
       "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3216"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-dashboard",
+      "hours": 215,
+      "title": "feat(LOGDPO-1663): add target group import append option",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1375"
     },
     {
       "repo": "logistics-dynamic-pricing",
@@ -289,6 +295,12 @@
       "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3245"
     },
     {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 123,
+      "title": "LOGDPW-2724: Add S3 consecutive upload failure gauge metric",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3266"
+    },
+    {
       "repo": "central-dynamic-pricing-model",
       "hours": 122,
       "title": "feat: integrate DL thread inputs into pipeline",
@@ -323,6 +335,18 @@
       "hours": 88,
       "title": "NOREF: Chore noref fix deploy docs and verification task",
       "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1390"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 88,
+      "title": "cleaning up unused asa types feat. Claude",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3271"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 88,
+      "title": "cleaning up unused overrides",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/409"
     },
     {
       "repo": "logistics-dynamic-pricing",
@@ -391,16 +415,16 @@
       "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3261"
     },
     {
-      "repo": "central-dynamic-pricing-model",
-      "hours": 43,
-      "title": "feat: make Pareto report warnings actionable with user-facing messages",
-      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/174"
-    },
-    {
       "repo": "pp-dbdf-calibration-tool",
       "hours": 43,
       "title": "fixing gv query",
       "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/373"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 43,
+      "title": "feat: make Pareto report warnings actionable with user-facing messages",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/174"
     },
     {
       "repo": "pp-dbdf-calibration-tool",
@@ -490,6 +514,12 @@
     },
     {
       "repo": "logistics-dynamic-pricing-api",
+      "hours": 275,
+      "title": "LOGDPW-2759: Add configurable retry to Valkey benefit-usage lookup",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/401"
+    },
+    {
+      "repo": "logistics-dynamic-pricing-api",
       "hours": 240,
       "title": "LOGDPA-2045 VpAssignment Price Calculation Layer Integration",
       "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/386"
@@ -549,6 +579,12 @@
       "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-dashboard/pull/1390"
     },
     {
+      "repo": "logistics-dynamic-pricing-api",
+      "hours": 88,
+      "title": "cleaning up unused overrides",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing-api/pull/409"
+    },
+    {
       "repo": "logistics-dynamic-pricing-dashboard",
       "hours": 73,
       "title": "LOGDPA-2064 (1/4): enforce guardrails \u2014 ratcheting typecheck, husky, talisman, commitlint",
@@ -595,14 +631,14 @@
     {
       "repo": "logistics-dynamic-pricing",
       "hours": 480,
-      "title": "Logdpw 2729 move vendor group task to jobs",
-      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3237"
+      "title": "LOGDPA-2039:Connecting Assignments and presets",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3238"
     },
     {
       "repo": "logistics-dynamic-pricing",
       "hours": 480,
-      "title": "LOGDPA-2039:Connecting Assignments and presets",
-      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3238"
+      "title": "Logdpw 2729 move vendor group task to jobs",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3237"
     },
     {
       "repo": "logistics-dynamic-pricing",
@@ -693,6 +729,18 @@
       "hours": 137,
       "title": "LOGDPO-1725 - Add missing FwF protocol IDs for DPS objectives",
       "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3245"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 123,
+      "title": "LOGDPW-2724: Add S3 consecutive upload failure gauge metric",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3266"
+    },
+    {
+      "repo": "logistics-dynamic-pricing",
+      "hours": 88,
+      "title": "cleaning up unused asa types feat. Claude",
+      "url": "https://github.com/deliveryhero/logistics-dynamic-pricing/pull/3271"
     },
     {
       "repo": "logistics-dynamic-pricing",
@@ -811,16 +859,16 @@
       "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/166"
     },
     {
-      "repo": "central-dynamic-pricing-model",
-      "hours": 43,
-      "title": "feat: make Pareto report warnings actionable with user-facing messages",
-      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/174"
-    },
-    {
       "repo": "pp-dbdf-calibration-tool",
       "hours": 43,
       "title": "fixing gv query",
       "url": "https://github.com/deliveryhero/pp-dbdf-calibration-tool/pull/373"
+    },
+    {
+      "repo": "central-dynamic-pricing-model",
+      "hours": 43,
+      "title": "feat: make Pareto report warnings actionable with user-facing messages",
+      "url": "https://github.com/deliveryhero/central-dynamic-pricing-model/pull/174"
     },
     {
       "repo": "pp-dbdf-calibration-tool",

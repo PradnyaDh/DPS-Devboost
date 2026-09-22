@@ -5,7 +5,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 BILLING_PROJECT="${BILLING_PROJECT:-dhub-data-commune}"
-OUT=web/data/snapshot.json
+OUT=data/snapshot.json
 
 echo "Querying BigQuery (billing: $BILLING_PROJECT)..."
 bq query --use_legacy_sql=false --project_id="$BILLING_PROJECT" \
