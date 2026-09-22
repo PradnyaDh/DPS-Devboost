@@ -1659,14 +1659,21 @@ const SQUAD_JIRA_MAP = {
   'group:log-pricing-benefits': ['LOGDPA', 'LOGDPW'],
   'group:log-pricing-foundations': ['LOGDPA'],
   'group:log-pricing-orchestration': ['ALGO', 'LOGDS', 'LOGDPA'],
-  'group:log-demand-management': ['LOGPP', 'LOGDPA'],
-  'group:log-optimal-choice': ['LOGDPA', 'LOGPP'],
 
-  // Customer Product Line & Tracking
-  'group:customer-product-line': ['LOGDPA', 'LOGDPW', 'LOGOTX', 'LOGTP', 'LOGPP'],
+  // Customer Choice Domain & Squads (Delivery Areas, Delay Service, Demand Management, PyOSRM)
+  'group:log-choice-customer-logistics': ['LOGL', 'CPLCHOICEO', 'CCDS'],
+  'group:log-optimal-choice': ['LOGL', 'CPLCHOICEO'],
+  'group:log-demand-management': ['LOGL', 'CPLCHOICEO', 'CCDS'],
+
+  // Seamless Domain & Squads (Order Tracking, Time Predictions, Tracking SDK)
+  'group:log-seamless-customer-logistics': ['LOGOTX', 'LOGTP', 'LOGTES'],
   'group:log-order-tracking-experience': ['LOGOTX'],
   'group:log-tracking-sdk': ['LOGOTX'],
   'group:log-time-predictions': ['LOGTP', 'LOGTES'],
+
+  // Customer Product Line & Logistics Platform
+  'group:customer-product-line': ['LOGDPA', 'LOGDPW', 'LOGL', 'CPLCHOICEO', 'LOGOTX', 'LOGTP', 'LOGPP'],
+  'group:log-customer': ['LOGDPA', 'LOGDPW', 'LOGL', 'CPLCHOICEO', 'LOGOTX', 'LOGTP', 'LOGPP'],
   'group:log-delivery-acceptance': ['LOGPP'],
   'group:pick-dash-up-and-drop-dash-off': ['LOGPP', 'LOGX'],
 
@@ -1702,7 +1709,7 @@ const SQUAD_JIRA_MAP = {
   'group:compensation': ['LOGSUP', 'LRP'],
 
   // Parent Platform (Logistics)
-  'group:logistics': ['LOGDPA', 'LOGDPW', 'LOGOTX', 'LOGTP', 'ROTW', 'LOGX', 'RACC', 'ALGO', 'LOGWS', 'LRP', 'LOGC', 'LOGSUP']
+  'group:logistics': ['LOGDPA', 'LOGDPW', 'LOGL', 'LOGOTX', 'LOGTP', 'ROTW', 'LOGX', 'RACC', 'ALGO', 'LOGWS', 'LRP', 'LOGC', 'LOGSUP']
 };
 
 function drawJiraBugs(node, s) {
